@@ -1,0 +1,32 @@
+html,
+body,
+#root {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", Arial, sans-serif;
+    background: #f8f5f2;
+    color: #2b1b1f;
+    overflow-x: hidden;
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Only the page content gets the 5% spacing */
+main {
+    flex: 1;
+    min-width: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
