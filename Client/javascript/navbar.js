@@ -17,7 +17,7 @@ fetch(navbarPath)
         dashboardLink.style.display = "none";
     }
 
-    fetch(`https://sommelieriq-production.up.railway.app/checkAdmin`, {
+    fetch(`http://localhost:8080/checkAdmin`, {
         method: "GET",
         credentials: "include"
     })

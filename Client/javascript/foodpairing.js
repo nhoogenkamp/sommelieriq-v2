@@ -214,7 +214,7 @@ function submit_dish() {
 
 
     // Send POST request to Flask backend with method, body preventing browser from caching and telling flask its JSON data
-    fetch(`https://sommelieriq-production.up.railway.app/senddish`, {
+    fetch(`http://localhost:8080/senddish`, {
         method: "POST",
         body: JSON.stringify(entry),
         cache: "no-cache",

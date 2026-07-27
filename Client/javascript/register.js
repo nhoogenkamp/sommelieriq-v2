@@ -16,7 +16,7 @@ function register_admin() {
     };
 
      // Send POST request to Flask backend with method, body preventing browser from caching and telling flask its JSON data
-    fetch(`https://sommelieriq-production.up.railway.app/addAdmin`, {
+    fetch(`http://localhost:8080/addAdmin`, {
         method: "POST",
         body: JSON.stringify(entry),
         cache: "no-cache",

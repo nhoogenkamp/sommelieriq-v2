@@ -17,9 +17,14 @@ from flask_cors import CORS
 app = Flask(__name__)
 #with AI
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "temporary-dev-secret")
-app.config["SESSION_COOKIE_SAMESITE"] = "None"
-app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = False
 app.config["SESSION_COOKIE_HTTPONLY"] = True
+
+# below is setting for different domains e.g. netifly and railway
+# app.config["SESSION_COOKIE_SAMESITE"] = "None"
+# app.config["SESSION_COOKIE_SECURE"] = True
+# app.config["SESSION_COOKIE_HTTPONLY"] = True
 
 CORS(app, supports_credentials=True, origins=[
     "https://merry-dragon-158655.netlify.app",

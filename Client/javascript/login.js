@@ -16,7 +16,7 @@ function login_admin() {
     };
 
      // Send POST request to Flask backend with method, body preventing browser from caching and telling flask its JSON data
-    fetch(`https://sommelieriq-production.up.railway.app/adminLogin`, {
+    fetch(`http://localhost:8080/adminLogin`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(entry),

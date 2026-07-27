@@ -1,5 +1,5 @@
 function logoutAdmin() {
-    fetch(`https://sommelieriq-production.up.railway.app/logout`, {
+    fetch(`http://localhost:8080/logout`, {
         method: "POST",
         credentials: "include"
     })
