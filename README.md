@@ -13,5 +13,3 @@ Project Documentation
 The full project report is available below:
 
 Google Docs Report: https://docs.google.com/document/d/1P0fqFUUwj7-G189iYaEgzXEqwvLaSuuUOyIQGVAbhIE/edit?usp=sharing
-
-
