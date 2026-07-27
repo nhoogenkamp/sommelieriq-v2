@@ -1,3 +1,14 @@
+/* =========================================
+   GLOBAL PAGE STYLES
+   ========================================= */
+
+html {
+    /* Always reserves space for the scrollbar.
+       This stops the centred navbar links from moving
+       when changing between short and long pages. */
+    scrollbar-gutter: stable;
+}
+
 html,
 body,
 #root {
@@ -14,19 +25,337 @@ body {
     font-family: "Inter", Arial, sans-serif;
     background: #f8f5f2;
     color: #2b1b1f;
+
+    /* Stops the complete page from scrolling sideways. */
     overflow-x: hidden;
 }
 
 #root {
     min-height: 100vh;
+
     display: flex;
     flex-direction: column;
 }
 
-/* Only the page content gets the 5% spacing */
+/* Only the content inside main gets the small spacing.
+   The navbar and footer remain full width. */
 main {
-    flex: 1;
+    width: 100%;
     min-width: 0;
-    margin-left: 5px;
-    margin-right: 5px;
+    flex: 1;
+
+    padding: 24px 5px;
+}
+
+
+/* =========================================
+   HEADINGS AND TEXT
+   ========================================= */
+
+h1,
+h2,
+h3 {
+    color: #5c0018;
+    line-height: 1.25;
+}
+
+h1 {
+    margin: 0 0 20px;
+}
+
+h2 {
+    margin: 0 0 16px;
+}
+
+p {
+    color: #5f5558;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   WINE FILTER SECTION
+   ========================================= */
+
+.wine-filters {
+    width: 100%;
+
+    margin-bottom: 24px;
+    padding: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(92, 0, 24, 0.1);
+    border-radius: 14px;
+
+    box-shadow: 0 6px 18px rgba(92, 0, 24, 0.08);
+}
+
+.wine-filters h2 {
+    margin-bottom: 18px;
+}
+
+.wine-filter-controls {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.wine-filter-group {
+    min-width: 170px;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.wine-filter-group label {
+    color: #3a2328;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.wine-filter-group select {
+    width: 100%;
+    min-height: 44px;
+
+    padding: 10px 12px;
+
+    background: #ffffff;
+    color: #2b1b1f;
+
+    border: 1px solid #d8c8c3;
+    border-radius: 9px;
+
+    font-family: inherit;
+    font-size: 0.95rem;
+
+    cursor: pointer;
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.wine-filter-group select:focus {
+    border-color: #7a0026;
+    box-shadow: 0 0 0 3px rgba(122, 0, 38, 0.12);
+}
+
+.clear-filters-button {
+    min-height: 44px;
+
+    padding: 10px 20px;
+
+    background: #7a0026;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 999px;
+
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.clear-filters-button:hover {
+    background: #5c0018;
+
+    box-shadow: 0 6px 14px rgba(92, 0, 24, 0.2);
+
+    transform: translateY(-1px);
+}
+
+.clear-filters-button:focus-visible {
+    outline: 3px solid rgba(233, 196, 106, 0.75);
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   WINE TABLE CONTAINER
+   ========================================= */
+
+.wine-table-container {
+    width: 100%;
+    max-width: 100%;
+
+    margin-bottom: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid rgba(92, 0, 24, 0.1);
+    border-radius: 14px;
+
+    box-shadow: 0 8px 22px rgba(92, 0, 24, 0.09);
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   WINE TABLE
+   ========================================= */
+
+.wine-table {
+    width: 100%;
+    max-width: 100%;
+
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    background: #ffffff;
+}
+
+.wine-table th,
+.wine-table td {
+    padding: 13px 10px;
+
+    vertical-align: middle;
+    text-align: left;
+
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.wine-table th {
+    background: #5c0018;
+    color: #ffffff;
+
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.wine-table td {
+    color: #2b1b1f;
+
+    border-bottom: 1px solid #eee4e1;
+
+    font-size: 0.82rem;
+}
+
+.wine-table tbody tr:nth-child(even) {
+    background: #fbf7f5;
+}
+
+.wine-table tbody tr:hover {
+    background: #f3e7e4;
+}
+
+.wine-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   WINE TABLE COLUMN WIDTHS
+
+   Current order:
+   1. Name
+   2. Type
+   3. Grape
+   4. Country
+   5. Region
+   6. Year
+   7. Bottle
+   8. Price
+   9. Description
+   ========================================= */
+
+/* Name */
+.wine-table th:nth-child(1),
+.wine-table td:nth-child(1) {
+    width: 14%;
+}
+
+/* Type */
+.wine-table th:nth-child(2),
+.wine-table td:nth-child(2) {
+    width: 9%;
+}
+
+/* Grape */
+.wine-table th:nth-child(3),
+.wine-table td:nth-child(3) {
+    width: 13%;
+}
+
+/* Country */
+.wine-table th:nth-child(4),
+.wine-table td:nth-child(4) {
+    width: 10%;
+}
+
+/* Region */
+.wine-table th:nth-child(5),
+.wine-table td:nth-child(5) {
+    width: 12%;
+}
+
+/* Year */
+.wine-table th:nth-child(6),
+.wine-table td:nth-child(6) {
+    width: 7%;
+
+    text-align: center;
+    white-space: nowrap;
+    overflow-wrap: normal;
+}
+
+/* Bottle */
+.wine-table th:nth-child(7),
+.wine-table td:nth-child(7) {
+    width: 10%;
+}
+
+/* Price */
+.wine-table th:nth-child(8),
+.wine-table td:nth-child(8) {
+    width: 8%;
+
+    text-align: right;
+    white-space: nowrap;
+    overflow-wrap: normal;
+}
+
+/* Description */
+.wine-table th:nth-child(9),
+.wine-table td:nth-child(9) {
+    width: 17%;
+}
+
+
+/* =========================================
+   EMPTY TABLE MESSAGE
+   ========================================= */
+
+.no-wines-message {
+    margin: 20px 0;
+    padding: 18px;
+
+    background: #ffffff;
+    color: #5f5558;
+
+    border: 1px solid rgba(92, 0, 24, 0.1);
+    border-radius: 12px;
+
+    text-align: center;
+
+    box-shadow: 0 6px 18px rgba(92, 0, 24, 0.06);
 }

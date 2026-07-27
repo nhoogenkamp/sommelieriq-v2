@@ -1,6 +1,6 @@
 function WineTable({ wines }) {
   return (
-    <table>
+    <table className="wine-table">
       <thead>
         <tr>
           <th>Name</th>
