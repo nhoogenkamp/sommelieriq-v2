@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getRestaurantFood, getRestaurantSauces,} from "../api/foodPairingApi";
+import { getRestaurantFood, getRestaurantSauces, sendDishes} from "../api/foodPairingApi";
 import DishSelector from "../components/foodPairing/DishSelector";
 
 function FoodPairing() {
@@ -25,6 +25,9 @@ function FoodPairing() {
   // Stores an error message if the request fails.
   const [error, setError] = useState("");
 
+  // recommendations coming from flask
+  const [recommendations, setRecommendations] = useState([]);
+  const [combinedRecommendations, setCombinedRecommendations] = useState([]);
   // Loads food items and sauces for the restaurant.
   // https://react.dev/reference/react/useEffect
   useEffect(() => {
@@ -85,6 +88,38 @@ function FoodPairing() {
 
   setSelectedSauces(updated);
 }
+
+// Sends the selected dishes and sauces to Flask.
+async function submitDishes() {
+  // Creates the same dish structure used by the original JavaScript.
+  const dishes = selectedDishes.map((foodId, index) => {
+    const selectedFood = foods.find(
+      (food) => Number(food.food_id) === Number(foodId)
+    );
+
+    const selectedSauce = sauces.find(
+      (sauce) => Number(sauce.sauce_id) === Number(selectedSauces[index])
+    );
+
+    return {
+      dish: selectedFood ? selectedFood.dish_name : "",
+      sauce: selectedSauce ? selectedSauce.name : "",
+    };
+  });
+
+  try {
+    setError("");
+
+    const data = await sendDishes(restaurantId, dishes);
+
+    setRecommendations(data.recommendations);
+    setCombinedRecommendations(data.combined_recommendations);
+  } catch (error) {
+    setError(error.message);
+  }
+}
+
+
   return (
     <section>
       <h1>Food Pairing</h1>
@@ -132,6 +167,11 @@ function FoodPairing() {
         />
         ))}
       </div>
+      
+      {/* Submit button for sending dishes */}
+      <button type="button" onClick={submitDishes}> Submit </button>
+      <p>Recommendation groups: {recommendations.length}</p>
+      <p>Combined recommendations: {combinedRecommendations.length}</p>
 
     </section>
   );

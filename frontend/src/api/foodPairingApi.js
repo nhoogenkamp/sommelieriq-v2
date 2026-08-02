@@ -39,3 +39,23 @@ export async function getRestaurantSauces(restaurantId) {
 
   return response.json();
 }
+
+// Sends the selected dishes and sauces to Flask.
+export async function sendDishes(restaurantId, dishes) {
+  const response = await fetch(`${API_URL}/senddish`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      restaurant_id: Number(restaurantId),
+      dishes: dishes,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Unable to get wine recommendations.");
+  }
+
+  return response.json();
+}
