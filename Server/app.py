@@ -49,7 +49,7 @@ def all_wines():
     return get_all_wines()
 
 #get all food from db
-@app.route('/getFood', methods=['GET'])
+@app.route('/getFood', methods=['POST'])
 def food_items():
     return get_food()
 

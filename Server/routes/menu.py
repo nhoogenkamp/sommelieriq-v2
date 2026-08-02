@@ -35,8 +35,14 @@ def get_food():
         WHERE restaurant_id = %s
           AND available = 1
         ORDER BY
-            category ASC,
-            name ASC
+        ORDER BY
+            FIELD(
+                category,
+                'starter',
+                'main',
+                'dessert'
+            ),
+            dish_name ASC
     """
 
     check_value = (restaurant_id,)
