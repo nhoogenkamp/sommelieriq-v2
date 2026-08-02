@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getRestaurantFood, getRestaurantSauces, sendDishes} from "../api/foodPairingApi";
 import DishSelector from "../components/foodPairing/DishSelector";
+import RecommendationTable from "../components/foodPairing/RecommendationTable";
 
 function FoodPairing() {
   //same as winelist.jsx: function to show react-dom information params: https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
@@ -78,6 +79,11 @@ function FoodPairing() {
     updated[index] = Number(value);
 
     setSelectedDishes(updated);
+    
+    // Clears the sauce when the dish changes.
+    const updatedSauce = [...selectedSauces];
+    updatedSauce[index] = "";
+    setSelectedSauces(updatedSauce);
   }
 
   // Updates the selected sauce for one dish.
@@ -170,8 +176,38 @@ async function submitDishes() {
       
       {/* Submit button for sending dishes */}
       <button type="button" onClick={submitDishes}> Submit </button>
-      <p>Recommendation groups: {recommendations.length}</p>
-      <p>Combined recommendations: {combinedRecommendations.length}</p>
+      
+      {/* Shows combined recommendations when more than one dish was submitted. */}
+      {combinedRecommendations.length > 0 && (
+        <section>
+          <h2>Combined Recommendations</h2>
+
+          <RecommendationTable
+            wines={combinedRecommendations}
+            limit={25}
+          />
+        </section>
+      )}
+
+      {/* Shows recommendations for each individual dish. */}
+      {recommendations.length > 0 && (
+        <section>
+          <h2>Individual Recommendations</h2>
+
+          {recommendations.map((group, index) => (
+            <div key={index}>
+              <h3>{group.dish}</h3>
+
+              {group.sauce && <p>{group.sauce}</p>}
+
+              <RecommendationTable
+                wines={group.recommendations}
+                limit={15}
+              />
+            </div>
+          ))}
+        </section>
+      )}
 
     </section>
   );
