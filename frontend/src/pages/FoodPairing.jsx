@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getRestaurantFood, getRestaurantSauces,} from "../api/foodPairingApi";
+import DishSelector from "../components/foodPairing/DishSelector";
 
 function FoodPairing() {
   //same as winelist.jsx: function to show react-dom information params: https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
@@ -9,6 +10,7 @@ function FoodPairing() {
   // Stores how many dishes the customer wants to pair.
   // https://react.dev/reference/react/useState
   const [dishCount, setDishCount] = useState(0);
+  const [selectedDishes, setSelectedDishes] = useState([]);
 
   // Stores the food items returned by Flask.
   const [foods, setFoods] = useState([]);
@@ -66,7 +68,13 @@ function FoodPairing() {
     );
   }
 
+  function updateDish(index, value) {
+    const updated = [...selectedDishes];
 
+    updated[index] = Number(value);
+
+    setSelectedDishes(updated);
+  }
   return (
     <section>
       <h1>Food Pairing</h1>
@@ -91,9 +99,26 @@ function FoodPairing() {
         <option value="8">8 Dishes</option>
       </select>
 
-            {/* Temporary checks to confirm the API data loaded. */}
-      <p>Food items loaded: {foods.length}</p>
-      <p>Sauces loaded: {sauces.length}</p>
+
+      <div className="dish-selector-list">
+        {/* Creates one DishSelector for each dish chosen above.
+        Array.from() creates a temporary array with the same length as dishCount.
+        The "_" value is not used, but index is needed to:
+        1. give each DishSelector a unique key,
+        2. display Dish 1, Dish 2, Dish 3...,
+        3. store each selected dish in the correct position of selectedDishes.
+        https://medium.com/@vishalthakur2463/mastering-array-from-in-javascript-with-real-life-examples-6af98a667b5b
+        */}
+        {Array.from({ length: dishCount }).map((_, index) => (
+          <DishSelector
+            key={index}
+            dishNumber={index + 1}
+            foods={foods}
+            selectedDish={selectedDishes[index] || ""}
+            setSelectedDish={(value) => updateDish(index, value)}
+          />
+        ))}
+      </div>
 
     </section>
   );
