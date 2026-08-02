@@ -18,6 +18,9 @@ function WineList() {
   const [selectedColour, setSelectedColour] = useState("");
   const [selectedBottle, setSelectedBottle] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [selectedGrape, setSelectedGrape] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState("");
 
   //fetches the wines: https://react.dev/learn/synchronizing-with-effects#:~:text=its%20initial%20state.-,Fetching%20data,-If%20your%20Effect
 
@@ -55,7 +58,12 @@ function WineList() {
       // when maxPrice is empty, there is no price limit
       // otherwise, the wine price must be below or equal to it
       (maxPrice === "" ||
-        Number(wine.price) <= Number(maxPrice))
+        Number(wine.price) <= Number(maxPrice)) &&
+      
+      // adding new filters same style as above: 
+      (selectedGrape === "" || wine.grape === selectedGrape) &&
+      (selectedCountry === "" || wine.country === selectedCountry) &&
+      (selectedRegion === "" || wine.region === selectedRegion)
     );
   });
 
