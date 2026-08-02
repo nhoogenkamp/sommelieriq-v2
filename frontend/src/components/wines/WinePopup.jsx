@@ -23,6 +23,9 @@ function WinePopup({ wine }) {
         <div className="wine-popup">
 
           <h2>{wine.name}</h2>
+          <h3>Description</h3>
+
+          <p>{wine.description}</p>
 
           <hr />
 
@@ -57,10 +60,6 @@ function WinePopup({ wine }) {
           </p>
 
           <hr />
-
-          <h3>Description</h3>
-
-          <p>{wine.description}</p>
 
           <button
             className="wine-popup-close"
