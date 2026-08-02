@@ -1,6 +1,6 @@
 from flask import Flask
 from routes.wines import get_tables, get_wines , get_all_wines
-from routes.menu import get_food
+from routes.menu import get_food, get_sauces
 from routes.senddish import send_dish
 from routes.admin import add_admin, login_admin, check_admin, logout_admin
 from routes.addwine import add_wine
@@ -52,6 +52,10 @@ def all_wines():
 @app.route('/getFood', methods=['GET'])
 def food_items():
     return get_food()
+
+@app.route("/getSauces", methods=["POST"])
+def sauce_items():
+    return get_sauces()
 
 # getting dish from frontend
 @app.route('/senddish', methods=['POST'])
