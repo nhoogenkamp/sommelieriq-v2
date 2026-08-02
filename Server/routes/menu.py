@@ -35,7 +35,6 @@ def get_food():
         WHERE restaurant_id = %s
           AND available = 1
         ORDER BY
-        ORDER BY
             FIELD(
                 category,
                 'starter',
