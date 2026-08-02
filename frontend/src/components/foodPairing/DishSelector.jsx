@@ -22,54 +22,55 @@ function DishSelector({
   }
   return (
     <div className="dish-selector">
-      {/* Same style as WineFilters.jsx*/}
-      <label htmlFor={`dish_${dishNumber}`}> Dish {dishNumber}</label>
+      <div className="dish-filter-group">
+        {/* Same style as WineFilters.jsx*/}
+        <label htmlFor={`dish_${dishNumber}`}> Dish {dishNumber}</label>
 
-      <select
-        id={`dish_${dishNumber}`}
-        value={selectedDish}
-        onChange={(event) =>
-          setSelectedDish(event.target.value)
-        }
-      >
-        <option value=""> Select Dish</option>
+        <select
+          id={`dish_${dishNumber}`}
+          value={selectedDish}
+          onChange={(event) =>
+            setSelectedDish(event.target.value)
+          }
+        >
+          <option value=""> Select Dish</option>
 
-        {foods.map((food) => (
-          <option key={food.food_id} value={food.food_id}>
-            {food.dish_name}
-          </option>
-        ))}
-      </select>
+          {foods.map((food) => (
+            <option key={food.food_id} value={food.food_id}>
+              {food.dish_name}
+            </option>
+          ))}
+        </select>
 
-    {/* Shows the sauce dropdown only for dishes that require a sauce. */}
-      {selectedFood?.requires_sauce === 1 && (
-        <>
-          <label htmlFor={`sauce_${dishNumber}`}> Sauce</label>
+      {/* Shows the sauce dropdown only for dishes that require a sauce. */}
+        {selectedFood?.requires_sauce === 1 && (
+          <>
+            <label htmlFor={`sauce_${dishNumber}`}> Sauce</label>
 
-          <select
-            id={`sauce_${dishNumber}`}
-            value={selectedSauce}
-            onChange={(event) =>
-              setSelectedSauce(event.target.value)
-            }
-          >
-            <option value="">No Sauce</option>
+            <select
+              id={`sauce_${dishNumber}`}
+              value={selectedSauce}
+              onChange={(event) =>
+                setSelectedSauce(event.target.value)
+              }
+            >
+              <option value="">No Sauce</option>
 
-            {/* Creates one option for each available sauce.
-            https://react.dev/learn/rendering-lists */}
-            {sauces.map((sauce) => (
-              <option
-                key={sauce.sauce_id}
-                value={sauce.sauce_id}
-              >
-                {sauce.name}
-              </option>
-            ))}
+              {/* Creates one option for each available sauce.
+              https://react.dev/learn/rendering-lists */}
+              {sauces.map((sauce) => (
+                <option
+                  key={sauce.sauce_id}
+                  value={sauce.sauce_id}
+                >
+                  {sauce.name}
+                </option>
+              ))}
 
-          </select>
-        </>
-      )}
-
+            </select>
+          </>
+        )}
+      </div>
     </div>
   );
 }

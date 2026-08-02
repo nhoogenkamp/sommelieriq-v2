@@ -79,7 +79,7 @@ function FoodPairing() {
     updated[index] = Number(value);
 
     setSelectedDishes(updated);
-    
+
     // Clears the sauce when the dish changes.
     const updatedSauce = [...selectedSauces];
     updatedSauce[index] = "";
@@ -129,27 +129,27 @@ async function submitDishes() {
   return (
     <section>
       <h1>Food Pairing</h1>
+      <div className="dish-count-selector">
+        <label htmlFor="dishCount"> How many dishes would you like to use for pairing?</label>
 
-      <label htmlFor="dishCount"> How many dishes would you like to use for pairing?</label>
-
-      <select
-        id="dishCount"
-        value={dishCount}
-        // Saves the selected number in React state.
-        // https://react.dev/reference/react-dom/components/select
-        onChange={(event) => setDishCount(Number(event.target.value))}
-      >
-        <option value="0">How many dishes</option>
-        <option value="1">1 Dish</option>
-        <option value="2">2 Dishes</option>
-        <option value="3">3 Dishes</option>
-        <option value="4">4 Dishes</option>
-        <option value="5">5 Dishes</option>
-        <option value="6">6 Dishes</option>
-        <option value="7">7 Dishes</option>
-        <option value="8">8 Dishes</option>
-      </select>
-
+        <select
+          id="dishCount"
+          value={dishCount}
+          // Saves the selected number in React state.
+          // https://react.dev/reference/react-dom/components/select
+          onChange={(event) => setDishCount(Number(event.target.value))}
+        >
+          <option value="0">How many dishes</option>
+          <option value="1">1 Dish</option>
+          <option value="2">2 Dishes</option>
+          <option value="3">3 Dishes</option>
+          <option value="4">4 Dishes</option>
+          <option value="5">5 Dishes</option>
+          <option value="6">6 Dishes</option>
+          <option value="7">7 Dishes</option>
+          <option value="8">8 Dishes</option>
+        </select>
+      </div>
 
       <div className="dish-selector-list">
         {/* Creates one DishSelector for each dish chosen above.
@@ -173,10 +173,9 @@ async function submitDishes() {
         />
         ))}
       </div>
-      
-      {/* Submit button for sending dishes */}
-      <button type="button" onClick={submitDishes}> Submit </button>
-      
+        {/* Submit button for sending dishes */}
+        <button className="dish-submit-button" type="button" onClick={submitDishes}> Submit </button>
+
       {/* Shows combined recommendations when more than one dish was submitted. */}
       {combinedRecommendations.length > 0 && (
         <section>
