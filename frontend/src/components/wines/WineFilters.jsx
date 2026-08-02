@@ -1,12 +1,31 @@
 function WineFilters({
+  wines,
   selectedColour,
   selectedBottle,
   maxPrice,
+  selectedGrape,
+  selectedCountry,
+  selectedRegion,
   setSelectedColour,
   setSelectedBottle,
   setMaxPrice,
+  setSelectedGrape,
+  setSelectedCountry,
+  setSelectedRegion,
   clearFilters,
 }) {
+
+  const grapes = Array.from(
+  new Set(wines.map((wine) => wine.grape))
+);
+
+const countries = Array.from(
+  new Set(wines.map((wine) => wine.country))
+);
+
+const regions = Array.from(
+  new Set(wines.map((wine) => wine.region))
+);
   return (
     <section className="wine-filters">
       <h2>Filter Wines</h2>
@@ -59,6 +78,70 @@ function WineFilters({
             <option value="Salmanazar">Salmanazar</option>
             <option value="Double Magnum">Double Magnum</option>
             <option value="Imperial">Imperial</option>
+          </select>
+        </div>
+
+        <div className="wine-filter-group">
+          <label htmlFor="grape">Grape:</label>
+
+          <select
+            id="grape"
+            value={selectedGrape}
+            onChange={(event) =>
+              setSelectedGrape(event.target.value)
+            }
+          >
+            <option value="">All</option>
+
+            {/* Creates an option for each available grape.
+                https://react.dev/learn/rendering-lists */}
+            {grapes.map((grape) => (
+              <option key={grape} value={grape}>
+                {grape}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Creates an option for each available country. */}
+        <div className="wine-filter-group">
+          <label htmlFor="country">Country:</label>
+
+          <select
+            id="country"
+            value={selectedCountry}
+            onChange={(event) =>
+              setSelectedCountry(event.target.value)
+            }
+          >
+            <option value="">All</option>
+
+            {countries.map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Creates an option for each available region. */}
+        <div className="wine-filter-group">
+          <label htmlFor="region">Region:</label>
+
+          <select
+            id="region"
+            value={selectedRegion}
+            onChange={(event) =>
+              setSelectedRegion(event.target.value)
+            }
+          >
+            <option value="">All</option>
+
+            {regions.map((region) => (
+              <option key={region} value={region}>
+                {region}
+              </option>
+            ))}
           </select>
         </div>
 

@@ -72,6 +72,9 @@ function WineList() {
     setSelectedColour("");
     setSelectedBottle("");
     setMaxPrice("");
+    setSelectedGrape("");
+    setSelectedCountry("");
+    setSelectedRegion("");
   }
 
   if (isLoading) {
@@ -97,12 +100,21 @@ function WineList() {
     <main>
       <h1>Wine List</h1>
       <WineFilters
+        // complete wine array into WineFilters with wines={wines}
+        wines={wines}
+
         selectedColour={selectedColour}
         selectedBottle={selectedBottle}
         maxPrice={maxPrice}
+        selectedGrape={selectedGrape}
+        selectedCountry={selectedCountry}
+        selectedRegion={selectedRegion}
         setSelectedColour={setSelectedColour}
         setSelectedBottle={setSelectedBottle}
         setMaxPrice={setMaxPrice}
+        setSelectedGrape={setSelectedGrape}
+        setSelectedCountry={setSelectedCountry}
+        setSelectedRegion={setSelectedRegion}
         clearFilters={clearFilters}
       />
       {/* Conditionally render either a message or the wine table with the use of Conditional operator (? :) 
