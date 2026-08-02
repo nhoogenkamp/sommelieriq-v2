@@ -63,6 +63,7 @@ function WinePopup({ wine }) {
           <p>{wine.description}</p>
 
           <button
+            className="wine-popup-close"
             type="button"
             onClick={() => close()}
           >
