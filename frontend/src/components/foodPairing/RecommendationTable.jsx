@@ -2,7 +2,7 @@ import WinePopup from "../wines/WinePopup";
 
 function RecommendationTable({ wines, limit }) {
   return (
-    <table className="wine-table">
+    <table className="wine-table recommendation-table">
       <thead>
         <tr>
           <th className="wine-name">Name</th>

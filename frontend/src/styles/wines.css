@@ -188,6 +188,22 @@
     text-align: right;
     white-space: nowrap;
 }
+/* For the recommendation page alter it slightly */
+.recommendation-table .wine-name {
+    width: 20%;
+}
+
+.recommendation-table .wine-type,
+.recommendation-table .wine-grape,
+.recommendation-table .wine-country,
+.recommendation-table .wine-region,
+.recommendation-table .wine-year,
+.recommendation-table .wine-bottle,
+.recommendation-table .wine-match,
+.recommendation-table .wine-price,
+.recommendation-table .wine-view {
+    width: 8.88%;
+}
 
 
 /* =========================================
