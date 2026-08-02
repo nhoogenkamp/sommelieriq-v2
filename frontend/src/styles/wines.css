@@ -1,10 +1,81 @@
 /* =========================================
-   WINE POPUP
+   WINE FILTERS
    ========================================= */
 
+.wine-filters {
+    margin-bottom: 24px;
+    padding: 18px;
 
-.wine-view-button {
-    padding: 8px 16px;
+    background: #ffffff;
+
+    border: 1px solid #e6d8d2;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.wine-filters h2 {
+    margin: 0 0 16px;
+    color: #5c0018;
+}
+
+.wine-filter-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.wine-filter-group {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 6px;
+
+    min-width: 170px;
+}
+
+.wine-filter-group label {
+    color: #5c0018;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.wine-filter-group select {
+    width: 100%;
+    min-height: 42px;
+
+    padding: 9px 10px;
+
+    background: #ffffff;
+    color: #2b1b1f;
+
+    border: 1px solid #d8c8c3;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 0.95rem;
+
+    cursor: pointer;
+}
+
+.wine-filter-group select:focus {
+    outline: none;
+
+    border-color: #7a0026;
+    box-shadow: 0 0 0 2px rgba(122, 0, 38, 0.12);
+}
+
+
+/* =========================================
+   WINE BUTTONS
+   ========================================= */
+
+.clear-filters-button,
+.wine-view-button,
+.wine-popup-close {
+    padding: 9px 16px;
 
     background: #7a0026;
     color: #ffffff;
@@ -12,90 +83,135 @@
     border: none;
     border-radius: 25px;
 
+    font-family: inherit;
     font-size: 0.9rem;
     font-weight: 600;
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.wine-view-button:hover {
+.clear-filters-button:hover,
+.wine-view-button:hover,
+.wine-popup-close:hover {
     background: #5c0018;
+
+    box-shadow: 0 4px 10px rgba(92, 0, 24, 0.2);
 }
 
-.wine-popup {
-    max-width: 550px;
 
-    padding: 25px;
+/* =========================================
+   WINE TABLE
+   ========================================= */
+
+.wine-table {
+    width: 100%;
+
+    border-collapse: collapse;
 
     background: #ffffff;
 
     border-radius: 12px;
+    overflow: hidden;
 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
 }
 
-.wine-popup h2 {
-    margin-top: 0;
+.wine-table th,
+.wine-table td {
+    padding: 12px 10px;
 
-    color: #5c0018;
+    vertical-align: middle;
+
+    line-height: 1.35;
+    overflow-wrap: anywhere;
 }
 
-.wine-popup h3 {
-    margin-top: 0;
-
-    color: #5c0018;
-}
-
-.wine-popup hr {
-    margin: 20px 0;
-
-    border: none;
-    border-top: 1px solid #dddddd;
-}
-
-.wine-popup p {
-    margin: 8px 0;
-}
-
-.wine-popup-close {
-    margin-top: 20px;
-
-    padding: 10px 20px;
-
-    background: #7a0026;
-    color: white;
-
-    border: none;
-    border-radius: 25px;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-.wine-popup-close:hover {
+.wine-table th {
     background: #5c0018;
+    color: #ffffff;
+
+    font-size: 0.8rem;
+    font-weight: 700;
 }
 
+.wine-table td {
+    color: #2b1b1f;
+
+    border-bottom: 1px solid #eee4e1;
+
+    font-size: 0.82rem;
+}
+
+.wine-table tbody tr:nth-child(even) {
+    background: #fbf7f5;
+}
+
+.wine-table tbody tr:hover {
+    background: #f3e7e4;
+}
+
+.wine-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   WINE COLUMN WIDTHS
+
+   Name receives 20%.
+   Every other column receives 10%.
+   ========================================= */
+
+.wine-name {
+    width: 20%;
+    text-align: left;
+}
+
+.wine-type,
+.wine-grape,
+.wine-country,
+.wine-region,
+.wine-year,
+.wine-bottle,
+.wine-view {
+    width: 10%;
+    text-align: center;
+}
+
+.wine-price {
+    width: 10%;
+
+    text-align: right;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   WINE POPUP
+   ========================================= */
+
+/* Removes the extra white container created
+   around the popup by reactjs-popup. */
 .popup-content {
     width: auto !important;
-    max-width: calc(100% - 40px) !important;
+    max-width: calc(100% - 30px) !important;
+
     padding: 0 !important;
 
     background: transparent !important;
 
     border: none !important;
-    border-radius: 12px;
 }
 
-
 .wine-popup {
-    width: 550px;
+    width: 520px;
     max-width: 100%;
 
-    padding: 25px;
+    padding: 24px;
 
     background: #ffffff;
 
@@ -104,9 +220,64 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
+.wine-popup h2,
+.wine-popup h3 {
+    color: #5c0018;
+}
+
+.wine-popup h2 {
+    margin: 0 0 14px;
+}
+
+.wine-popup h3 {
+    margin: 0 0 8px;
+}
+
+.wine-popup p {
+    margin: 8px 0;
+
+    color: #5f5558;
+    line-height: 1.5;
+}
+
+.wine-popup hr {
+    margin: 18px 0;
+
+    border: none;
+    border-top: 1px solid #dddddd;
+}
+
+.wine-popup-close {
+    margin-top: 18px;
+}
+
+
+/* =========================================
+   TABLET
+   Keeps all columns visible.
+   Reduces spacing slightly.
+   ========================================= */
+
+@media (max-width: 1024px) {
+    .wine-table th,
+    .wine-table td {
+        padding: 10px 7px;
+
+        font-size: 0.75rem;
+    }
+
+    .wine-view-button {
+        padding: 7px 11px;
+
+        font-size: 0.78rem;
+    }
+}
+
+
 /* =========================================
    MOBILE WINE TABLE
-   Shows only:
+
+   Shows:
    Name | Type | Price | View
    ========================================= */
 
@@ -120,120 +291,47 @@
     }
 
     .wine-name {
-        width: 38%;
+        width: 40%;
     }
 
     .wine-type {
-        width: 22%;
+        width: 20%;
     }
 
     .wine-price {
         width: 20%;
-        text-align: right;
-        white-space: nowrap;
     }
 
     .wine-view {
         width: 20%;
-        text-align: center;
     }
 
     .wine-table th,
     .wine-table td {
         padding: 10px 6px;
+
         font-size: 0.75rem;
     }
 
     .wine-view-button {
         padding: 7px 10px;
+
         font-size: 0.75rem;
     }
-}
 
-/* =========================================
-   WINE FILTERS
-   ========================================= */
+    .wine-filter-controls {
+        display: block;
+    }
 
-.wine-filters {
-    margin-bottom: 30px;
+    .wine-filter-group {
+        margin-bottom: 12px;
+    }
 
-    padding: 20px;
+    .clear-filters-button {
+        width: 100%;
+    }
 
-    background: #ffffff;
-
-    border: 1px solid #e6d8d2;
-    border-radius: 12px;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.wine-filters h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-
-    color: #5c0018;
-}
-
-.wine-filter-controls {
-    display: flex;
-    align-items: flex-end;
-    gap: 20px;
-
-    flex-wrap: wrap;
-}
-
-.wine-filter-group {
-    display: flex;
-    flex-direction: column;
-
-    flex: 1;
-    min-width: 180px;
-}
-
-.wine-filter-group label {
-    margin-bottom: 6px;
-
-    font-weight: 600;
-
-    color: #5c0018;
-}
-
-.wine-filter-group select {
-    padding: 10px;
-
-    font-size: 0.95rem;
-
-    border: 1px solid #d8c8c3;
-    border-radius: 8px;
-
-    background: #ffffff;
-
-    cursor: pointer;
-}
-
-.wine-filter-group select:focus {
-    outline: none;
-
-    border-color: #7a0026;
-}
-
-.clear-filters-button {
-    padding: 10px 18px;
-
-    background: #7a0026;
-    color: #ffffff;
-
-    border: none;
-    border-radius: 25px;
-
-    font-size: 0.95rem;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s;
-}
-
-.clear-filters-button:hover {
-    background: #5c0018;
+    .wine-popup {
+        padding: 18px;
+    }
 }
