@@ -11,6 +11,7 @@ function FoodPairing() {
   // https://react.dev/reference/react/useState
   const [dishCount, setDishCount] = useState(0);
   const [selectedDishes, setSelectedDishes] = useState([]);
+  const [selectedSauces, setSelectedSauces] = useState([]);
 
   // Stores the food items returned by Flask.
   const [foods, setFoods] = useState([]);
@@ -75,6 +76,15 @@ function FoodPairing() {
 
     setSelectedDishes(updated);
   }
+
+  // Updates the selected sauce for one dish.
+  function updateSauce(index, value) {
+  const updated = [...selectedSauces];
+
+  updated[index] = Number(value);
+
+  setSelectedSauces(updated);
+}
   return (
     <section>
       <h1>Food Pairing</h1>
@@ -110,13 +120,16 @@ function FoodPairing() {
         https://medium.com/@vishalthakur2463/mastering-array-from-in-javascript-with-real-life-examples-6af98a667b5b
         */}
         {Array.from({ length: dishCount }).map((_, index) => (
-          <DishSelector
-            key={index}
-            dishNumber={index + 1}
-            foods={foods}
-            selectedDish={selectedDishes[index] || ""}
-            setSelectedDish={(value) => updateDish(index, value)}
-          />
+        <DishSelector
+          key={index}
+          dishNumber={index + 1}
+          foods={foods}
+          sauces={sauces}
+          selectedDish={selectedDishes[index] || ""}
+          selectedSauce={selectedSauces[index] || ""}
+          setSelectedDish={(value) => updateDish(index, value)}
+          setSelectedSauce={(value) => updateSauce(index, value)}
+        />
         ))}
       </div>
 
