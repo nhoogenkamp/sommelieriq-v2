@@ -11,3 +11,5 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+// https://react.dev/reference/react/StrictMode should I delete strictmode after development?
+
