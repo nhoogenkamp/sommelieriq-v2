@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Restaurants from "../pages/Restaurants";
 import WineList from "../pages/WineList";
 import PublicLayout from "../layouts/PublicLayout";
+import AdminLayout from "../layouts/AdminLayout";
 import FoodPairing from "../pages/FoodPairing";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
@@ -26,7 +27,8 @@ function AppRoutes() {
               path="/restaurants/:restaurantId/food-pairing"
               element={<FoodPairing />}
           />
-
+        </Route>
+        <Route element={<AdminLayout />}>          
           <Route
             path="/login"
             element={<Login />}
