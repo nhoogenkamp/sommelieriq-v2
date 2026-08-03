@@ -3,6 +3,8 @@ import Restaurants from "../pages/Restaurants";
 import WineList from "../pages/WineList";
 import PublicLayout from "../layouts/PublicLayout";
 import FoodPairing from "../pages/FoodPairing";
+import Login from "../pages/Login";
+import Dashboard from "../pages/Dashboard";
 
 // how to use react router https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 
@@ -24,6 +26,16 @@ function AppRoutes() {
               path="/restaurants/:restaurantId/food-pairing"
               element={<FoodPairing />}
           />
+
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+
+          <Route
+            path="/Dashboard"
+            element={<Dashboard />}
+          />        
         </Route>
       </Routes>
     </BrowserRouter>

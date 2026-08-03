@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { loginAdmin } from "../api/adminApi";
 
 function Login() {
-  // Stores the username and password entered by the user.
+  // Stores the username and password entered in the form.
   // https://react.dev/reference/react/useState
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -11,33 +11,31 @@ function Login() {
   // Stores login errors without hiding the form.
   const [validationError, setValidationError] = useState("");
 
-  // Changes to another React route after login.
+  // Used to move to another React route after login.
   // https://reactrouter.com/api/hooks/useNavigate
   const navigate = useNavigate();
 
-  function submitLogin(event) {
+  async function submitLogin(event) {
     // Stops the form from refreshing the page.
     // https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
     event.preventDefault();
 
-    setValidationError("");
+    try {
+      setValidationError("");
 
-    loginAdmin(username, password)
-      .then(function () {
-        // Clears the fields after a successful login.
-        setUsername("");
-        setPassword("");
+      await loginAdmin(username, password);
 
-        // Moves the user to the dashboard.
-        navigate("/dashboard");
-      })
-      .catch(function (error) {
-        // Shows the error returned by adminApi.js.
-        setValidationError(error.message);
+      // Clears the form after a successful login.
+      setUsername("");
+      setPassword("");
 
-        // Clears only the password after a failed login.
-        setPassword("");
-      });
+      navigate("/dashboard");
+    } catch (error) {
+      setValidationError(error.message);
+
+      // Clears the password after a failed login.
+      setPassword("");
+    }
   }
 
   return (
@@ -68,7 +66,7 @@ function Login() {
 
         <button type="submit">Login</button>
 
-        {/* Shows the login error but keeps the form visible just like food pairing page. */}
+        {/* Shows the login error but keeps the form visible. */}
         {validationError && <p>{validationError}</p>}
       </form>
     </section>
