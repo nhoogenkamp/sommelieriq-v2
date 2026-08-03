@@ -84,6 +84,19 @@ function FoodPairing() {
       </main>
     );
   }
+  // Updates the number of dishes to pair.
+  function updateDishCount(value) {
+    setDishCount(Number(value));
+
+    // Clears the previous dish and sauce selections.
+    setSelectedDishes([]);
+    setSelectedSauces([]);
+
+    // Clears previous validation messages and recommendations.
+    setValidationError("");
+    setRecommendations([]);
+    setCombinedRecommendations([]);
+  }
 
   function updateDish(index, value) {
     const updated = [...selectedDishes];
@@ -107,6 +120,7 @@ function FoodPairing() {
   updated[index] = Number(value);
 
   setSelectedSauces(updated);
+  setValidationError("");
 }
 
 // Clears all selected wine filters.
@@ -152,7 +166,7 @@ async function submitDishes() {
   });
 
   try {
-    setError("");
+    setValidationError("");
 
     const data = await sendDishes(restaurantId, dishes);
 
@@ -180,7 +194,7 @@ const recommendationWines = [
           value={dishCount}
           // Saves the selected number in React state.
           // https://react.dev/reference/react-dom/components/select
-          onChange={(event) => setDishCount(Number(event.target.value))}
+          onChange={(event) => updateDishCount(event.target.value)}
         >
           <option value="0">How many dishes</option>
           <option value="1">1 Dish</option>
