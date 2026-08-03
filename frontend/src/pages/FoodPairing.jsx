@@ -26,6 +26,8 @@ function FoodPairing() {
 
   // Stores an error message if the request fails.
   const [error, setError] = useState("");
+  // front end errors such as submit nothing.
+  const [validationError, setValidationError] = useState("");
 
   // recommendations coming from flask
   const [recommendations, setRecommendations] = useState([]);
@@ -94,6 +96,8 @@ function FoodPairing() {
     const updatedSauce = [...selectedSauces];
     updatedSauce[index] = "";
     setSelectedSauces(updatedSauce);
+
+    setValidationError("");
   }
 
   // Updates the selected sauce for one dish.
@@ -155,7 +159,7 @@ async function submitDishes() {
     setRecommendations(data.recommendations);
     setCombinedRecommendations(data.combined_recommendations);
   } catch (error) {
-    setError(error.message);
+    setValidationError(error.message);
   }
 }
 
@@ -214,6 +218,9 @@ const recommendationWines = [
       </div>
         {/* Submit button for sending dishes */}
         <button className="dish-submit-button" type="button" onClick={submitDishes}> Submit </button>
+        
+        {/* Showing error message from frontend such as submit nothing */}
+        {validationError && <p>{validationError}</p>}
 
       {recommendationWines.length > 0 && (
         <WineFilters
