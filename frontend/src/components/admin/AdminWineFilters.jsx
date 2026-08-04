@@ -7,6 +7,8 @@ function AdminWineFilters({
   selectedGrape,
   selectedCountry,
   selectedRegion,
+  selectedAvailability,
+  setSelectedAvailability,
   setWineId,
   setSelectedColour,
   setSelectedBottle,
@@ -44,6 +46,21 @@ const regions = Array.from(
             onChange={(event) => setWineId(event.target.value)}
           />
         </div>  
+
+        <div className="wine-filter-group">
+          <label htmlFor="wineAvailability">Availability:</label>
+
+          <select
+            id="wineAvailability"
+            value={selectedAvailability}
+            onChange={(event) => setSelectedAvailability(event.target.value)}
+          >
+            <option value="">All</option>
+            <option value="1">Available</option>
+            <option value="0">Unavailable</option>
+          </select>
+        </div>
+
           {/* htmlFor is used because for is already a reserved keyword.
               https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor */}
         <div className="wine-filter-group">

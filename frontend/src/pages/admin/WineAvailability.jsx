@@ -22,6 +22,7 @@ function WineAvailability() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
   const [wineId, setWineId] = useState("");
+  const [selectedAvailability, setSelectedAvailability] = useState("");
 
   //fetches the wines: https://react.dev/learn/synchronizing-with-effects#:~:text=its%20initial%20state.-,Fetching%20data,-If%20your%20Effect
 
@@ -47,6 +48,9 @@ function WineAvailability() {
   const filteredWines = wines.filter((wine) => {
     return (
       (wineId === "" || Number(wine.wine_id) === Number(wineId)) &&  
+
+      (selectedAvailability === "" || Number(wine.available) === Number(selectedAvailability)) &&
+
       // when selectedColour is empty, all colours are allowed
       // otherwise, the wine type must match the selected colour
       (selectedColour === "" ||
@@ -72,6 +76,7 @@ function WineAvailability() {
   // changes all filters back to their original empty values
   function clearFilters() {
     setWineId("");
+    setSelectedAvailability("");
     setSelectedColour("");
     setSelectedBottle("");
     setMaxPrice("");
@@ -106,6 +111,7 @@ function WineAvailability() {
         // complete wine array into WineFilters with wines={wines}
         wines={wines}
         wineId={wineId}
+        selectedAvailability={selectedAvailability}
         selectedColour={selectedColour}
         selectedBottle={selectedBottle}
         maxPrice={maxPrice}
@@ -113,6 +119,7 @@ function WineAvailability() {
         selectedCountry={selectedCountry}
         selectedRegion={selectedRegion}
         setWineId={setWineId}
+        setSelectedAvailability={setSelectedAvailability}
         setSelectedColour={setSelectedColour}
         setSelectedBottle={setSelectedBottle}
         setMaxPrice={setMaxPrice}
