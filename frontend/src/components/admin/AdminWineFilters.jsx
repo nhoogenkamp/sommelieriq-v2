@@ -17,6 +17,7 @@ function AdminWineFilters({
   setSelectedCountry,
   setSelectedRegion,
   clearFilters,
+  updateFilter,
 }) {
 
   const grapes = Array.from(
@@ -43,23 +44,23 @@ const regions = Array.from(
             type="number"
             min="1"
             value={wineId}
-            onChange={(event) => setWineId(event.target.value)}
+            onChange={(event) => updateFilter(setWineId, event.target.value)}
           />
         </div>  
 
-        <div className="wine-filter-group">
-          <label htmlFor="wineAvailability">Availability:</label>
+      <div className="wine-filter-group">
+        <label htmlFor="wineAvailability">Availability:</label>
 
-          <select
-            id="wineAvailability"
-            value={selectedAvailability}
-            onChange={(event) => setSelectedAvailability(event.target.value)}
-          >
-            <option value="">All</option>
-            <option value="1">Available</option>
-            <option value="0">Unavailable</option>
-          </select>
-        </div>
+        <select
+          id="wineAvailability"
+          value={selectedAvailability}
+          onChange={(event) => updateFilter(setSelectedAvailability, event.target.value)}
+        >
+          <option value="">All</option>
+          <option value="1">Available</option>
+          <option value="0">Unavailable</option>
+        </select>
+      </div>
 
           {/* htmlFor is used because for is already a reserved keyword.
               https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor */}
@@ -71,9 +72,7 @@ const regions = Array.from(
             value={selectedColour}
             // gets the selected value and updates it when changed
             // https://react.dev/reference/react-dom/components/select
-            onChange={(event) =>
-              setSelectedColour(event.target.value)
-            }
+            onChange={(event) => updateFilter (setSelectedColour,event.target.value)}
           >
             <option value="">All</option>
             <option value="red">Red</option>
@@ -94,9 +93,7 @@ const regions = Array.from(
           <select
             id="bottleType"
             value={selectedBottle}
-            onChange={(event) =>
-              setSelectedBottle(event.target.value)
-            }
+            onChange={(event) =>updateFilter (setSelectedBottle, event.target.value)}
           >
             <option value="">All</option>
             <option value="Glass">Glass</option>
@@ -118,7 +115,7 @@ const regions = Array.from(
             id="grape"
             value={selectedGrape}
             onChange={(event) =>
-              setSelectedGrape(event.target.value)
+              updateFilter(setSelectedGrape,event.target.value)
             }
           >
             <option value="">All</option>
@@ -141,7 +138,7 @@ const regions = Array.from(
             id="country"
             value={selectedCountry}
             onChange={(event) =>
-              setSelectedCountry(event.target.value)
+              updateFilter(setSelectedCountry,event.target.value)
             }
           >
             <option value="">All</option>
@@ -162,7 +159,7 @@ const regions = Array.from(
             id="region"
             value={selectedRegion}
             onChange={(event) =>
-              setSelectedRegion(event.target.value)
+              updateFilter(setSelectedRegion,event.target.value)
             }
           >
             <option value="">All</option>
@@ -182,7 +179,7 @@ const regions = Array.from(
             id="maxPrice"
             value={maxPrice}
             onChange={(event) =>
-              setMaxPrice(event.target.value)
+              updateFilter(setMaxPrice,event.target.value)
             }
           >
             <option value="">No Limit</option>

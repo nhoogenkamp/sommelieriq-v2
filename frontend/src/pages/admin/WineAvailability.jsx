@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getRestaurantWines } from "../../api/wineApi";
+import { getAllWines, availableWine } from "../../api/wineApi";
 import AdminWineTable from "../../components/admin/AdminWineTable";
 import AdminWineFilters from "../../components/admin/AdminWineFilters";
 // Importing with curly braces and without if export default: https://react.dev/learn/importing-and-exporting-components
@@ -13,6 +13,7 @@ function WineAvailability() {
   const [wines, setWines] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   // Filters
   const [selectedColour, setSelectedColour] = useState("");
@@ -32,7 +33,7 @@ function WineAvailability() {
         setIsLoading(true);
         setError("");
 
-        const data = await getRestaurantWines(restaurantId);
+        const data = await getAllWines();
 
         setWines(data);
       } catch (error) {
@@ -73,6 +74,12 @@ function WineAvailability() {
     );
   });
 
+  // Clears the message and updates one filter.
+  function updateFilter(setFilter, value) {
+    setMessage("");
+    setFilter(value);
+  }
+
   // changes all filters back to their original empty values
   function clearFilters() {
     setWineId("");
@@ -83,6 +90,37 @@ function WineAvailability() {
     setSelectedGrape("");
     setSelectedCountry("");
     setSelectedRegion("");
+    setMessage("");
+  }
+
+  // Updates the availability of one wine.
+  function updateAvailability(wineId, availability) {
+    const entry = {
+      wine_id: wineId,
+      available: availability,
+    };
+
+    setMessage("");
+    availableWine(entry)
+      .then(function (json) {
+        // Updates the changed wine on the page.
+        const updated = wines.map((wine) => {
+          if (wine.wine_id === wineId) {
+            return {
+              ...wine,
+              available: availability,
+            };
+          }
+
+          return wine;
+        });
+
+        setWines(updated);
+        setMessage(json.message);
+      })
+      .catch(function (error) {
+        setError(error.message);
+      });
   }
 
   if (isLoading) {
@@ -127,14 +165,17 @@ function WineAvailability() {
         setSelectedCountry={setSelectedCountry}
         setSelectedRegion={setSelectedRegion}
         clearFilters={clearFilters}
+        updateFilter={updateFilter}
       />
+      {message && <p>{message}</p>}
+  
       {/* Conditionally render either a message or the wine table with the use of Conditional operator (? :) 
         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator */}
       
       {filteredWines.length === 0 ? (
         <p>No wines are currently available or no wines match the selected filters..</p>
       ) : (
-      <AdminWineTable wines={filteredWines} />
+      <AdminWineTable wines={filteredWines} updateAvailability={updateAvailability} />
     )}
   </main>
 );

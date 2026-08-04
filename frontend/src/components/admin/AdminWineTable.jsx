@@ -1,6 +1,6 @@
 import AdminWinePopup from "./AdminWinePopup.jsx";
 
-function AdminWineTable({ wines }) {
+function AdminWineTable({ wines, updateAvailability }) {
   return (
     <table className="wine-table admin-wine-table">
       <thead>
@@ -23,12 +23,24 @@ function AdminWineTable({ wines }) {
 
       <tbody>
         {/* Mapping each wine object to a table row.
-        https://react.dev/learn/rendering-lists */}
+        https://react.dev/learn/rendering-lists
+        for dropdown changes: https://react.dev/reference/react-dom/components/select and https://www.w3schools.com/react/react_forms_select.asp 
+        In the database value is either 1 or 0 not yes */}
         {wines.map((wine) => (
           <tr key={wine.wine_id}>
             <td className="wine_id">{wine.wine_id}</td>
-            <td className="wine-available">{wine.available === 1 ? "Yes" : "No"}</td>
-            <td className="wine-name">{wine.name}</td>
+
+            <td className="wine-available">
+              <select value={wine.available}
+               // Sends the wine ID and newly selected availability to the page.
+                onChange={(event) =>
+                  updateAvailability(wine.wine_id, Number(event.target.value))
+                }
+              >
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              </select>
+            </td>            <td className="wine-name">{wine.name}</td>
             <td className="wine-type">{wine.wine_type}</td>
             <td className="wine-grape">{wine.grape}</td>
             <td className="wine-country">{wine.country}</td>

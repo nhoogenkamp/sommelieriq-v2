@@ -40,3 +40,25 @@ export function getAllWines() {
       });
     });
 }
+
+
+// Updates the availability of one wine.
+export function availableWine(entry) {
+  return fetch(`${API_URL}/availableWine`, {
+    method: "PUT",
+    credentials: "include",
+    body: JSON.stringify(entry),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+
+        return json;
+      });
+    });
+}
