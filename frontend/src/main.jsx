@@ -5,6 +5,7 @@ import "./styles/style.css";
 import "./styles/navbar.css";
 import "./styles/footer.css";
 import "./styles/wines.css";
+import "./styles/admin.css";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

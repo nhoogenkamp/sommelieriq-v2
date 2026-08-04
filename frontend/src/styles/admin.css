@@ -1,0 +1,135 @@
+/* =========================================
+   ADMIN WINE FILTERS
+   ========================================= */
+
+/* Matches the Wine ID input with the filter dropdowns. */
+.wine-filter-group input {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 10px;
+
+    background: #ffffff;
+    color: #2b1b1f;
+
+    border: 1px solid #d8c8c3;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.wine-filter-group input:focus {
+    outline: none;
+
+    border-color: #7a0026;
+    box-shadow: 0 0 0 2px rgba(122, 0, 38, 0.12);
+}
+
+
+/* =========================================
+   ADMIN WINE TABLE
+   ========================================= */
+
+/* Keeps the column widths controlled on the admin table. */
+.admin-wine-table {
+    table-layout: fixed;
+}
+
+/* Wine ID and availability need less room. */
+.admin-wine-table .wine_id {
+    width: 7%;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.admin-wine-table .wine-available {
+    width: 8%;
+    text-align: center;
+}
+
+/* The name receives the most space. */
+.admin-wine-table .wine-name {
+    width: 17%;
+    text-align: left;
+}
+
+/* Standard admin table columns. */
+.admin-wine-table .wine-type,
+.admin-wine-table .wine-grape,
+.admin-wine-table .wine-country,
+.admin-wine-table .wine-region,
+.admin-wine-table .wine-year,
+.admin-wine-table .wine-bottle,
+.admin-wine-table .wine-price,
+.admin-wine-table .wine-view {
+    width: 8.5%;
+    text-align: center;
+}
+
+.admin-wine-table .wine-price {
+    text-align: right;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   ADMIN TABLET
+   ========================================= */
+
+@media (max-width: 1024px) {
+    .admin-wine-table th,
+    .admin-wine-table td {
+        padding: 9px 5px;
+        font-size: 0.7rem;
+    }
+
+    .admin-wine-table .wine-view-button {
+        padding: 6px 9px;
+        font-size: 0.7rem;
+    }
+}
+
+
+/* =========================================
+   ADMIN MOBILE TABLE
+
+   Shows:
+   Wine ID | Available | Name | Price | View
+   ========================================= */
+
+@media (max-width: 600px) {
+    .admin-wine-table .wine-type,
+    .admin-wine-table .wine-grape,
+    .admin-wine-table .wine-country,
+    .admin-wine-table .wine-region,
+    .admin-wine-table .wine-year,
+    .admin-wine-table .wine-bottle {
+        display: none;
+    }
+
+    .admin-wine-table .wine-id {
+        width: 14%;
+    }
+
+    .admin-wine-table .wine-available {
+        width: 18%;
+    }
+
+    .admin-wine-table .wine-name {
+        width: 30%;
+    }
+
+    .admin-wine-table .wine-price {
+        width: 18%;
+    }
+
+    .admin-wine-table .wine-view {
+        width: 20%;
+    }
+
+    .admin-wine-table th,
+    .admin-wine-table td {
+        padding: 9px 4px;
+        font-size: 0.7rem;
+    }
+}
