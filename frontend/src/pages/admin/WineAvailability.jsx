@@ -144,7 +144,8 @@ function WineAvailability() {
 
   return (
     <main>
-      <h1>Wine List</h1>
+      <h1>Available Wine</h1>
+      <h2>Update wines if they are available.</h2>
       <AdminWineFilters
         // complete wine array into WineFilters with wines={wines}
         wines={wines}
