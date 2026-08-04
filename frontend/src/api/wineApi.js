@@ -18,3 +18,25 @@ export async function getRestaurantWines(restaurantId) {
 
   return response.json();
 }
+
+
+
+// Get all wines for admin purposes
+export function getAllWines() {
+  return fetch(`${API_URL}/getallWines`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+
+        return json;
+      });
+    });
+}

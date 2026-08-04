@@ -1,6 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams} from "react-router-dom";
 
 function AdminNavbar () {
+    const {restaurantId} = useParams();
     return (
         <nav>
             {/* This is currently the main public page. */}
@@ -8,8 +9,12 @@ function AdminNavbar () {
                 Login
             </NavLink>
 
-            <NavLink to="/Dashboard">
+            <NavLink to={`/admin/restaurants/${restaurantId}/dashboard`}>
                 Dashboard
+            </NavLink>
+
+            <NavLink to={`/admin/restaurants/${restaurantId}/wines/availability`}>
+                Availability
             </NavLink>
         </nav>
     );
