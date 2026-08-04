@@ -7,6 +7,7 @@ import FoodPairing from "../pages/FoodPairing";
 import Login from "../pages/admin/Login";
 import Dashboard from "../pages/admin/Dashboard";
 import WineAvailability from "../pages/admin/WineAvailability";
+import WinePrice from "../pages/admin/WinePrice";
 
 // how to use react router https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 
@@ -29,6 +30,8 @@ function AppRoutes() {
               element={<FoodPairing />}
           />
         </Route>
+
+        
         <Route element={<AdminLayout />}>          
           <Route
             path="/login"
@@ -42,6 +45,10 @@ function AppRoutes() {
           <Route
             path="/admin/restaurants/:restaurantId/wines/availability"
             element={<WineAvailability/>}
+          />
+          <Route
+            path="/admin/restaurants/:restaurantId/wines/price"
+            element={<WinePrice />}
           />
         </Route>
       </Routes>

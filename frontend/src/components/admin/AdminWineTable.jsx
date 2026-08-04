@@ -30,17 +30,25 @@ function AdminWineTable({ wines, updateAvailability }) {
           <tr key={wine.wine_id}>
             <td className="wine_id">{wine.wine_id}</td>
 
+            {/* Shows a dropdown when updateAvailability exists.
+            Otherwise displays Yes or No as text. https://react.dev/learn/conditional-rendering */}
             <td className="wine-available">
-              <select value={wine.available}
-               // Sends the wine ID and newly selected availability to the page.
-                onChange={(event) =>
-                  updateAvailability(wine.wine_id, Number(event.target.value))
-                }
-              >
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-              </select>
-            </td>            <td className="wine-name">{wine.name}</td>
+              {updateAvailability ? (
+                <select
+                  value={wine.available}
+                  onChange={(event) =>
+                    updateAvailability(wine.wine_id, Number(event.target.value))
+                  }
+                >
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              ) : (
+                wine.available === 1 ? "Yes" : "No"
+              )}
+            </td>        
+
+            <td className="wine-name">{wine.name}</td>
             <td className="wine-type">{wine.wine_type}</td>
             <td className="wine-grape">{wine.grape}</td>
             <td className="wine-country">{wine.country}</td>

@@ -16,6 +16,10 @@ function AdminNavbar () {
             <NavLink to={`/admin/restaurants/${restaurantId}/wines/availability`}>
                 Availability
             </NavLink>
+
+            <NavLink to={`/admin/restaurants/${restaurantId}/wines/price`}>
+                Update Price
+            </NavLink>
         </nav>
     );
 }
