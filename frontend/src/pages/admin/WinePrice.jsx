@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getAllWines } from "../../api/wineApi";
+import { getAllWines, updateWine } from "../../api/wineApi";
 import AdminWineTable from "../../components/admin/AdminWineTable";
 import AdminWineFilters from "../../components/admin/AdminWineFilters";
 // Importing with curly braces and without if export default: https://react.dev/learn/importing-and-exporting-components
@@ -14,7 +14,7 @@ function WinePrice() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-
+  const [newPrices, setNewPrices] = useState([]);
   // Filters
   const [selectedColour, setSelectedColour] = useState("");
   const [selectedBottle, setSelectedBottle] = useState("");
@@ -23,6 +23,8 @@ function WinePrice() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
   const [wineId, setWineId] = useState("");
+
+
 
   //fetches the wines: https://react.dev/learn/synchronizing-with-effects#:~:text=its%20initial%20state.-,Fetching%20data,-If%20your%20Effect
 
@@ -89,6 +91,37 @@ function WinePrice() {
     setMessage("");
   }
 
+// Updates the price of one wine.
+function updatePrice(wineId, price) {
+  const entry = {
+    wine_id: wineId,
+    price: Number(price),
+  };
+
+  setMessage("");
+  setError("");
+
+  updateWine(entry)
+    .then(function (json) {
+      const updated = wines.map((wine) => {
+        if (wine.wine_id === wineId) {
+          return {
+            ...wine,
+            price: entry.price,
+          };
+        }
+
+        return wine;
+      });
+
+      setWines(updated);
+      setMessage(json.message);
+    })
+    .catch(function (error) {
+      setError(error.message);
+    });
+}
+
   if (isLoading) {
     return (
       <main>
@@ -110,36 +143,41 @@ function WinePrice() {
 
   return (
     <main>
-      <h1>Update Price</h1>
-      <AdminWineFilters
-        // complete wine array into WineFilters with wines={wines}
-        wines={wines}
-        wineId={wineId}
-        selectedColour={selectedColour}
-        selectedBottle={selectedBottle}
-        maxPrice={maxPrice}
-        selectedGrape={selectedGrape}
-        selectedCountry={selectedCountry}
-        selectedRegion={selectedRegion}
-        setWineId={setWineId}
-        setSelectedColour={setSelectedColour}
-        setSelectedBottle={setSelectedBottle}
-        setMaxPrice={setMaxPrice}
-        setSelectedGrape={setSelectedGrape}
-        setSelectedCountry={setSelectedCountry}
-        setSelectedRegion={setSelectedRegion}
-        clearFilters={clearFilters}
-        updateFilter={updateFilter}
-      />
-      {message && <p>{message}</p>}
-  
-      {/* Conditionally render either a message or the wine table with the use of Conditional operator (? :) 
-        https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator */}
-      
-      {filteredWines.length === 0 ? (
-        <p>No wines are currently available or no wines match the selected filters..</p>
-      ) : (
-      <AdminWineTable wines={filteredWines} />
+        <h1>Update Price</h1>
+        <AdminWineFilters
+            // complete wine array into WineFilters with wines={wines}
+            wines={wines}
+            wineId={wineId}
+            selectedColour={selectedColour}
+            selectedBottle={selectedBottle}
+            maxPrice={maxPrice}
+            selectedGrape={selectedGrape}
+            selectedCountry={selectedCountry}
+            selectedRegion={selectedRegion}
+            setWineId={setWineId}
+            setSelectedColour={setSelectedColour}
+            setSelectedBottle={setSelectedBottle}
+            setMaxPrice={setMaxPrice}
+            setSelectedGrape={setSelectedGrape}
+            setSelectedCountry={setSelectedCountry}
+            setSelectedRegion={setSelectedRegion}
+            clearFilters={clearFilters}
+            updateFilter={updateFilter}
+        />
+        {message && <p>{message}</p>}
+    
+        {/* Conditionally render either a message or the wine table with the use of Conditional operator (? :) 
+            https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator */}
+        
+        {filteredWines.length === 0 ? (
+            <p>No wines are currently available or no wines match the selected filters..</p>
+        ) : (
+        <div className="price-table-container">
+        <AdminWineTable
+            wines={filteredWines}
+            updatePrice={updatePrice}
+        />
+        </div>
     )}
   </main>
 );

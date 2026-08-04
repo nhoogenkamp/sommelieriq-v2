@@ -1,6 +1,6 @@
 import AdminWinePopup from "./AdminWinePopup.jsx";
 
-function AdminWineTable({ wines, updateAvailability }) {
+function AdminWineTable({ wines, updateAvailability, updatePrice, }) {
   return (
     <table className="wine-table admin-wine-table">
       <thead>
@@ -16,7 +16,14 @@ function AdminWineTable({ wines, updateAvailability }) {
           <th className="wine-bottle">Bottle</th>
           <th className="wine-price">Price</th>
 
-          
+           {/* Only show this column when updatePrice is on the page https://react.dev/learn/conditional-rendering */}
+          {updatePrice && (
+            <>
+              <th className="wine-new-price">New Price</th>
+              <th className="wine-update">Update</th>
+            </>
+          )}
+         
           <th className="wine-view">View</th>
         </tr>
       </thead>
@@ -56,6 +63,15 @@ function AdminWineTable({ wines, updateAvailability }) {
             <td className="wine-year">{wine.year}</td>
             <td className="wine-bottle">{wine.bottle_type}</td>
             <td className="wine-price">€{Number(wine.price).toFixed(2)}</td>
+
+            {updatePrice && (<> 
+            <td> <input type="number" min="0" step="0.01" id={`price-${wine.wine_id}`} /></td>
+
+              <td><button className="wine-update-button"type="button"onClick={() =>
+                    updatePrice(wine.wine_id, document.getElementById(`price-${wine.wine_id}`).value)                  }
+                > Update</button></td>
+            </>
+          )}
 
             {/* Opens the popup for this wine */}
             <td className="wine-view"><AdminWinePopup wine={wine} /></td>
