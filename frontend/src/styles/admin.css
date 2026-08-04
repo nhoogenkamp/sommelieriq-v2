@@ -134,3 +134,186 @@
     }
 }
 
+/* =========================================
+   UPDATE PRICE TABLE
+   ========================================= */
+
+/* Allows the price table to use its own column widths. */
+.price-table-container .admin-wine-table .wine_id {
+    width: 6%;
+}
+
+.price-table-container .admin-wine-table .wine-available {
+    width: 7%;
+}
+
+.price-table-container .admin-wine-table .wine-name {
+    width: 15%;
+}
+
+.price-table-container .admin-wine-table .wine-type,
+.price-table-container .admin-wine-table .wine-grape,
+.price-table-container .admin-wine-table .wine-country,
+.price-table-container .admin-wine-table .wine-region,
+.price-table-container .admin-wine-table .wine-year,
+.price-table-container .admin-wine-table .wine-bottle,
+.price-table-container .admin-wine-table .wine-price,
+.price-table-container .admin-wine-table .wine-view {
+    width: 7%;
+}
+
+.price-table-container .admin-wine-table .wine-new-price {
+    width: 8%;
+    text-align: center;
+}
+
+.price-table-container .admin-wine-table .wine-update {
+    width: 9%;
+    text-align: center;
+}
+
+
+/* Styles the new price input. */
+.price-table-container .wine-new-price input {
+    width: 100%;
+    min-width: 0;
+    padding: 7px 8px;
+
+    border: 1px solid #d8c8c3;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 0.8rem;
+}
+
+/* Styles the update button. */
+.wine-update-button {
+    padding: 7px 12px;
+
+    background: #7a0026;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 25px;
+
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.wine-update-button:hover {
+    background: #5c0018;
+}
+
+.wine-update-button {
+    display: block;
+    margin: 0 auto;
+
+    padding: 7px 12px;
+
+    background: #7a0026;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 25px;
+
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+/* =========================================
+   TABLET
+   Keeps all columns visible.
+   ========================================= */
+
+@media (max-width: 1024px) {
+
+    .price-table-container .admin-wine-table th,
+    .price-table-container .admin-wine-table td {
+        padding: 8px 6px;
+        font-size: 0.72rem;
+    }
+
+    .price-table-container .wine-new-price input {
+        padding: 6px;
+        font-size: 0.72rem;
+    }
+
+    .wine-update-button {
+        padding: 6px 10px;
+        font-size: 0.72rem;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   Shows only the important columns.
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    /* Hide less important columns. */
+    .price-table-container .wine-type,
+    .price-table-container .wine-grape,
+    .price-table-container .wine-country,
+    .price-table-container .wine-region,
+    .price-table-container .wine-year,
+    .price-table-container .wine-bottle {
+        display: none;
+    }
+
+    /* Rebalance remaining columns. */
+    .price-table-container .wine_id {
+        width: 10%;
+    }
+
+    .price-table-container .wine-available {
+        width: 12%;
+    }
+
+    .price-table-container .wine-name {
+        width: 22%;
+    }
+
+    .price-table-container .wine-price {
+        width: 14%;
+    }
+
+    .price-table-container .wine-new-price {
+        width: 18%;
+    }
+
+    .price-table-container .wine-update {
+        width: 12%;
+    }
+
+    .price-table-container .wine-view {
+        width: 12%;
+    }
+
+    .price-table-container .admin-wine-table th,
+    .price-table-container .admin-wine-table td {
+        padding: 6px 4px;
+        font-size: 0.6rem;
+    }
+
+    .price-table-container .wine-new-price input {
+        padding: 5px;
+        font-size: 0.6rem;
+    }
+
+    .wine-update-button  {
+        padding: 5px 8px;
+        font-size: 0.6rem;
+    }
+    .admin-wine-table .wine-view-button {
+        padding: 5px 8px;
+        font-size: 0.6rem;
+    }
+}

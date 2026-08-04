@@ -65,7 +65,7 @@ function AdminWineTable({ wines, updateAvailability, updatePrice, }) {
             <td className="wine-price">€{Number(wine.price).toFixed(2)}</td>
 
             {updatePrice && (<> 
-            <td> <input type="number" min="0" step="0.01" id={`price-${wine.wine_id}`} /></td>
+            <td className="wine-new-price"><input type="number" min="0" step="0.01" id={`price-${wine.wine_id}`} /></td>
 
               <td><button className="wine-update-button"type="button"onClick={() =>
                     updatePrice(wine.wine_id, document.getElementById(`price-${wine.wine_id}`).value)                  }
