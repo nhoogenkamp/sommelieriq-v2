@@ -4,8 +4,8 @@ import WineList from "../pages/WineList";
 import PublicLayout from "../layouts/PublicLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import FoodPairing from "../pages/FoodPairing";
-import Login from "../pages/Login";
-import Dashboard from "../pages/Dashboard";
+import Login from "../pages/admin/Login";
+import Dashboard from "../pages/admin/Dashboard";
 
 // how to use react router https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 

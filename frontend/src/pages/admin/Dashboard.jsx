@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginAdmin } from "../api/adminApi";
+import { loginAdmin } from "../../api/adminApi";
 
 function Login() {
   // Stores the username and password entered in the form.
@@ -40,35 +40,9 @@ function Login() {
 
   return (
     <section>
-      <form className="login-form" onSubmit={submitLogin}>
-        <h1>Admin Login</h1>
-        <p>Please fill in your username and password.</p>
 
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          placeholder="Enter Username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          required
-        />
-
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-
-        <button type="submit">Login</button>
-
-        {/* Shows the login error but keeps the form visible. */}
-        {validationError && <p>{validationError}</p>}
-      </form>
+        <h1>Admin is logged in</h1>
+       
     </section>
   );
 }
