@@ -135,7 +135,8 @@ def login_admin():
 
         return jsonify({
             "message": "Login successful",
-            "username": admin["username"]
+            "username": admin["username"],
+            "restaurant_id": admin["restaurant_id"]
         }), 200
 
     return jsonify({

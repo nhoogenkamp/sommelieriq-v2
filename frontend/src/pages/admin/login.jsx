@@ -23,13 +23,13 @@ function Login() {
     try {
       setValidationError("");
 
-      await loginAdmin(username, password);
+      const admin = await loginAdmin(username, password);
 
       // Clears the form after a successful login.
       setUsername("");
       setPassword("");
 
-      navigate("/dashboard");
+      navigate(`/admin/restaurants/${admin.restaurant_id}/dashboard`);
     } catch (error) {
       setValidationError(error.message);
 
