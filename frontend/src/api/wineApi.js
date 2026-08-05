@@ -89,7 +89,7 @@ export function updateWine(entry) {
 // Delete a wine
 export function deleteWine(entry) {
   return fetch(`${API_URL}/deleteWine`, {
-    method: "PUT",
+    method: "DELETE",
     credentials: "include",
     body: JSON.stringify(entry),
     headers: {
