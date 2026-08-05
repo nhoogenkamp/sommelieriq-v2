@@ -1,6 +1,6 @@
 import AdminWinePopup from "./AdminWinePopup.jsx";
 
-function AdminWineTable({ wines, updateAvailability, updatePrice, }) {
+function AdminWineTable({ wines, updateAvailability, updatePrice, deleteSelectedWine, }) {
   return (
     <table className="wine-table admin-wine-table">
       <thead>
@@ -23,7 +23,13 @@ function AdminWineTable({ wines, updateAvailability, updatePrice, }) {
               <th className="wine-update">Update</th>
             </>
           )}
-         
+
+           {/* Only show this column when deletion is on the page https://react.dev/learn/conditional-rendering */}
+          {deleteSelectedWine && (
+            <>
+              <th className="wine-delete-button">Delete Wine</th>
+            </>
+          )}
           <th className="wine-view">View</th>
         </tr>
       </thead>
@@ -70,6 +76,15 @@ function AdminWineTable({ wines, updateAvailability, updatePrice, }) {
               <td><button className="wine-update-button"type="button"onClick={() =>
                     updatePrice(wine.wine_id, document.getElementById(`price-${wine.wine_id}`).value)                  }
                 > Update</button></td>
+            </>
+          )}
+            {deleteSelectedWine && (<> 
+              <td><button className="wine-delete-button" onClick={() => {
+                if (window.confirm("Delete this wine?")) {deleteSelectedWine(wine.wine_id);}
+            }}
+        >
+            Delete
+        </button></td>
             </>
           )}
 
