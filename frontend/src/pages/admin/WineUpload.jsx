@@ -8,7 +8,7 @@ const allowedExtensions = ["csv"];
 
 function WineUpload() {
   // Stores all wines parsed from the CSV file.
-  const [data, setData] = useState([]);
+  const [wines, setWines] = useState([]);
 
   // Stores an error if the selected file is incorrect.
   const [error, setError] = useState("");
@@ -19,16 +19,13 @@ function WineUpload() {
   // Runs when the selected file changes.
   function handleFileChange(event) {
     setError("");
-    setData([]);
+    setWines([]);
 
     if (event.target.files.length) {
       const inputFile = event.target.files[0];
 
       // Gets the file extension from the filename.
-      const fileExtension = inputFile.name
-        .split(".")
-        .pop()
-        .toLowerCase();
+      const fileExtension = inputFile.name.split(".").pop().toLowerCase();
 
       if (!allowedExtensions.includes(fileExtension)) {
         setError("Please select a CSV file.");
@@ -52,16 +49,13 @@ function WineUpload() {
     const reader = new FileReader();
 
     reader.onload = function ({ target }) {
-        const csv = Papa.parse(target.result, {
-            header: true,
-            skipEmptyLines: true,
-        });
-      
-        console.log(csv.data);
-        console.log(csv.data[0]);
+      const csv = Papa.parse(target.result, {
+        header: true,
+        skipEmptyLines: true,
+      });
 
       // Stores every parsed CSV row in React state.
-      setData(csv.data);
+      setWines(csv.data);
     };
 
     reader.readAsText(file);
@@ -87,18 +81,16 @@ function WineUpload() {
 
       {error && <p>{error}</p>}
 
-      {data.length > 0 && (
+      {wines.length > 0 && (
         <>
           <h2>Wine Preview</h2>
 
-        <div className="upload-table-container">
-        <WineUploadTable wines={data} />
-        </div>
+          <div className="upload-table-container">
+            <WineUploadTable wines={wines} />
+          </div>
 
           {/* The backend upload will be connected later. */}
-          <button type="button">
-            Accept and Upload
-          </button>
+          <button type="button">Accept and Upload</button>
         </>
       )}
     </main>
