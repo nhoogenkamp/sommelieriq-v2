@@ -377,11 +377,12 @@
         0 4px 10px rgba(169, 31, 31, 0.25);
 }
 
+
 /* =========================================
    MOBILE
    Shows only the important columns.
    ========================================= */
-   
+
 @media (max-width: 1024px) {
     .admin-wine-table .wine-delete {
         width: 10%;
@@ -405,3 +406,94 @@
         font-size: 0.6rem;
     }
 }
+
+/* =========================================
+   WINE UPLOAD PREVIEW TABLE
+   ========================================= */
+
+.upload-table-container {
+    width: 100%;
+    margin: 20px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Fits comfortably on a 1920px laptop. */
+.upload-wine-table {
+    width: 100%;
+    min-width: 1150px;
+    table-layout: fixed;
+}
+
+/* Smaller table text. */
+.upload-wine-table th,
+.upload-wine-table td {
+    padding: 6px 5px;
+
+    font-size: 0.75rem;
+    vertical-align: top;
+
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+/* =========================================
+   COLUMN WIDTHS
+   ========================================= */
+
+.upload-wine-table .wine-name {
+    width: 9%;
+}
+
+.upload-wine-table .wine-type {
+    width: 6%;
+}
+
+.upload-wine-table .wine-grape {
+    width: 6%;
+}
+
+.upload-wine-table .wine-country {
+    width: 5%;
+}
+
+.upload-wine-table .wine-region {
+    width: 6%;
+}
+
+.upload-wine-table .wine-year {
+    width: 4%;
+    text-align: center;
+}
+
+.upload-wine-table .wine-bottle {
+    width: 5%;
+}
+
+.upload-wine-table .wine-price {
+    width: 4%;
+    text-align: center;
+}
+
+.upload-wine-table .wine-available {
+    width: 4%;
+    text-align: center;
+}
+
+.upload-wine-table .wine-description {
+    width: 12%;
+}
+
+.upload-wine-table .wine-body-score,
+.upload-wine-table .wine-tannin-score,
+.upload-wine-table .wine-acidity-score,
+.upload-wine-table .wine-sweetness-score {
+    width: 4%;
+    text-align: center;
+}
+
+/* Makes the header slightly more compact. */
+.upload-wine-table th {
+    font-size: 0.72rem;
+}
+

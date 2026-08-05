@@ -52,10 +52,13 @@ function WineUpload() {
     const reader = new FileReader();
 
     reader.onload = function ({ target }) {
-      const csv = Papa.parse(target.result, {
-        header: true,
-        skipEmptyLines: true,
-      });
+        const csv = Papa.parse(target.result, {
+            header: true,
+            skipEmptyLines: true,
+        });
+      
+        console.log(csv.data);
+        console.log(csv.data[0]);
 
       // Stores every parsed CSV row in React state.
       setData(csv.data);
@@ -88,7 +91,9 @@ function WineUpload() {
         <>
           <h2>Wine Preview</h2>
 
-          <WineUploadTable wines={data} />
+        <div className="upload-table-container">
+        <WineUploadTable wines={data} />
+        </div>
 
           {/* The backend upload will be connected later. */}
           <button type="button">
