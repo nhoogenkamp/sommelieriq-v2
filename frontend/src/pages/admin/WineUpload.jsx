@@ -53,6 +53,8 @@ function WineUpload() {
       const csv = Papa.parse(target.result, {
         header: true,
         skipEmptyLines: true,
+        // Converts CSV numbers from text into JavaScript numbers. https://www.papaparse.com/docs
+        dynamicTyping: true,
       });
 
       // Stores every parsed CSV row in React state.
