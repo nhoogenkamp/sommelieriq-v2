@@ -43,7 +43,7 @@ def upload_wines():
     if validation_errors:
         return jsonify({
             "error": "Some wines contain invalid data",
-            "row_errors": validation_errors
+            "errors": validation_errors
         }), 400
 
     restaurant_id = session["restaurant_id"]
