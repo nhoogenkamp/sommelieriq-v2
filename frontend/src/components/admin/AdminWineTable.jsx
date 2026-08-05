@@ -27,7 +27,7 @@ function AdminWineTable({ wines, updateAvailability, updatePrice, deleteSelected
            {/* Only show this column when deletion is on the page https://react.dev/learn/conditional-rendering */}
           {deleteSelectedWine && (
             <>
-              <th className="wine-delete-button">Delete Wine</th>
+              <th className="wine-delete">Delete Wine</th>
             </>
           )}
           <th className="wine-view">View</th>
@@ -78,15 +78,17 @@ function AdminWineTable({ wines, updateAvailability, updatePrice, deleteSelected
                 > Update</button></td>
             </>
           )}
-            {deleteSelectedWine && (<> 
-              <td><button className="wine-delete-button" onClick={() => {
-                if (window.confirm("Delete this wine?")) {deleteSelectedWine(wine.wine_id);}
-            }}
-        >
-            Delete
-        </button></td>
-            </>
-          )}
+            {deleteSelectedWine && (
+              <td className="wine-delete"><button className="wine-delete-button" type="button"
+                  onClick={() => {
+                    if (window.confirm("Delete this wine?")) {deleteSelectedWine(wine.wine_id);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+              </td>
+            )}
 
             {/* Opens the popup for this wine */}
             <td className="wine-view"><AdminWinePopup wine={wine} /></td>
