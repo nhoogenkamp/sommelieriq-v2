@@ -7,6 +7,7 @@ from routes.addwine import add_wine
 from routes.deleteWine import delete_wine
 from routes.updateWine import update_wine
 from routes.availableWine import available_wine
+from routes.uploadwines import upload_wines
 import os
 
 
@@ -73,6 +74,10 @@ def admin_login():
 @app.route('/addWine', methods=['POST'])
 def new_wine():
     return add_wine()
+
+@app.route("/uploadWines", methods=["POST"])
+def uploading_wines():
+    return upload_wines()
 
 @app.route('/deleteWine', methods=['DELETE'])
 def deleting_wine():

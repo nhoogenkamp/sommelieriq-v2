@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Papa from "papaparse";
 import WineUploadTable from "../../components/admin/WineUploadTable";
+import { uploadWines } from "../../api/wineApi";
 
 // https://www.geeksforgeeks.org/reactjs/how-to-read-csv-files-in-react-js/
 // Allowed file extensions.
@@ -61,6 +62,28 @@ function WineUpload() {
     reader.readAsText(file);
   }
 
+
+// Uploads all previewed wines to the backend.
+function uploadWineFile() {
+
+  // Creates the object that will be sent to the API.
+  const entry = {
+    wines: wines,
+  };
+  setError("");
+
+  uploadWines(entry)
+    .then(function (json) {
+      alert(json.message);
+
+      setWines([]);
+      setFile("");
+    })
+    .catch(function (error) {
+      setError(error.message);
+    });
+}  
+
   return (
     <main>
       <h1>Upload Wines</h1>
@@ -90,7 +113,7 @@ function WineUpload() {
           </div>
 
           {/* The backend upload will be connected later. */}
-          <button type="button">Accept and Upload</button>
+          <button type="button" onClick={uploadWineFile} >Accept and Upload</button>
         </>
       )}
     </main>

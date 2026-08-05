@@ -106,3 +106,23 @@ export function deleteWine(entry) {
       });
     });
 }
+
+export function uploadWines(entry) {
+  return fetch(`${API_URL}/uploadWines`, {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(entry),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+
+        return json;
+      });
+    });
+}
