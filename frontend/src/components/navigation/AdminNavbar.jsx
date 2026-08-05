@@ -24,6 +24,10 @@ function AdminNavbar () {
             <NavLink to={`/admin/restaurants/${restaurantId}/wines/delete`}>
                 Delete Wine
             </NavLink>
+
+            <NavLink to={`/admin/restaurants/${restaurantId}/wines/upload`}>
+                Upload Wines
+            </NavLink>
         </nav>
     );
 }
