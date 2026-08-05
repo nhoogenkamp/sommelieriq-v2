@@ -1,4 +1,5 @@
 import AdminWinePopup from "./AdminWinePopup.jsx";
+import DeleteWinePopup from "./DeleteWinePopup";
 
 function AdminWineTable({ wines, updateAvailability, updatePrice, deleteSelectedWine, }) {
   return (
@@ -78,15 +79,13 @@ function AdminWineTable({ wines, updateAvailability, updatePrice, deleteSelected
                 > Update</button></td>
             </>
           )}
+          
             {deleteSelectedWine && (
-              <td className="wine-delete"><button className="wine-delete-button" type="button"
-                  onClick={() => {
-                    if (window.confirm("Delete this wine?")) {deleteSelectedWine(wine.wine_id);
-                    }
-                  }}
-                >
-                  Delete
-                </button>
+              <td className="wine-delete">
+                <DeleteWinePopup
+                  wine={wine}
+                  deleteSelectedWine={deleteSelectedWine}
+                />
               </td>
             )}
 
