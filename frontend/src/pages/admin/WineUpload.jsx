@@ -17,9 +17,13 @@ function WineUpload() {
   // Stores the file selected by the administrator.
   const [file, setFile] = useState("");
 
+  // stores success message that is returned by flask
+  const [message, setMessage] = useState("");  
+
   // Runs when the selected file changes.
   function handleFileChange(event) {
     setError("");
+    setMessage("");
     setWines([]);
 
     if (event.target.files.length) {
@@ -73,13 +77,15 @@ function uploadWineFile() {
     wines: wines,
   };
   setError("");
+  setMessage("");
 
   uploadWines(entry)
     .then(function (json) {
-      alert(json.message);
+      setMessage(json.message);
 
       setWines([]);
       setFile("");
+
     })
     .catch(function (error) {
       setError(error.message);
@@ -105,7 +111,7 @@ function uploadWineFile() {
       </button>
 
       {error && <p>{error}</p>}
-
+      {message && <p>{message}</p>}
       {wines.length > 0 && (
         <>
           <h2>Wine Preview</h2>
@@ -115,6 +121,7 @@ function uploadWineFile() {
           </div>
 
           {/* The backend upload will be connected later. */}
+          
           <button type="button" onClick={uploadWineFile} >Accept and Upload</button>
         </>
       )}
