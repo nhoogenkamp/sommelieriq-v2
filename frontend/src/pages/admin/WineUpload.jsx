@@ -120,7 +120,7 @@ function uploadWineFile() {
         onChange={handleFileChange}
       />
 
-      <button type="preview-button" onClick={handleParse}>
+      <button type="button" className="preview-button" onClick={handleParse}>
         Preview Wines
       </button>
 

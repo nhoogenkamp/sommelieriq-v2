@@ -68,7 +68,7 @@ function CsvTemplateDownload() {
       href={url}
       download={fileName}
     >
-      Download Wine CSV Template
+      Download Template
     </a>
   );
 }
