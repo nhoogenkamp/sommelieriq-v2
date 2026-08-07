@@ -10,6 +10,7 @@ import WineAvailability from "../pages/admin/WineAvailability";
 import WinePrice from "../pages/admin/WinePrice";
 import WineDeletion from "../pages/admin/WineDeletion";
 import WineUpload from "../pages/admin/WineUpload";
+import MenuUpload from "../pages/admin/MenuUpload";
 
 // how to use react router https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 
@@ -60,6 +61,10 @@ function AppRoutes() {
           <Route
             path="/admin/restaurants/:restaurantId/wines/upload"
             element={<WineUpload />}
+          />
+          <Route
+            path="/admin/restaurants/:restaurantId/wines/foodupload"
+            element={<MenuUpload />}
           />
         </Route>
       </Routes>

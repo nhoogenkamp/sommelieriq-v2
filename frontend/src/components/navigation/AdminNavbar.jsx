@@ -28,6 +28,10 @@ function AdminNavbar () {
             <NavLink to={`/admin/restaurants/${restaurantId}/wines/upload`}>
                 Upload Wines
             </NavLink>
+
+            <NavLink to={`/admin/restaurants/${restaurantId}/wines/foodupload`}>
+                Upload Food
+            </NavLink>           
         </nav>
     );
 }
