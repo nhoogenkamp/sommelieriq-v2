@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Papa from "papaparse";
 import WineUploadTable from "../../components/admin/WineUploadTable";
 import { uploadWines } from "../../api/wineApi";
@@ -20,6 +20,9 @@ function WineUpload() {
   // stores success message that is returned by flask
   const [message, setMessage] = useState("");  
 
+  // Used to reset the selected CSV file. https://www.geeksforgeeks.org/reactjs/how-to-reset-a-file-input-in-react-js/
+  const inputFile = useRef(null);
+
   // Runs when the selected file changes.
   function handleFileChange(event) {
     setError("");
@@ -27,10 +30,10 @@ function WineUpload() {
     setWines([]);
 
     if (event.target.files.length) {
-      const inputFile = event.target.files[0];
+      const selectedFile  = event.target.files[0];
 
       // Gets the file extension from the filename.
-      const fileExtension = inputFile.name.split(".").pop().toLowerCase();
+      const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
 
       if (!allowedExtensions.includes(fileExtension)) {
         setError("Please select a CSV file.");
@@ -38,10 +41,17 @@ function WineUpload() {
         return;
       }
 
-      setFile(inputFile);
+      setFile(selectedFile);
     }
   }
-
+  // Clears the selected CSV file.
+  function resetFileInput() {
+    if (inputFile.current) {
+      inputFile.current.value = "";
+      inputFile.current.type = "text";
+      inputFile.current.type = "file";
+    }
+  }
   // Reads and parses the selected CSV file.
   function handleParse() {
     if (!file) {
@@ -85,6 +95,7 @@ function uploadWineFile() {
 
       setWines([]);
       setFile("");
+      resetFileInput();
 
     })
     .catch(function (error) {
@@ -99,6 +110,7 @@ function uploadWineFile() {
       <label htmlFor="csvInput">Select CSV File:</label>
 
       <input
+        ref={inputFile}
         id="csvInput"
         name="file"
         type="file"
