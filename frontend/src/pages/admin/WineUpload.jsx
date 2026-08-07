@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Papa from "papaparse";
 import WineUploadTable from "../../components/admin/WineUploadTable";
 import { uploadWines } from "../../api/wineApi";
+import CsvTemplateDownload from "../../components/admin/CsvTemplateDownload";
 
 // https://www.geeksforgeeks.org/reactjs/how-to-read-csv-files-in-react-js/
 // Allowed file extensions.
@@ -119,12 +120,22 @@ function uploadWineFile() {
         onChange={handleFileChange}
       />
 
-      <button type="button" onClick={handleParse}>
+      <button type="preview-button" onClick={handleParse}>
         Preview Wines
       </button>
 
       {error && <p>{error}</p>}
       {message && <p>{message}</p>}
+
+      <br />
+      <br />
+      <h3>Download a template below </h3>
+      <p> For the best results, it's recommended to download this csv file below and add information on all the fields </p>
+      <div className="download-button">
+        <CsvTemplateDownload />
+      </div>
+
+
       {wines.length > 0 && (
         <>
           <h2>Wine Preview</h2>
