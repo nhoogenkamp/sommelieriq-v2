@@ -135,7 +135,8 @@ function uploadWineFile() {
         <CsvTemplateDownload />
       </div>
 
-
+      <br />
+      <br />
       {wines.length > 0 && (
         <>
           <h2>Wine Preview</h2>
@@ -146,7 +147,7 @@ function uploadWineFile() {
 
           {/* The backend upload will be connected later. */}
           
-          <button type="button" onClick={uploadWineFile} >Accept and Upload</button>
+          <button type="button" className="upload-button" onClick={uploadWineFile} >Accept and Upload</button>
         </>
       )}
     </main>

@@ -502,6 +502,7 @@
    ========================================= */
 
 .preview-button,
+.upload-button,
 .download-button a,
 .download-button button {
     display: inline-block;
@@ -528,6 +529,7 @@
 }
 
 .preview-button:hover,
+.upload-button:hover,
 .download-button a:hover,
 .download-button button:hover {
     background: #5c0018;
@@ -536,6 +538,7 @@
 }
 
 .preview-button:focus-visible,
+.upload-button:focus-visible,
 .download-button a:focus-visible,
 .download-button button:focus-visible {
     outline: none;
@@ -543,11 +546,4 @@
     box-shadow:
         0 0 0 3px rgba(122, 0, 38, 0.18),
         0 4px 10px rgba(92, 0, 24, 0.2);
-}
-
-
-/* Adds some spacing around the template download button. */
-.download-button {
-    margin-top: 12px;
-    margin-bottom: 20px;
 }
