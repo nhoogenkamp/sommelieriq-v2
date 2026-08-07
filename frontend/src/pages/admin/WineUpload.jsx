@@ -55,11 +55,12 @@ function WineUpload() {
   // Reads and parses the selected CSV file.
   function handleParse() {
     if (!file) {
+      setMessage("");
       setError("Please select a CSV file.");
       return;
     }
-
     setError("");
+    setMessage("");
 
     const reader = new FileReader();
 
