@@ -8,6 +8,7 @@ from routes.deleteWine import delete_wine
 from routes.updateWine import update_wine
 from routes.availableWine import available_wine
 from routes.uploadwines import upload_wines
+from routes.uploadfood import upload_dishes
 import os
 
 
@@ -83,9 +84,9 @@ def uploading_wines():
 def deleting_wine():
     return delete_wine()
 
-@app.route('/updateWine', methods=['PUT'])
-def updating_wine():
-    return update_wine()
+@app.route('/uploadDishes', methods=['POST'])
+def uploading_dishes():
+    return upload_dishes()
 
 @app.route('/availableWine', methods=['PUT'])
 def updating_available_wine():
