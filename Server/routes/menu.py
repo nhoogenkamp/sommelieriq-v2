@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, session
 from db import get_db_connection
 from routes.validations import validate_restaurant_ID
 import mysql.connector
@@ -117,17 +117,14 @@ def get_sauces():
     return jsonify(sauces), 200
 
 
-# Gets all food items for the selected restaurant.
 def get_dishes():
-    data = request.get_json()
-    errors = validate_restaurant_ID(data)
 
-    if errors:
+    if not session.get("loggedin"):
         return jsonify({
-            "errors": errors
-        }), 400
+            "error": "Please login first"
+        }), 401
 
-    restaurant_id = data["restaurant_id"]
+    restaurant_id = session["restaurant_id"]
 
     # Returns 503 if the database connection fails.
     try:

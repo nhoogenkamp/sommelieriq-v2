@@ -22,7 +22,7 @@ function DishDeletion() {
         setIsLoading(true);
         setError("");
 
-        const data = await getDishes(restaurantId);
+        const data = await getDishes();
 
         setDishes(data);
       } catch (error) {

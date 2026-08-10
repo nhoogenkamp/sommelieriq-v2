@@ -26,9 +26,6 @@ export function getDishes(restaurantId) {
   return fetch(`${API_URL}/getDishes`, {
     method: "POST",
     credentials: "include",
-    body: JSON.stringify({
-      restaurant_id: Number(restaurantId),
-    }),
     headers: {
       "Content-Type": "application/json",
     },
