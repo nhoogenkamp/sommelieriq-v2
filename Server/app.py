@@ -9,7 +9,9 @@ from routes.updateWine import update_wine
 from routes.availableWine import available_wine
 from routes.uploadwines import upload_wines
 from routes.uploadfood import upload_dishes
+from routes.uploadSauces import upload_sauces
 from routes.deleteDish import delete_dish
+
 import os
 
 
@@ -97,6 +99,10 @@ def deleting_dish():
 @app.route('/uploadDishes', methods=['POST'])
 def uploading_dishes():
     return upload_dishes()
+
+@app.route('/uploadSauces', methods=['POST'])
+def uploading_sauces():
+    return upload_sauces()
 
 @app.route('/availableWine', methods=['PUT'])
 def updating_available_wine():

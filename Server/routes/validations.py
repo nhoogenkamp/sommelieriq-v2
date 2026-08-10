@@ -325,3 +325,45 @@ def validate_dishes(data):
                 errors.append(f"{i} must be between 0 and 20")
 
     return errors
+
+# Validating uploaded sauces.
+def validate_sauce(data):
+
+    # Fields required for uploading a sauce.
+    fields = ["name", "body_modifier", "tannin_modifier", "acidity_modifier", "sweetness_modifier", "available"]
+
+    errors = []
+
+    # Checks if fields are missing.
+    for f in fields:
+        if f not in data:
+            errors.append(f"{f} is required")
+
+    # Checks if name is text.
+    if "name" in data:
+        if not isinstance(data.get("name"), str):
+            errors.append("name must be text")
+
+    # Checks if modifiers are whole numbers.
+    inputint = ["body_modifier", "tannin_modifier", "acidity_modifier", "sweetness_modifier", "available"]
+
+    for i in inputint:
+        if not isinstance(data.get(i), int):
+            errors.append(f"{i} must be a whole number")
+
+    # Checks modifier values are between -3 and +3.
+    modifiers = ["body_modifier","tannin_modifier","acidity_modifier","sweetness_modifier"]
+
+    for i in modifiers:
+        if isinstance(data.get(i), int):
+            if data[i] < -3 or data[i] > 3:
+                errors.append(f"{i} must be between -3 and 3")
+
+    # Checks availability is either 0 or 1.
+    if "available" in data:
+        availablenum = [0, 1]
+
+        if data["available"] not in availablenum:
+            errors.append("Available is only 0 or 1")
+
+    return errors
