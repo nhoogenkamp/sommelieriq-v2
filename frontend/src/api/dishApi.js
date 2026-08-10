@@ -18,3 +18,26 @@ export function deleteDish(entry) {
       });
     });
 }
+
+// Gets all dishes for one restaurant.
+export function getDishes(restaurantId) {
+  return fetch(`${API_URL}/getDishes`, {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify({
+      restaurant_id: Number(restaurantId),
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+
+        return json;
+      });
+    });
+}
