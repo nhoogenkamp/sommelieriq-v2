@@ -94,3 +94,45 @@ export function updateDish(entry) {
       });
     });
 }
+
+// Gets all sauces for the logged-in restaurant.
+export function getAllSauces() {
+  return fetch(`${API_URL}/getAllSauces`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+
+        return json;
+      });
+    });
+}
+
+
+// Updates one sauce.
+export function updateSauce(entry) {
+  return fetch(`${API_URL}/updateSauce`, {
+    method: "PUT",
+    credentials: "include",
+    body: JSON.stringify(entry),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          throw new Error(json.error || json.errors);
+        }
+
+        return json;
+      });
+    });
+}
