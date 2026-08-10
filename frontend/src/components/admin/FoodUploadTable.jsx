@@ -1,4 +1,4 @@
-function FoodUploadTable({ wines }) {
+function FoodUploadTable({ dishes }) {
   return (
     <table className="wine-table upload-wine-table">
       <thead>
@@ -46,4 +46,4 @@ function FoodUploadTable({ wines }) {
   );
 }
 
-export default WineUploadTable;
+export default FoodUploadTable;

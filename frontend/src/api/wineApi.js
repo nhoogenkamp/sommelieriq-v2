@@ -140,9 +140,9 @@ export function uploadWines(entry) {
   });
 }
 
-// Uploading a wine
+// Uploading a food menu
 export function uploadMenu(entry) {
-  return fetch(`${API_URL}/uploadWines`, {
+  return fetch(`${API_URL}/uploadDishes`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify(entry),

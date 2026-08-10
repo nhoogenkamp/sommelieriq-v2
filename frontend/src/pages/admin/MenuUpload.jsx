@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import Papa from "papaparse";
-import FoodUploadTable from "../../components/admin/WineUploadTable";
+import FoodUploadTable from "../../components/admin/FoodUploadTable";
 import { uploadMenu } from "../../api/wineApi";
 import CsvTemplateDownload from "../../components/admin/CsvTemplateDownload";
 
@@ -9,8 +9,8 @@ import CsvTemplateDownload from "../../components/admin/CsvTemplateDownload";
 const allowedExtensions = ["csv"];
 
 function MenuUpload() {
-  // Stores all wines parsed from the CSV file.
-  const [wines, setWines] = useState([]);
+  // Stores all dishes parsed from the CSV file.
+  const [dishes, setDishes] = useState([]);
 
   // Stores an error if the selected file is incorrect.
   const [error, setError] = useState("");
@@ -28,7 +28,7 @@ function MenuUpload() {
   function handleFileChange(event) {
     setError("");
     setMessage("");
-    setWines([]);
+    setDishes([]);
 
     if (event.target.files.length) {
       const selectedFile  = event.target.files[0];
@@ -74,28 +74,28 @@ function MenuUpload() {
       });
 
       // Stores every parsed CSV row in React state.
-      setWines(csv.data);
+      setDishes(csv.data);
     };
 
     reader.readAsText(file);
   }
 
 
-// Uploads all previewed wines to the backend.
-function uploadWineFile() {
+// Uploads all previewed dishes to the backend.
+function uploadDishesFile() {
 
   // Creates the object that will be sent to the API.
   const entry = {
-    wines: wines,
+    dishes: dishes,
   };
   setError("");
   setMessage("");
 
-  uploadWines(entry)
+  uploadMenu(entry)
     .then(function (json) {
       setMessage(json.message);
 
-      setWines([]);
+      setDishes([]);
       setFile("");
       resetFileInput();
 
@@ -137,17 +137,15 @@ function uploadWineFile() {
 
       <br />
       <br />
-      {wines.length > 0 && (
+      {dishes.length > 0 && (
         <>
           <h2>Food Menu Preview</h2>
 
           <div className="upload-table-container">
-            <WineUploadTable wines={wines} />
+            <FoodUploadTable dishes={dishes} />
           </div>
-
-          {/* The backend upload will be connected later. */}
           
-          <button type="button" className="upload-button" onClick={uploadWineFile} >Accept and Upload</button>
+          <button type="button" className="upload-button" onClick={uploadDishesFile} >Accept and Upload</button>
         </>
       )}
     </main>
