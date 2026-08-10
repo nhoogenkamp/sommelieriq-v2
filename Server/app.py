@@ -6,6 +6,7 @@ from routes.admin import add_admin, login_admin, check_admin, logout_admin
 from routes.addwine import add_wine
 from routes.deleteWine import delete_wine
 from routes.updateWine import update_wine
+from routes.updateDish import update_dish
 from routes.availableWine import available_wine
 from routes.uploadwines import upload_wines
 from routes.uploadfood import upload_dishes
@@ -103,6 +104,14 @@ def uploading_dishes():
 @app.route('/uploadSauces', methods=['POST'])
 def uploading_sauces():
     return upload_sauces()
+
+@app.route('/updateDish', methods=['PUT'])
+def updating_dish():
+    return update_dish()
+
+@app.route('/updateWine', methods=['PUT'])
+def updating_wine():
+    return update_wine()
 
 @app.route('/availableWine', methods=['PUT'])
 def updating_available_wine():

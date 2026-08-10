@@ -367,3 +367,4 @@ def validate_sauce(data):
             errors.append("Available is only 0 or 1")
 
     return errors
+
