@@ -11,6 +11,7 @@ import WinePrice from "../pages/admin/WinePrice";
 import WineDeletion from "../pages/admin/WineDeletion";
 import WineUpload from "../pages/admin/WineUpload";
 import MenuUpload from "../pages/admin/MenuUpload";
+import DishDeletion from "../pages/admin/DishDeletion";
 
 // how to use react router https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 
@@ -63,9 +64,14 @@ function AppRoutes() {
             element={<WineUpload />}
           />
           <Route
-            path="/admin/restaurants/:restaurantId/wines/foodupload"
+            path="/admin/restaurants/:restaurantId/food/foodupload"
             element={<MenuUpload />}
           />
+
+          <Route
+            path="/admin/restaurants/:restaurantId/food/dishdeletion"
+            element={<DishDeletion/>}
+          />          
         </Route>
       </Routes>
     </BrowserRouter>

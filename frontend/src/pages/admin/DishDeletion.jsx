@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { deleteDish } from "../../api/dishApi";
-import AdminWineTable from "../../components/admin/AdminWineTable";
-import AdminWineFilters from "../../components/admin/AdminWineFilters";
+import { deleteDish, getDishes} from "../../api/dishApi";
+import AdminDishTable from "../../components/admin/AdminDishTable";
 // Importing with curly braces and without if export default: https://react.dev/learn/importing-and-exporting-components
 
 // function to show react-dom information params: https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
@@ -23,7 +22,7 @@ function DishDeletion() {
         setIsLoading(true);
         setError("");
 
-        const data = await getDishes();
+        const data = await getDishes(restaurantId);
 
         setDishes(data);
       } catch (error) {
@@ -35,13 +34,6 @@ function DishDeletion() {
 
     loadDishes();
   }, [restaurantId]);
-
-
-  // Clears the message and updates one filter.
-  function updateFilter(setFilter, value) {
-    setMessage("");
-    setFilter(value);
-  }
 
 
 // Deletion of a dish
@@ -86,46 +78,26 @@ function deleteSelectedDish(foodId) {
     );
   }
 
-  return (
+    return (
     <main>
-        <h1>Delete a Dish</h1>
-        <AdminWineFilters
-            // complete wine array into WineFilters with wines={wines}
-            wines={wines}
-            wineId={wineId}
-            selectedColour={selectedColour}
-            selectedBottle={selectedBottle}
-            maxPrice={maxPrice}
-            selectedGrape={selectedGrape}
-            selectedCountry={selectedCountry}
-            selectedRegion={selectedRegion}
-            setWineId={setWineId}
-            setSelectedColour={setSelectedColour}
-            setSelectedBottle={setSelectedBottle}
-            setMaxPrice={setMaxPrice}
-            setSelectedGrape={setSelectedGrape}
-            setSelectedCountry={setSelectedCountry}
-            setSelectedRegion={setSelectedRegion}
-            clearFilters={clearFilters}
-            updateFilter={updateFilter}
-        />
-        {message && <p>{message}</p>}
-    
-        {/* Conditionally render either a message or the wine table with the use of Conditional operator (? :) 
-            https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator */}
-        
-        {filteredWines.length === 0 ? (
-            <p>No wines are currently available or no wines match the selected filters..</p>
-        ) : (
-        <div className="price-table-container">
-        <AdminWineTable
-            wines={filteredWines}
-            deleteSelectedWine={deleteSelectedWine}
-        />
+      <h1>Delete a Dish</h1>
+
+      {message && <p>{message}</p>}
+
+      {/* Conditionally renders either a message or the dish table.
+      https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator */}
+      {dishes.length === 0 ? (
+        <p>No dishes are currently available.</p>
+      ) : (
+        <div className="dish-table-container">
+          <AdminDishTable
+            dishes={dishes}
+            deleteSelectedDish={deleteSelectedDish}
+          />
         </div>
-    )}
-  </main>
-);
+      )}
+    </main>
+  );
 }
 
-export default WineDeletion;
+export default DishDeletion;
