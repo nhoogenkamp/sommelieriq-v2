@@ -30,7 +30,7 @@ function AdminNavbar () {
             </NavLink>
 
             <NavLink to={`/admin/restaurants/${restaurantId}/food/foodupload`}>
-                Upload Food
+                Upload Dish
             </NavLink>      
 
             <NavLink to={`/admin/restaurants/${restaurantId}/food/dishdeletion`}>
