@@ -5,9 +5,7 @@ function AdminSauceTable({ sauces, updateSelectedSauce, }) {
         <tr>
           {/* Only show Sauce ID when updateSelectedSauce is on the page https://react.dev/learn/conditional-rendering */}
           {updateSelectedSauce && (
-            <>
-              <th className="sauce-id">Sauce ID</th>
-            </>
+            <th className="sauce-id">Sauce ID</th>
           )}
 
           <th className="sauce-name">Name</th>

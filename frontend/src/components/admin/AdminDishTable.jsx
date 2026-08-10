@@ -2,7 +2,7 @@ import DeleteDishPopup from "./DeleteDishPopup";
 
 function AdminDishTable({ dishes, updateSelectedDish, deleteSelectedDish, }) {
   return (
-    <table className="wine-table admin-food-table">
+    <table className="wine-table admin-dish-table">
       <thead>
         <tr>
           <th className="food-id">Food ID</th>
