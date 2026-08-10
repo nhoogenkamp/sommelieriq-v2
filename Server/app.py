@@ -1,12 +1,13 @@
 from flask import Flask
 from routes.wines import get_tables, get_wines , get_all_wines
-from routes.menu import get_food, get_sauces, get_dishes
+from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
 from routes.senddish import send_dish
 from routes.admin import add_admin, login_admin, check_admin, logout_admin
 from routes.addwine import add_wine
 from routes.deleteWine import delete_wine
 from routes.updateWine import update_wine
 from routes.updateDish import update_dish
+from routes.updateSauce import update_sauce
 from routes.availableWine import available_wine
 from routes.uploadwines import upload_wines
 from routes.uploadfood import upload_dishes
@@ -68,6 +69,10 @@ def dish_items():
 def sauce_items():
     return get_sauces()
 
+@app.route('/getAllSauces', methods=['GET'])
+def all_sauces():
+    return get_all_sauces()
+
 # getting dish from frontend
 @app.route('/senddish', methods=['POST'])
 def receive_dish():
@@ -112,6 +117,10 @@ def updating_dish():
 @app.route('/updateWine', methods=['PUT'])
 def updating_wine():
     return update_wine()
+
+@app.route('/updateSauce', methods=['PUT'])
+def updating_sauce():
+    return update_sauce()
 
 @app.route('/availableWine', methods=['PUT'])
 def updating_available_wine():

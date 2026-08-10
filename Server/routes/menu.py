@@ -116,6 +116,53 @@ def get_sauces():
 
     return jsonify(sauces), 200
 
+# Gets all sauces for the logged-in restaurant.
+def get_all_sauces():
+
+    if not session.get("loggedin"):
+        return jsonify({
+            "error": "Please login first"
+        }), 401
+
+    restaurant_id = session["restaurant_id"]
+
+    try:
+        con = get_db_connection()
+        cursor = con.cursor(dictionary=True)
+
+    except mysql.connector.Error as err:
+        print("Error:", err.errno)
+
+        return jsonify({
+            "error": "Could not connect with database"
+        }), 503
+
+    check_sql = """
+        SELECT *
+        FROM sauces
+        WHERE restaurant_id = %s
+        ORDER BY name ASC
+    """
+
+    check_value = (restaurant_id,)
+
+    try:
+        cursor.execute(check_sql, check_value)
+        sauces = cursor.fetchall()
+
+    except mysql.connector.Error as err:
+        print("Error:", err)
+
+        return jsonify({
+            "error": "Could not get sauces from database"
+        }), 500
+
+    finally:
+        cursor.close()
+        con.close()
+
+    return jsonify(sauces), 200
+
 
 def get_dishes():
 
@@ -170,3 +217,4 @@ def get_dishes():
         con.close()
 
     return jsonify(foods), 200
+
