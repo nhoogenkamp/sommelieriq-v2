@@ -73,3 +73,24 @@ export function uploadSauces(entry) {
       });
     });
 }
+
+// Updates one dish.
+export function updateDish(entry) {
+  return fetch(`${API_URL}/updateDish`, {
+    method: "PUT",
+    credentials: "include",
+    body: JSON.stringify(entry),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          throw new Error(json.error || json.errors);
+        }
+
+        return json;
+      });
+    });
+}
