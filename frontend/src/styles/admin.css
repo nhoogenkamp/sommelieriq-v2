@@ -547,3 +547,83 @@
         0 0 0 3px rgba(122, 0, 38, 0.18),
         0 4px 10px rgba(92, 0, 24, 0.2);
 }
+
+
+
+
+/* =========================================
+   FOOD TABLE COLUMN WIDTHS
+   ========================================= */
+
+.food-table .food-name {
+    width: 14%;
+    text-align: left;
+}
+
+.food-table .food-category {
+    width: 10%;
+    text-align: center;
+}
+
+.food-table .food-description {
+    width: 22%;
+    text-align: left;
+}
+
+.food-table .food-body-score,
+.food-table .food-tannin-score,
+.food-table .food-acidity-score,
+.food-table .food-sweetness-score {
+    width: 7%;
+    text-align: center;
+}
+
+.food-table .food-available {
+    width: 7%;
+    text-align: center;
+}
+
+.food-table .food-colour-wine {
+    width: 10%;
+    text-align: center;
+}
+
+.food-table .food-requires-sauce {
+    width: 9%;
+    text-align: center;
+}
+
+
+/* =========================================
+   MOBILE FOOD TABLE
+   ========================================= */
+
+@media (max-width: 600px) {
+    .food-table .food-description,
+    .food-table .food-body-score,
+    .food-table .food-tannin-score,
+    .food-table .food-acidity-score,
+    .food-table .food-sweetness-score {
+        display: none;
+    }
+
+    .food-table .food-name {
+        width: 30%;
+    }
+
+    .food-table .food-category {
+        width: 20%;
+    }
+
+    .food-table .food-available {
+        width: 15%;
+    }
+
+    .food-table .food-colour-wine {
+        width: 20%;
+    }
+
+    .food-table .food-requires-sauce {
+        width: 15%;
+    }
+}

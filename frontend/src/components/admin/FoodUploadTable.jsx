@@ -1,6 +1,6 @@
 function FoodUploadTable({ dishes }) {
   return (
-    <table className="food-table upload-food-table">
+    <table className="wine-table food-table">
       <thead>
         <tr>
           <th className="food-name">Dish Name</th>
