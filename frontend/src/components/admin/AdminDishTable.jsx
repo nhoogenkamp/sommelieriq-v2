@@ -1,6 +1,8 @@
+import DeleteDishPopup from "./DeleteDishPopup";
+
 function AdminDishTable({ dishes, deleteSelectedDish }) {
   return (
-    <table className="food-table admin-food-table">
+    <table className="wine-table food-table admin-food-table">
       <thead>
         <tr>
           <th className="food-id">Food ID</th>
@@ -37,18 +39,11 @@ function AdminDishTable({ dishes, deleteSelectedDish }) {
             </td>
 
             {deleteSelectedDish && (
-              <td className="food-delete">
-                <button
-                  className="food-delete-button"
-                  type="button"
-                  onClick={() => {
-                    if (window.confirm("Delete this dish?")) {
-                      deleteSelectedDish(dish.food_id);
-                    }
-                  }}
-                >
-                  Delete
-                </button>
+              <td className="wine-delete">
+                <DeleteDishPopup
+                  dish={dish}
+                  deleteSelectedDish={deleteSelectedDish}
+                />
               </td>
             )}
           </tr>
