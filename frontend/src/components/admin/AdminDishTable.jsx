@@ -55,11 +55,14 @@ function AdminDishTable({ dishes, updateSelectedDish, deleteSelectedDish, }) {
 
             <td className="food-category">
               {updateSelectedDish ? (
-                <input
-                  type="text"
+                <select
                   id={`dish-category-${dish.food_id}`}
                   defaultValue={dish.category}
-                />
+                >
+                  <option>starter</option>
+                  <option>main</option>
+                  <option>dessert</option>
+                </select>
               ) : (
                 dish.category
               )}
@@ -148,11 +151,20 @@ function AdminDishTable({ dishes, updateSelectedDish, deleteSelectedDish, }) {
 
             <td className="food-colour-wine">
               {updateSelectedDish ? (
-                <input
-                  type="text"
+                <select
                   id={`dish-colour-${dish.food_id}`}
                   defaultValue={dish.colour_wine}
-                />
+                >
+                  <option value="red">Red</option>
+                  <option value="white">White</option>
+                  <option value="rose">Rosé</option>
+                  <option value="non_alcoholic">Non-Alcoholic</option>
+                  <option value="sherry">Sherry</option>
+                  <option value="sparkling">Sparkling</option>
+                  <option value="champagne">Champagne</option>
+                  <option value="dessert">Dessert</option>
+                  <option value="port">Port</option>
+                </select>
               ) : (
                 dish.colour_wine
               )}
