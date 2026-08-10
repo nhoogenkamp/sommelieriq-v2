@@ -842,3 +842,263 @@
         font-size: 0.7rem;
     }
 }
+
+/* =========================================
+   ADMIN DISH UPDATE TABLE
+   ========================================= */
+
+.admin-dish-table {
+    table-layout: fixed;
+}
+
+
+/* =========================================
+   ADMIN DISH COLUMN WIDTHS
+   ========================================= */
+
+.admin-dish-table .food-id {
+    width: 5%;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.admin-dish-table .food-name {
+    width: 10%;
+}
+
+.admin-dish-table .food-category {
+    width: 8%;
+}
+
+.admin-dish-table .food-description {
+    width: 16%;
+}
+
+.admin-dish-table .food-body-score,
+.admin-dish-table .food-tannin-score,
+.admin-dish-table .food-acidity-score,
+.admin-dish-table .food-sweetness-score {
+    width: 6%;
+    text-align: center;
+}
+
+.admin-dish-table .food-available {
+    width: 7%;
+    text-align: center;
+}
+
+.admin-dish-table .food-colour-wine {
+    width: 8%;
+    text-align: center;
+}
+
+.admin-dish-table .food-requires-sauce {
+    width: 8%;
+    text-align: center;
+}
+
+.admin-dish-table .food-update {
+    width: 8%;
+    text-align: center;
+}
+
+.admin-dish-table .food-delete {
+    width: 8%;
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   ADMIN DISH INPUTS
+   ========================================= */
+
+.admin-dish-table input,
+.admin-dish-table select,
+.admin-dish-table textarea {
+    width: 100%;
+    min-width: 0;
+
+    padding: 7px 8px;
+
+    background: #ffffff;
+    color: #2b1b1f;
+
+    border: 1px solid #d8c8c3;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 0.75rem;
+
+    box-sizing: border-box;
+}
+
+
+/* Keep number fields compact. */
+.admin-dish-table input[type="number"] {
+    text-align: center;
+}
+
+
+/* Description field */
+.admin-dish-table textarea {
+    min-height: 55px;
+
+    resize: vertical;
+}
+
+
+/* Focus styling to match the rest of the site. */
+.admin-dish-table input:focus,
+.admin-dish-table select:focus,
+.admin-dish-table textarea:focus {
+    outline: none;
+
+    border-color: #7a0026;
+    box-shadow: 0 0 0 2px rgba(122, 0, 38, 0.12);
+}
+
+
+/* =========================================
+   FOOD UPDATE BUTTON
+   ========================================= */
+
+.food-update-button {
+    display: inline-block;
+
+    min-width: 68px;
+    padding: 7px 12px;
+
+    background: #7a0026;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 25px;
+
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    line-height: 1.2;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.food-update-button:hover {
+    background: #5c0018;
+
+    box-shadow: 0 4px 10px rgba(92, 0, 24, 0.2);
+}
+
+.food-update-button:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(122, 0, 38, 0.18),
+        0 4px 10px rgba(92, 0, 24, 0.2);
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 1024px) {
+
+    .admin-dish-table th,
+    .admin-dish-table td {
+        padding: 8px 5px;
+
+        font-size: 0.68rem;
+    }
+
+    .admin-dish-table input,
+    .admin-dish-table select,
+    .admin-dish-table textarea {
+        padding: 6px;
+
+        font-size: 0.68rem;
+    }
+
+    .food-update-button {
+        min-width: 60px;
+
+        padding: 6px 9px;
+
+        font-size: 0.68rem;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+
+   Keeps the most useful editable columns visible.
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .admin-dish-table .food-description,
+    .admin-dish-table .food-body-score,
+    .admin-dish-table .food-tannin-score,
+    .admin-dish-table .food-acidity-score,
+    .admin-dish-table .food-sweetness-score,
+    .admin-dish-table .food-colour-wine {
+        display: none;
+    }
+
+    .admin-dish-table .food-id {
+        width: 10%;
+    }
+
+    .admin-dish-table .food-name {
+        width: 22%;
+    }
+
+    .admin-dish-table .food-category {
+        width: 18%;
+    }
+
+    .admin-dish-table .food-available {
+        width: 13%;
+    }
+
+    .admin-dish-table .food-requires-sauce {
+        width: 15%;
+    }
+
+    .admin-dish-table .food-update {
+        width: 12%;
+    }
+
+    .admin-dish-table .food-delete {
+        width: 10%;
+    }
+
+    .admin-dish-table th,
+    .admin-dish-table td {
+        padding: 6px 4px;
+
+        font-size: 0.6rem;
+    }
+
+    .admin-dish-table input,
+    .admin-dish-table select {
+        padding: 5px;
+
+        font-size: 0.6rem;
+    }
+
+    .food-update-button {
+        min-width: 52px;
+
+        padding: 5px 7px;
+
+        font-size: 0.6rem;
+    }
+}

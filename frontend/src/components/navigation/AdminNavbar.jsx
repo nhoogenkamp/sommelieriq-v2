@@ -35,7 +35,11 @@ function AdminNavbar () {
 
             <NavLink to={`/admin/restaurants/${restaurantId}/food/dishdeletion`}>
                 Delete Dish
-            </NavLink>                       
+            </NavLink>   
+
+            <NavLink to={`/admin/restaurants/${restaurantId}/food/update`}>
+                Update Dish
+            </NavLink>   
         </nav>
     );
 }
