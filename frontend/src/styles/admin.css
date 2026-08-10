@@ -753,3 +753,92 @@
         font-size: 0.6rem;
     }
 }
+
+
+/* =========================================
+   SAUCE TABLE
+   Same visual style as Wine Table
+   ========================================= */
+
+.sauce-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+/* =========================================
+   SAUCE COLUMN WIDTHS
+   ========================================= */
+
+.sauce-table .sauce-name {
+    width: 25%;
+    text-align: left;
+}
+
+.sauce-table .sauce-body,
+.sauce-table .sauce-tannin,
+.sauce-table .sauce-acidity,
+.sauce-table .sauce-sweetness {
+    width: 15%;
+    text-align: center;
+}
+
+.sauce-table .sauce-available {
+    width: 15%;
+    text-align: center;
+}
+
+
+/* =========================================
+   TABLET SAUCE TABLE
+   ========================================= */
+
+@media (max-width: 1024px) {
+    .sauce-table th,
+    .sauce-table td {
+        padding: 10px 7px;
+
+        font-size: 0.75rem;
+    }
+}
+
+
+/* =========================================
+   MOBILE SAUCE TABLE
+
+   Shows:
+   Name | Body | Acidity | Sweetness | Available
+   ========================================= */
+
+@media (max-width: 600px) {
+    .sauce-table .sauce-tannin {
+        display: none;
+    }
+
+    .sauce-table .sauce-name {
+        width: 30%;
+    }
+
+    .sauce-table .sauce-body {
+        width: 17.5%;
+    }
+
+    .sauce-table .sauce-acidity {
+        width: 17.5%;
+    }
+
+    .sauce-table .sauce-sweetness {
+        width: 17.5%;
+    }
+
+    .sauce-table .sauce-available {
+        width: 17.5%;
+    }
+
+    .sauce-table th,
+    .sauce-table td {
+        padding: 10px 6px;
+
+        font-size: 0.7rem;
+    }
+}

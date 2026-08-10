@@ -1,6 +1,6 @@
 function SauceUploadTable({ sauces }) {
   return (
-    <table className="sauce-table upload-sauce-table">
+    <table className="wine-table sauce-table">
       <thead>
         <tr>
           <th className="sauce-name">Name</th>
