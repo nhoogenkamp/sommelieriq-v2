@@ -250,3 +250,54 @@ def validate_restaurant_ID(data):
                 errors.append("Restaurant_id must greater than 1")     
     
     return errors
+
+
+# validating uploaded food dishes
+def validate_dishes(data):
+
+    fields = ["dish_name","category", "description","body_score", "tannin_score", "acidity_score", "sweetness_score","available","colour_wine", "requires_sauce" ]
+
+    errors = []
+
+    # Checks that all required fields are present.
+    for f in fields:
+        if f not in data:
+            errors.append(f"{f} is required")
+
+    # Checks text fields.
+    inputstring = ["dish_name", "category", "description", "colour_wine" ]
+
+    for s in inputstring:
+        if not isinstance(data.get(s), str):
+            errors.append(f"{s} must be text")
+
+    # Checks whole number fields.
+    inputint = ["body_score", "tannin_score", "acidity_score", "sweetness_score", "available", "requires_sauce"]
+
+    for i in inputint:
+        if not isinstance(data.get(i), int):
+            errors.append(f"{i} must be a whole number")
+
+    # Checks availability is either 0 or 1.
+    if "available" in data:
+        available_numbers = [0, 1]
+
+        if data["available"] not in available_numbers:
+            errors.append("Available is only 0 or 1")
+
+    # Checks requires_sauce is either 0 or 1.
+    if "requires_sauce" in data:
+        sauce_numbers = [0, 1]
+
+        if data["requires_sauce"] not in sauce_numbers:
+            errors.append("requires_sauce is only 0 or 1")
+
+    # Checks all food scores are between 0 and 20.
+    inputscore = [ "body_score", "tannin_score", "acidity_score", "sweetness_score"]
+
+    for i in inputscore:
+        if isinstance(data.get(i), int):
+            if data[i] < 0 or data[i] > 20:
+                errors.append(f"{i} must be between 0 and 20")
+
+    return errors
