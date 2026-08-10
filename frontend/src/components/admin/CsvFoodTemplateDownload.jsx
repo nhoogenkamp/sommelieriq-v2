@@ -1,41 +1,32 @@
-//https://freddydiengott.com/blogs/csv-react
 
-function CsvTemplateDownload() {
-
-  const fileName = "wine_template.csv";
+// Food template same style as Wine
+function CsvFoodTemplateDownload() {
+  const fileName = "food_template.csv";
 
   const data = [
     [
-      "name",
-      "wine_type",
-      "grape",
-      "country",
-      "region",
-      "year",
-      "bottle_type",
-      "price",
-      "available",
+      "dish_name",
+      "category",
       "description",
       "body_score",
       "tannin_score",
       "acidity_score",
       "sweetness_score",
+      "available",
+      "colour_wine",
+      "requires_sauce",
     ],
     [
-      "Example Merlot",
-      "red",
-      "Merlot",
-      "France",
-      "Bordeaux",
-      2022,
-      "Bottle",
-      39.95,
+      "Grilled Steak",
+      "Main Course",
+      "Grilled steak, served with vegetables",
+      18,
+      16,
+      8,
+      2,
       1,
-      "Rich, smooth red wine",
-      15,
-      14,
-      10,
-      3,
+      "red",
+      0,
     ],
   ];
 
@@ -64,14 +55,10 @@ function CsvTemplateDownload() {
   const url = URL.createObjectURL(blob);
 
   return (
-    <a
-      href={url}
-      download={fileName}
-    >
-      Download Template
+    <a href={url} download={fileName}>
+      Download Food Template
     </a>
   );
 }
 
-export default CsvTemplateDownload;
-
+export default CsvFoodTemplateDownload;
