@@ -43,8 +43,8 @@ def send_dish():
             selected_sauce = selected["sauce"]
 
             # SQL query searches for matching food item : https://www.w3schools.com/python/python_mysql_where.asp
-            sql = "SELECT * FROM food_items WHERE dish_name = %s"
-            dish = (selected_dish,)
+            sql = """ SELECT * FROM food_items WHERE dish_name = %s AND restaurant_id = %s AND available = 1"""
+            dish = (selected_dish, restaurant_id)
 
             # Execute SQL query safely to prevent SQL Injection
             cursor.execute(sql, dish)
