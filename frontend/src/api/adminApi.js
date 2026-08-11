@@ -48,3 +48,21 @@ export function checkAdmin() {
       });
     });
 }
+
+// Logs out of the Flask session.
+export function logoutAdmin() {
+  return fetch(`${API_URL}/logout`, {
+    method: "POST",
+    credentials: "include",
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+
+        return json;
+      });
+    });
+}
