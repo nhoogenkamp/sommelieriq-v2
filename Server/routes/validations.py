@@ -102,8 +102,11 @@ def validate_registration(data):
         elif not PASSWORD_REGEX.match (data["password"]):
                 errors.append("Please ensure password has one lowercase, one uppercase, one special character and minimum 8 characters long ")
 
-
-    return errors
+    if "role" in data:
+        allowed_roles = ["owner", "manager", "sommelier", "staff"]
+        if data["role"] not in allowed_roles:
+            errors.append("Role is incorrect")
+        return errors
 
 # validating login
 def validate_login(data):
