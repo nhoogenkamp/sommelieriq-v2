@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginAdmin } from "../../api/adminApi";
+import { AuthContext } from "../../context/AuthContext";
 
 function Login() {
   // Stores the username and password entered in the form.
@@ -10,6 +11,11 @@ function Login() {
 
   // Stores login errors without hiding the form.
   const [validationError, setValidationError] = useState("");
+
+  // Reads the login function in AuthContext.
+  // useContext allows a child component to access values
+  // https://react.dev/reference/react/useContext
+  const { login } = useContext(AuthContext);
 
   // Used to move to another React route after login.
   // https://reactrouter.com/api/hooks/useNavigate
@@ -24,6 +30,10 @@ function Login() {
       setValidationError("");
 
       const admin = await loginAdmin(username, password);
+
+      // Stores the successfully logged-in user's information
+      // inside Admin AuthContext so other components can access it.
+      login(admin);
 
       // Clears the form after a successful login.
       setUsername("");
