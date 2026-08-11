@@ -4,10 +4,12 @@ from routes.validations import validate_delete_wine
 import mysql.connector
 
 def delete_wine():
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-            }), 401
+
+    # Testing new Decorator for session checking
+    #if not session.get("loggedin"):
+    #    return jsonify({
+    #        "error": "Please login first"
+    #        }), 401 
     
     data = request.get_json()
     

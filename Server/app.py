@@ -13,6 +13,7 @@ from routes.uploadwines import upload_wines
 from routes.uploadfood import upload_dishes
 from routes.uploadSauces import upload_sauces
 from routes.deleteDish import delete_dish
+from routes.authcontrol import login_required
 
 import os
 
@@ -95,6 +96,7 @@ def uploading_wines():
     return upload_wines()
 
 @app.route('/deleteWine', methods=['DELETE'])
+@login_required
 def deleting_wine():
     return delete_wine()
 
