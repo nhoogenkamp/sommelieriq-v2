@@ -25,3 +25,26 @@ export function loginAdmin(username, password) {
       });
     });
 }
+
+// Checks if they already has an active Flask session.
+export function checkAdmin() {
+  return fetch(`${API_URL}/checkAdmin`, {
+    method: "GET",
+    credentials: "include",
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+
+        // 401 is expected when there is no active login session.
+        if (response.status === 401) {
+          return json;
+        }
+        // Other failed responses should still be treated as errors.
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+
+        return json;
+      });
+    });
+}
