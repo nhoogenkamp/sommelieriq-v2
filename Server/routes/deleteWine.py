@@ -43,7 +43,7 @@ def delete_wine():
             }), 404
     
         # delete wine from wines table 
-        sql = "DELETE FROM wines WHERE wine_id = %s"
+        sql = "DELETE FROM wines WHERE wine_id = %s AND restaurant_id = %s"
         values = (wine_id,)
 
         cursor.execute(sql, values)
