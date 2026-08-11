@@ -1297,3 +1297,23 @@
         font-size: 0.6rem;
     }
 }
+
+.admin-logout-button {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+
+    /* Makes button text match the NavLinks */
+    font: inherit;
+
+    /* Removes default button appearance */
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
+
+.admin-logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}

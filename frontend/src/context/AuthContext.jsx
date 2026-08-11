@@ -1,5 +1,5 @@
 import { createContext, useCallback, useMemo, useState, useEffect } from "react";
-import { checkAdmin } from "../api/adminApi";
+import { checkAdmin, logoutAdmin } from "../api/adminApi";
 
 // https://react.dev/reference/react/createContext
 // similar to https://react.dev/reference/react/useContext
@@ -9,7 +9,7 @@ function AuthProvider({ children }) {
     
     // Stores the currently logged-in user's information.
     const [currentUser, setCurrentUser] = useState(null);
-    
+
     // Stores whether AuthContext is still checking the existing login session.
     const [isLoading, setIsLoading] = useState(true);
 
@@ -21,6 +21,12 @@ function AuthProvider({ children }) {
         restaurantId: response.restaurant_id,
         role: response.role,
         });
+    }, []);
+
+    // Logs the user out of the Flask session and removes the user information from AuthContext.
+    const logout = useCallback(async () => {
+    await logoutAdmin();
+    setCurrentUser(null);
     }, []);
 
     // Checks if an existing Flask login session is available when React loads.
@@ -54,8 +60,10 @@ function AuthProvider({ children }) {
     // https://react.dev/reference/react/useMemo
     const contextValue = useMemo(() => ({
         currentUser,
-        login
-    }), [currentUser, login]);
+        login,
+        logout,
+        isLoading
+    }), [currentUser, login, logout, isLoading]);
 
     // children represents the components placed inside AuthProvider.
     // These components will be able to access the values in AuthContext.

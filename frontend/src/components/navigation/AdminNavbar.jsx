@@ -1,47 +1,100 @@
-import { NavLink, useParams} from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
-function AdminNavbar () {
-    const {restaurantId} = useParams();
-    return (
-        <nav>
-            {/* This is currently the main public page. */}
-            <NavLink to="/login">
-                Login
-            </NavLink>
+function AdminNavbar() {
 
-            <NavLink to={`/admin/restaurants/${restaurantId}/dashboard`}>
-                Dashboard
-            </NavLink>
+  const { restaurantId } = useParams();
 
-            <NavLink to={`/admin/restaurants/${restaurantId}/wines/availability`}>
-                Availability
-            </NavLink>
+  // Gets the current user and logout function from AuthContext.
+  // https://react.dev/reference/react/useContext
+  const { currentUser, logout } = useContext(AuthContext);
 
-            <NavLink to={`/admin/restaurants/${restaurantId}/wines/price`}>
-                Update Price
-            </NavLink>
+  // Used to navigate back to login after logout.
+  // https://reactrouter.com/api/hooks/useNavigate
+  const navigate = useNavigate();
 
-            <NavLink to={`/admin/restaurants/${restaurantId}/wines/delete`}>
-                Delete Wine
-            </NavLink>
 
-            <NavLink to={`/admin/restaurants/${restaurantId}/wines/upload`}>
-                Upload Wines
-            </NavLink>
+  // Logs the user out and returns them to the login page.
+  async function handleLogout() {
 
-            <NavLink to={`/admin/restaurants/${restaurantId}/food/foodupload`}>
-                Upload Dish
-            </NavLink>      
+    try {
+      await logout();
 
-            <NavLink to={`/admin/restaurants/${restaurantId}/food/dishdeletion`}>
-                Delete Dish
-            </NavLink>   
+      navigate("/login");
 
-            <NavLink to={`/admin/restaurants/${restaurantId}/food/update`}>
-                Update Dish
-            </NavLink>   
-        </nav>
-    );
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+
+  return (
+    <nav>
+
+      {/* Shows Login only when there is no logged-in user. */}
+      {!currentUser && (
+        <NavLink to="/login">
+          Login
+        </NavLink>
+      )}
+
+
+      {/* These links are available to every admin role.
+      ProtectedRoute still checks whether the user can access them. */}
+      {currentUser && (
+        <>
+          <NavLink to={`/admin/restaurants/${restaurantId}/dashboard`}>
+            Dashboard
+          </NavLink>
+
+          <NavLink to={`/admin/restaurants/${restaurantId}/wines/availability`}>
+            Availability
+          </NavLink>
+        </>
+      )}
+
+
+      {/* Staff cannot see wine and food management links.
+      Owner, Manager and Sommelier can access these pages. */}
+      {currentUser && currentUser.role !== "staff" && (
+        <>
+          <NavLink to={`/admin/restaurants/${restaurantId}/wines/price`}>
+            Update Price
+          </NavLink>
+
+          <NavLink to={`/admin/restaurants/${restaurantId}/wines/delete`}>
+            Delete Wine
+          </NavLink>
+
+          <NavLink to={`/admin/restaurants/${restaurantId}/wines/upload`}>
+            Upload Wines
+          </NavLink>
+
+          <NavLink to={`/admin/restaurants/${restaurantId}/food/foodupload`}>
+            Upload Dish
+          </NavLink>
+
+          <NavLink to={`/admin/restaurants/${restaurantId}/food/dishdeletion`}>
+            Delete Dish
+          </NavLink>
+
+          <NavLink to={`/admin/restaurants/${restaurantId}/food/update`}>
+            Update Dish
+          </NavLink>
+        </>
+      )}
+
+
+      {/* Shows Logout only when a user is logged in. */}
+      {currentUser && (
+        <button className="admin-logout-button" type="button" onClick={handleLogout}>
+            Logout
+        </button>
+      )}
+
+    </nav>
+  );
 }
 
-export default AdminNavbar ;
+export default AdminNavbar;
