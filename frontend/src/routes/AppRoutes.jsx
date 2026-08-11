@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import ProtectedRoute from "../context/ProtectedRoute";
+
 import Restaurants from "../pages/Restaurants";
 import WineList from "../pages/WineList";
 import PublicLayout from "../layouts/PublicLayout";
@@ -15,6 +17,7 @@ import DishDeletion from "../pages/admin/DishDeletion";
 import DishUpdate from "../pages/admin/DishUpdate";
 
 // how to use react router https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
+// protected route https://dev.to/olumidesamuel_/implementing-protected-routes-and-authentication-in-react-2026-edition-4k6e
 
 function AppRoutes() {
   return (
@@ -43,41 +46,50 @@ function AppRoutes() {
             element={<Login />}
           />
 
-          <Route
-            path="/admin/restaurants/:restaurantId/dashboard"
-            element={<Dashboard />}
-          />        
-          <Route
-            path="/admin/restaurants/:restaurantId/wines/availability"
-            element={<WineAvailability/>}
-          />
-          <Route
-            path="/admin/restaurants/:restaurantId/wines/price"
-            element={<WinePrice />}
-          />
-          <Route
-            path="/admin/restaurants/:restaurantId/wines/delete"
-            element={<WineDeletion />}
-          />
+          {/* All admin roles can access these pages */}
+          <Route element={<ProtectedRoute allowedRoles={["owner", "manager", "sommelier", "staff"]}/>}>        
 
-          <Route
-            path="/admin/restaurants/:restaurantId/wines/upload"
-            element={<WineUpload />}
-          />
-          <Route
-            path="/admin/restaurants/:restaurantId/food/foodupload"
-            element={<MenuUpload />}
-          />
+            <Route
+              path="/admin/restaurants/:restaurantId/dashboard"
+              element={<Dashboard />}
+            />        
+            <Route
+              path="/admin/restaurants/:restaurantId/wines/availability"
+              element={<WineAvailability/>}
+            />
+          </Route>
 
-          <Route
-            path="/admin/restaurants/:restaurantId/food/dishdeletion"
-            element={<DishDeletion/>}
-          />    
+          {/* All admin roles can access these pages */}
+          <Route element={<ProtectedRoute allowedRoles={["owner", "manager", "sommelier"]}/>}>  
 
-          <Route
-            path="/admin/restaurants/:restaurantId/food/update"
-            element={<DishUpdate />}
-          />  
+            <Route
+              path="/admin/restaurants/:restaurantId/wines/price"
+              element={<WinePrice />}
+            />
+            <Route
+              path="/admin/restaurants/:restaurantId/wines/delete"
+              element={<WineDeletion />}
+            />
+
+            <Route
+              path="/admin/restaurants/:restaurantId/wines/upload"
+              element={<WineUpload />}
+            />
+            <Route
+              path="/admin/restaurants/:restaurantId/food/foodupload"
+              element={<MenuUpload />}
+            />
+
+            <Route
+              path="/admin/restaurants/:restaurantId/food/dishdeletion"
+              element={<DishDeletion/>}
+            />    
+
+            <Route
+              path="/admin/restaurants/:restaurantId/food/update"
+              element={<DishUpdate />}
+            />  
+          </Route>          
         </Route>
       </Routes>
     </BrowserRouter>
