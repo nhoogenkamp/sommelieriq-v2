@@ -7,11 +7,6 @@ import mysql.connector
 
 def upload_dishes():
 
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-        }), 401
-
     data = request.get_json()
 
     if not data or "dishes" not in data:

@@ -4,12 +4,7 @@ from routes.validations import validate_update_wine
 import mysql.connector
 
 def update_wine():
-
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-            }), 401
-        
+     
     data = request.get_json()
 
     errors = validate_update_wine(data)

@@ -18,10 +18,15 @@ def add_admin():
             "errors": errors
         }), 400
 
+    if session["role"] == "manager" and data["role"] == "owner":
+        return jsonify({
+            "errors": ["Managers cannot create an Owner"]
+        }), 403
 
-    restaurant_id = data["restaurant_id"]
+    restaurant_id = session["restaurant_id"]
     username = data["username"]
     password = data["password"]
+    role = data["role"]
 
     # turn normal password into hashed password
     password_hash = generate_password_hash(password)
@@ -52,8 +57,8 @@ def add_admin():
             }), 400
 
         # insert admin into admins table
-        sql = "INSERT INTO admins (restaurant_id, username, password_hash) VALUES (%s, %s, %s)"
-        values = (restaurant_id, username, password_hash)
+        sql = "INSERT INTO admins (restaurant_id, username, password_hash, role) VALUES (%s, %s, %s, %s)"
+        values = (restaurant_id, username, password_hash, role)
 
         cursor.execute(sql, values)
 

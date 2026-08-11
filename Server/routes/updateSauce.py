@@ -6,11 +6,6 @@ import mysql.connector
 
 def update_sauce():
 
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-        }), 401
-
     data = request.get_json()
 
     # Uses the already existing sauce validation.

@@ -80,11 +80,6 @@ def get_wines():
 
 def get_all_wines():
     
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-            }), 401
-    
     restaurant_id = session["restaurant_id"]
 
     # 503 error for connection

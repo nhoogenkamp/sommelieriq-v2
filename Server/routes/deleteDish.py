@@ -5,12 +5,7 @@ import mysql.connector
 
 
 def delete_dish():
-
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-        }), 401
-
+    
     data = request.get_json()
 
     # Checks the food ID using the existing validation function.

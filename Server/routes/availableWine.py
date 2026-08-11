@@ -5,11 +5,6 @@ import mysql.connector
 
 def available_wine():
 
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-            }), 401
-
     data = request.get_json()
 
     # checking erros in validations.py

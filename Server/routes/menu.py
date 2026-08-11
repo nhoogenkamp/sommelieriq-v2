@@ -119,11 +119,6 @@ def get_sauces():
 # Gets all sauces for the logged-in restaurant.
 def get_all_sauces():
 
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-        }), 401
-
     restaurant_id = session["restaurant_id"]
 
     try:
@@ -165,11 +160,6 @@ def get_all_sauces():
 
 
 def get_dishes():
-
-    if not session.get("loggedin"):
-        return jsonify({
-            "error": "Please login first"
-        }), 401
 
     restaurant_id = session["restaurant_id"]
 
