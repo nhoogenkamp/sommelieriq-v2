@@ -14,6 +14,8 @@ function DishUpdate() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [sauceError, setSauceError] = useState("");
+  const [sauceMessage, setSauceMessage] = useState("");
 
   // Fetches all dishes and sauces for the logged-in restaurant.
   // https://react.dev/learn/synchronizing-with-effects
@@ -97,8 +99,8 @@ function DishUpdate() {
       available: Number(updatedSauce.available),
     };
 
-    setMessage("");
-    setError("");
+    setSauceError("");
+    setSauceMessage("");
 
     updateSauce(entry)
       .then(function (json) {
@@ -113,10 +115,10 @@ function DishUpdate() {
         });
 
         setSauces(updated);
-        setMessage(json.message);
+        setSauceMessage(json.message);
       })
       .catch(function (error) {
-        setError(error.message);
+        setSauceError(error.message);
       });
   }
 
@@ -131,22 +133,12 @@ function DishUpdate() {
   }
 
 
-  // If there is an error it will print the message from dishApi.js.
-  if (error) {
-    return (
-      <main>
-        <h1>Update Food Menu</h1>
-        <p>{error}</p>
-      </main>
-    );
-  }
-
-
   return (
     <main>
       <h1>Update Food Menu</h1>
 
       {message && <p>{message}</p>}
+      {error && <p>{error}</p>}
 
       <h2>Update Dishes</h2>
 
@@ -166,6 +158,9 @@ function DishUpdate() {
 
       <h2>Update Sauces</h2>
 
+      {sauceError && <p>{sauceError}</p>}
+      {sauceMessage && <p>{sauceMessage}</p>}
+      
       {sauces.length === 0 ? (
         <p>No sauces are currently available.</p>
       ) : (
