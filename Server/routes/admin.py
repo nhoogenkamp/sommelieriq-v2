@@ -130,13 +130,15 @@ def login_admin():
         session["admin_id"] = admin["admin_id"]
         session["restaurant_id"] = admin["restaurant_id"]
         session["username"] = admin["username"]
+        session["role"] = admin["role"]
 
         print(session)
 
         return jsonify({
             "message": "Login successful",
             "username": admin["username"],
-            "restaurant_id": admin["restaurant_id"]
+            "restaurant_id": admin["restaurant_id"],
+            "role": admin["role"]
         }), 200
 
     return jsonify({
@@ -151,7 +153,8 @@ def check_admin():
         return jsonify({
             "logged_in": True,
             "username": session["username"],
-            "restaurant_id": session["restaurant_id"]
+            "restaurant_id": session["restaurant_id"],
+            "role": session["role"]
         }), 200
 
     return jsonify({
@@ -165,6 +168,7 @@ def logout_admin():
     session.pop("admin_id", None)
     session.pop("restaurant_id", None)
     session.pop("username", None)
+    session.pop("role", None)
 
     return jsonify({
         "message": "Logged out successfully"
