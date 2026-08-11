@@ -56,6 +56,7 @@ def wines():
     return get_wines()
 
 @app.route('/getallWines', methods=['GET'])
+@roles_required(["owner", "manager", "sommelier", "staff"])
 def all_wines():
     return get_all_wines()
 
@@ -66,6 +67,7 @@ def food_items():
 
 #get all food from db
 @app.route('/getDishes', methods=['POST'])
+@roles_required(["owner", "manager", "sommelier", "staff"])
 def dish_items():
     return get_dishes()
 
@@ -74,6 +76,7 @@ def sauce_items():
     return get_sauces()
 
 @app.route('/getAllSauces', methods=['GET'])
+@roles_required(["owner", "manager", "sommelier", "staff"])
 def all_sauces():
     return get_all_sauces()
 
@@ -83,6 +86,7 @@ def receive_dish():
     return send_dish()
 
 @app.route('/addAdmin', methods=['POST'])
+@roles_required(["owner", "manager"])
 def create_admin():
     return add_admin()
 
@@ -91,10 +95,12 @@ def admin_login():
     return login_admin()
 
 @app.route('/addWine', methods=['POST'])
+@roles_required(["owner", "manager", "sommelier"])
 def new_wine():
     return add_wine()
 
 @app.route("/uploadWines", methods=["POST"])
+@roles_required(["owner", "manager", "sommelier"])
 def uploading_wines():
     return upload_wines()
 
@@ -104,30 +110,37 @@ def deleting_wine():
     return delete_wine()
 
 @app.route('/deleteDish', methods=['DELETE'])
+@roles_required(["owner", "manager", "sommelier"])
 def deleting_dish():
     return delete_dish()
 
 @app.route('/uploadDishes', methods=['POST'])
+@roles_required(["owner", "manager", "sommelier"])
 def uploading_dishes():
     return upload_dishes()
 
 @app.route('/uploadSauces', methods=['POST'])
+@roles_required(["owner", "manager", "sommelier"])
 def uploading_sauces():
     return upload_sauces()
 
 @app.route('/updateDish', methods=['PUT'])
+@roles_required(["owner", "manager", "sommelier"])
 def updating_dish():
     return update_dish()
 
 @app.route('/updateWine', methods=['PUT'])
+@roles_required(["owner", "manager", "sommelier"])
 def updating_wine():
     return update_wine()
 
 @app.route('/updateSauce', methods=['PUT'])
+@roles_required(["owner", "manager", "sommelier"])
 def updating_sauce():
     return update_sauce()
 
 @app.route('/availableWine', methods=['PUT'])
+@roles_required(["owner", "manager", "sommelier", "staff"])
 def updating_available_wine():
     return available_wine()
 
@@ -136,6 +149,7 @@ def checking_admin():
     return check_admin()
 
 @app.route('/logout', methods=['POST'])
+@login_required
 def logout():
     return logout_admin()
 
