@@ -4,6 +4,8 @@ import google_auth_oauthlib.flow
 
 
 # OAuth client file downloaded from Google Cloud
+# https://developers.google.com/identity/protocols/oauth2/web-server?authuser=19#python_6
+
 CLIENT_SECRETS_FILE = "credentials.json"
 
 # SommelierIQ only needs permission to send email
