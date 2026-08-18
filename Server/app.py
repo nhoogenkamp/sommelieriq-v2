@@ -13,6 +13,7 @@ from routes.uploadwines import upload_wines
 from routes.uploadfood import upload_dishes
 from routes.uploadSauces import upload_sauces
 from routes.deleteDish import delete_dish
+from routes.gmail.gmail_auth import authorize, oauth2callback
 
 # https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/
 # https://flask-user.readthedocs.io/en/latest/authorization.html
@@ -152,6 +153,15 @@ def checking_admin():
 @login_required
 def logout():
     return logout_admin()
+
+# OAUTH 2 
+@app.route("/authorize")
+def authorize_route():
+    return authorize()
+
+@app.route("/oauth2callback")
+def oauth2callback_route():
+    return oauth2callback()
 
 if __name__ == "__main__":
     print("connecting to DB....")
