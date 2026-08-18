@@ -1,4 +1,7 @@
+import os
 from flask import Flask
+from dotenv import load_dotenv
+load_dotenv()
 from routes.wines import get_tables, get_wines , get_all_wines
 from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
 from routes.senddish import send_dish
@@ -20,7 +23,6 @@ from routes.gmail.send_email import send_email
 # https://flask-user.readthedocs.io/en/latest/authorization.html
 from routes.authcontrol import login_required, roles_required
 
-import os
 
 
 from flask_cors import CORS
@@ -164,18 +166,6 @@ def authorize_route():
 def oauth2callback_route():
     return oauth2callback()
 
-@app.route("/test-email")
-def test_email():
-    sent = send_email(
-        "20060898@mydbs.ie",
-        "SommelierIQ Test Email",
-        "This is a test email sent from SommelierIQ using the Gmail API."
-    )
-
-    if sent:
-        return "Test email sent successfully!"
-
-    return "Gmail has not been authorized.", 401
 
 if __name__ == "__main__":
     print("connecting to DB....")
