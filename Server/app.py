@@ -5,7 +5,7 @@ load_dotenv()
 from routes.wines import get_tables, get_wines , get_all_wines
 from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
 from routes.senddish import send_dish
-from routes.admin import add_admin, login_admin, check_admin, logout_admin
+from routes.admin import add_admin, login_admin, check_admin, logout_admin, reset_password
 from routes.addwine import add_wine
 from routes.deleteWine import delete_wine
 from routes.updateWine import update_wine
@@ -17,7 +17,6 @@ from routes.uploadfood import upload_dishes
 from routes.uploadSauces import upload_sauces
 from routes.deleteDish import delete_dish
 from routes.gmail.gmail_auth import authorize, oauth2callback
-from routes.gmail.send_email import send_email
 
 # https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/
 # https://flask-user.readthedocs.io/en/latest/authorization.html
@@ -166,6 +165,9 @@ def authorize_route():
 def oauth2callback_route():
     return oauth2callback()
 
+@app.route("/reset-password", methods=["POST"])
+def changing_password():
+    return reset_password()
 
 if __name__ == "__main__":
     print("connecting to DB....")

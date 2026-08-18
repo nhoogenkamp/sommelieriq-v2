@@ -3,6 +3,9 @@ from db import get_db_connection
 # flask library that helps create and read passwords
 from werkzeug.security import generate_password_hash, check_password_hash
 from routes.validations import validate_registration, validate_login
+from routes.validations import validate_password_reset
+from routes.gmail.reset_token import confirm_token
+
 import mysql.connector
 import secrets
 from routes.gmail.reset_email import send_reset_email
@@ -92,6 +95,85 @@ def add_admin():
     return jsonify({
         "message": "Admin account created"
     }), 201
+
+
+
+def reset_password():
+    data = request.get_json()
+
+    # checking errors in validations.py
+    errors = validate_password_reset(data)
+
+    if errors:
+        return jsonify({
+            "errors": errors
+        }), 400
+
+    token = data["token"]
+    password = data["password"]
+
+    # Validate the password reset token and get the email address.
+    # https://mailtrap.io/blog/flask-email-verification/
+    email = confirm_token(token)
+
+    if not email:
+        return jsonify({
+            "error": "Password reset link is invalid or has expired"
+        }), 400
+
+    # turn normal password into hashed password
+    password_hash = generate_password_hash(password)
+
+    try:
+        con = get_db_connection()
+        cursor = con.cursor(dictionary=True)
+
+    except mysql.connector.Error as err:
+        print("Error:", err.errno)
+
+        return jsonify({
+            "error": "Could not connect with database"
+        }), 503
+
+    try:
+        # Find the user linked to the email in the token.
+        check_sql = "SELECT * FROM admins WHERE email = %s"
+        check_value = (email,)
+
+        cursor.execute(check_sql, check_value)
+
+        admin = cursor.fetchone()
+
+        if not admin:
+            return jsonify({
+                "error": "User account could not be found"
+            }), 404
+
+        # Update password and verify account.
+        sql = """ UPDATE admins SET password_hash = %s, verified = %s  WHERE email = %s """
+        values = ( password_hash, True, email)
+
+        cursor.execute(sql, values)
+        con.commit()
+
+    except mysql.connector.Error as err:
+        print("Error:", err)
+        con.rollback()
+
+        return jsonify({
+            "error": "Could not update password"
+        }), 500
+
+    finally:
+        cursor.close()
+        con.close()
+
+    return jsonify({
+        "message": "Password updated successfully",
+        "redirect": "/login"
+    }), 200
+
+
 
 def login_admin():
 

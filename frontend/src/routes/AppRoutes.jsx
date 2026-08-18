@@ -40,13 +40,11 @@ function AppRoutes() {
           />
         </Route>
 
-        
         <Route element={<AdminLayout />}>          
           <Route
             path="/login"
             element={<Login />}
           />
-
           <Route
             path="/reset-password"
             element={<ResetPassword />}

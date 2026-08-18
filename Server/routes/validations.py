@@ -99,21 +99,39 @@ def validate_registration(data):
         if not EMAIL_REGEX.match(data["email"]):
             errors.append("Please enter a valid email address")
 
-  # TEMPORARY HASHED OUT AS I WILL USE LATERON          
-    #PASSWORD_REGEX = re.compile(
-    #r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$'
-#)
-   # if "password" in data:
-    #    if " " in data ["password"]:
-    #        errors.append("password can't contain spaces!")
-    #    elif not PASSWORD_REGEX.match (data["password"]):
-    #            errors.append("Please ensure password has one lowercase, one uppercase, one special character and minimum 8 characters long ")
-
     if "role" in data:
         allowed_roles = ["owner", "manager", "sommelier", "staff"]
         if data["role"] not in allowed_roles:
             errors.append("Role is incorrect")
     return errors
+
+# validating password reset
+def validate_password_reset(data):
+
+    errors = []
+    # checking if fields are not missing
+    fields = ["token", "password"]
+
+    for f in fields:
+        if f not in data:
+            errors.append(f"{f} is required")
+
+    # checking password requirements
+    PASSWORD_REGEX = re.compile(
+        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$'
+    )
+    if "password" in data:
+        if " " in data["password"]:
+            errors.append("Password can't contain spaces!")
+
+        elif not PASSWORD_REGEX.match(data["password"]):
+            errors.append(
+                "Please ensure password has one lowercase, one uppercase, "
+                "one number, one special character and is between 8 and 15 characters long"
+            )
+
+    return errors
+
 
 # validating login
 def validate_login(data):
@@ -135,7 +153,6 @@ def validate_availability(data):
 
     # Validations for add wine
     fields = ["wine_id", "available"]
-
     errors = []
 
     # checking if fields are not missing
@@ -144,7 +161,6 @@ def validate_availability(data):
             errors.append(f"{f} is required")
 
     if "wine_id" in data: 
-
         # checking if wine_id is an int and greater than 0
         if not isinstance(data.get("wine_id"), int):
             errors.append("wine_id must be a whole number")
