@@ -16,11 +16,15 @@ SCOPES = [
 
 def authorize():
     # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow.
-    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file( CLIENT_SECRETS_FILE, scopes=SCOPES)
+    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
+        CLIENT_SECRETS_FILE,
+        scopes=SCOPES,
+        autogenerate_code_verifier=False
+    )
      # This must exactly match one of the redirect URIs configured
     # in Google Cloud.
     
-    flow.redirect_uri = flask.url_for("oauth2callback_route",_external=True)
+    flow.redirect_uri = flask.url_for("oauth2callback_route", _external=True)
 
     authorization_url, state = flow.authorization_url(
         # Allows Google to provide a refresh token so the app
@@ -47,11 +51,14 @@ def oauth2callback():
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE,
         scopes=SCOPES,
-        state=state )
+        state=state,
+        autogenerate_code_verifier=False
+    )
 
     flow.redirect_uri = flask.url_for(
         "oauth2callback_route",
-        _external=True )
+        _external=True
+    )
 
     # Google's response contains the authorization code.
     authorization_response = flask.request.url
