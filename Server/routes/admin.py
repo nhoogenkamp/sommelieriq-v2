@@ -4,6 +4,10 @@ from db import get_db_connection
 from werkzeug.security import generate_password_hash, check_password_hash
 from routes.validations import validate_registration, validate_login
 import mysql.connector
+import secrets
+from routes.gmail.reset_email import send_reset_email
+
+
 
 def add_admin():
 
@@ -25,11 +29,16 @@ def add_admin():
 
     restaurant_id = session["restaurant_id"]
     username = data["username"]
-    password = data["password"]
     role = data["role"]
+    email = data["email"]
+
+    # Generate random temporary password.
+    # https://docs.python.org/3/library/secrets.html
+    temporary_password = secrets.token_urlsafe(32)
+
 
     # turn normal password into hashed password
-    password_hash = generate_password_hash(password)
+    password_hash = generate_password_hash(temporary_password)
     
     # 503 error for connection: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status
     try:
@@ -45,24 +54,26 @@ def add_admin():
     
     try:
         # checking if user exist
-        check_sql = "SELECT * FROM admins WHERE username = %s"
-        check_value= (username,)
+        check_sql =  """ SELECT * FROM admins WHERE email = %s OR username = %s"""
+        check_value= (email, username)
         
         cursor.execute(check_sql, check_value)
 
         admin_exists = cursor.fetchone()
         if admin_exists:
             return jsonify({
-                "error": "Username already exists"
+                "error": "User already exists"
             }), 400
 
         # insert admin into admins table
-        sql = "INSERT INTO admins (restaurant_id, username, password_hash, role) VALUES (%s, %s, %s, %s)"
-        values = (restaurant_id, username, password_hash, role)
+        sql = "INSERT INTO admins (restaurant_id, username, email, password_hash, role, verified) VALUES (%s, %s, %s, %s, %s, %s)"
+        values = (restaurant_id, username,email, password_hash, role, False)
 
         cursor.execute(sql, values)
 
         con.commit()
+
+        send_reset_email(email)
 
     # rollback https://www.geeksforgeeks.org/python/commit-rollback-operation-in-python/
     except mysql.connector.Error as err:
@@ -72,7 +83,7 @@ def add_admin():
         return jsonify({
             "error": "Could not add an account to the database"
         }), 500
-    
+
     # https://www.w3schools.com/python/showpython.asp?filename=demo_try_except5
     finally: 
         cursor.close()

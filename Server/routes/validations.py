@@ -69,8 +69,8 @@ def validate_wine(data):
 # validating add user
 def validate_registration(data):
 
-    # Validations for add wine
-    fields = ["restaurant_id", "username", "password"]
+    # Validations for add user
+    fields = ["username", "email", "role"]
 
     errors = []
 
@@ -93,20 +93,27 @@ def validate_registration(data):
        if (len(data["username"])) < 6 or " " in data ["username"]:
             errors.append("Username needs at least 6 Characters and no spaces!")
 
-    PASSWORD_REGEX = re.compile(
-    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$'
-)
-    if "password" in data:
-        if " " in data ["password"]:
-            errors.append("password can't contain spaces!")
-        elif not PASSWORD_REGEX.match (data["password"]):
-                errors.append("Please ensure password has one lowercase, one uppercase, one special character and minimum 8 characters long ")
+    # checking if email is valid
+    EMAIL_REGEX = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" )
+    if "email" in data:
+        if not EMAIL_REGEX.match(data["email"]):
+            errors.append("Please enter a valid email address")
+
+  # TEMPORARY HASHED OUT AS I WILL USE LATERON          
+    #PASSWORD_REGEX = re.compile(
+    #r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$'
+#)
+   # if "password" in data:
+    #    if " " in data ["password"]:
+    #        errors.append("password can't contain spaces!")
+    #    elif not PASSWORD_REGEX.match (data["password"]):
+    #            errors.append("Please ensure password has one lowercase, one uppercase, one special character and minimum 8 characters long ")
 
     if "role" in data:
         allowed_roles = ["owner", "manager", "sommelier", "staff"]
         if data["role"] not in allowed_roles:
             errors.append("Role is incorrect")
-        return errors
+    return errors
 
 # validating login
 def validate_login(data):

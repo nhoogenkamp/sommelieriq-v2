@@ -40,8 +40,3 @@ def confirm_token(token, expiration=TOKEN_EXPIRATION_SECONDS):
         logging.warning("Invalid password reset token.")
         return False
 
-
-def is_valid_email(email):
-    """Simple email validation function"""
-    email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-    return re.match(email_regex, email)
