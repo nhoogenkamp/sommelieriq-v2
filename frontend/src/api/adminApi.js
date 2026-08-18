@@ -83,7 +83,16 @@ export function resetPassword(token, password) {
       return response.json().then(function (json) {
 
         if (!response.ok) {
-          throw new Error(json.error);
+
+          if (json.errors) {
+            throw new Error(json.errors.join(", "));
+          }
+
+          if (json.error) {
+            throw new Error(json.error);
+          }
+
+          throw new Error("Could not reset password");
         }
 
         return json;
