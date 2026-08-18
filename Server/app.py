@@ -14,6 +14,7 @@ from routes.uploadfood import upload_dishes
 from routes.uploadSauces import upload_sauces
 from routes.deleteDish import delete_dish
 from routes.gmail.gmail_auth import authorize, oauth2callback
+from routes.gmail.send_email import send_email
 
 # https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/
 # https://flask-user.readthedocs.io/en/latest/authorization.html
@@ -162,6 +163,19 @@ def authorize_route():
 @app.route("/oauth2callback")
 def oauth2callback_route():
     return oauth2callback()
+
+@app.route("/test-email")
+def test_email():
+    sent = send_email(
+        "20060898@mydbs.ie",
+        "SommelierIQ Test Email",
+        "This is a test email sent from SommelierIQ using the Gmail API."
+    )
+
+    if sent:
+        return "Test email sent successfully!"
+
+    return "Gmail has not been authorized.", 401
 
 if __name__ == "__main__":
     print("connecting to DB....")
