@@ -15,6 +15,7 @@ import WineUpload from "../pages/admin/WineUpload";
 import MenuUpload from "../pages/admin/MenuUpload";
 import DishDeletion from "../pages/admin/DishDeletion";
 import DishUpdate from "../pages/admin/DishUpdate";
+import ResetPassword from "../pages/admin/ResetPassword";
 
 // how to use react router https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 // protected route https://dev.to/olumidesamuel_/implementing-protected-routes-and-authentication-in-react-2026-edition-4k6e
@@ -44,6 +45,11 @@ function AppRoutes() {
           <Route
             path="/login"
             element={<Login />}
+          />
+
+          <Route
+            path="/reset-password"
+            element={<ResetPassword />}
           />
 
           {/* All admin roles can access these pages */}

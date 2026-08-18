@@ -66,3 +66,27 @@ export function logoutAdmin() {
       });
     });
 }
+
+// Sends the password reset token and new password to Flask.
+export function resetPassword(token, password) {
+  return fetch(`${API_URL}/reset-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      token: token,
+      password: password
+    })
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+
+        return json;
+      });
+    });
+}
