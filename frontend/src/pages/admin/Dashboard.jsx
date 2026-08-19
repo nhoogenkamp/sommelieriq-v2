@@ -1,18 +1,21 @@
-import { useState, useContext, useEffect} from "react";
+import { useState, useContext, useEffect, useRef} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import {PieChart, Pie, Tooltip, Legend,BarChart, Bar, XAxis, YAxis,ResponsiveContainer} from "recharts";
 import { getDashboard } from "../../api/adminApi";
+import { ReactQRCode } from "@lglab/react-qr-code";
 
 // https://www.geeksforgeeks.org/reactjs/create-a-donut-chart-using-recharts-in-reactjs/
 // https://stacknotice.com/blog/recharts-react-data-visualization-2026 for bar chart
 function Dashboard() {
   const [dashboard, setDashboard] = useState(null);
   const [validationError, setValidationError] = useState("");
-
+  const qrCodeRef = useRef(null);
   const navigate = useNavigate();
   const { restaurantId } = useParams();
   const { currentUser } = useContext(AuthContext);
+  const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
+  const restaurantUrl = `${FRONTEND_URL}/restaurants/${restaurantId}/food-pairing`;
 
   console.log(currentUser);
   useEffect(function () {
@@ -50,6 +53,15 @@ function Dashboard() {
         value: wine.total
       };
     });
+
+// https://reactqrcode.com/examples/download
+function downloadQRCode() {
+  qrCodeRef.current?.download({
+    name: "SommelierIQ-QR-Code",
+    format: "png",
+    size: 1000
+  });
+}
 
     return (
     <section>
@@ -178,7 +190,33 @@ function Dashboard() {
               </button>
             </article>
 
-        )}        
+        )}     
+
+        {/* Only Owner and Manager can see restaurant QR information. */}
+        {currentUser &&
+          ["owner", "manager"].includes(currentUser.role) && (
+
+            <article className="dashboard-card">
+
+              <h2>Restaurant QR Code</h2>
+              <ReactQRCode
+                background="#FFFFFF"
+                marginSize={2}
+                ref={qrCodeRef}
+                size={160}
+                value={restaurantUrl}
+              />
+              <p>
+                You can download the QR code for your Wine Pairing page
+              </p>
+              <button
+                type="button" className="wine-update-button"
+                onClick={downloadQRCode}
+              >
+                Download QR Code
+              </button>
+            </article>
+        )}                   
       </div>
 
 
