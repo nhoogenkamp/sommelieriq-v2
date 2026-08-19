@@ -18,6 +18,7 @@ from routes.uploadwines import upload_wines
 from routes.uploadfood import upload_dishes
 from routes.uploadSauces import upload_sauces
 from routes.deleteDish import delete_dish
+from routes.dashboard import get_dashboard
 from routes.gmail.gmail_auth import authorize, oauth2callback
 
 # https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/
@@ -160,6 +161,11 @@ def updating_sauce():
 @roles_required(["owner", "manager", "sommelier", "staff"])
 def updating_available_wine():
     return available_wine()
+
+@app.route("/dashboard", methods=["GET"])
+@roles_required(["owner", "manager", "sommelier", "staff"])
+def dashboard():
+    return get_dashboard()
 
 @app.route('/checkAdmin', methods=['GET'])
 def checking_admin():

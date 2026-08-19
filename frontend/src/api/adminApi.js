@@ -156,3 +156,20 @@ export function requestPasswordReset(email) {
       });
     });
 }
+
+// Admin dashboard information 
+export function getDashboard() {
+  return fetch(`${API_URL}/dashboard`, {
+    method: "GET",
+    credentials: "include",
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+
+        if (!response.ok) {
+          throw new Error(json.error);
+        }
+        return json;
+      });
+    });
+}
