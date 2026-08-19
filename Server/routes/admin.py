@@ -1,14 +1,15 @@
 from flask import session, request, jsonify
+import re
 from db import get_db_connection
 # flask library that helps create and read passwords
 from werkzeug.security import generate_password_hash, check_password_hash
 from routes.validations import validate_registration, validate_login
-from routes.validations import validate_password_reset
+from routes.validations import validate_password_reset, validate_forgot_password
 from routes.gmail.reset_token import confirm_token
 
 import mysql.connector
 import secrets
-from routes.gmail.reset_email import send_reset_email
+from routes.gmail.reset_email import send_reset_email, send_forgot_password
 
 
 
@@ -248,6 +249,60 @@ def login_admin():
     return jsonify({
         "error": "Incorrect username or password"
     }), 401
+
+# forgot password for existing users only.
+def forgot_password():
+    # get JSON data sent from JavaScript
+    data = request.get_json()
+    # checking errors in validations.py
+    errors = validate_forgot_password(data)
+
+    if errors:
+        return jsonify({
+            "errors": errors
+        }), 400
+
+    email = data["email"]
+
+    try:
+        con = get_db_connection()
+        cursor = con.cursor(dictionary=True)
+
+    except mysql.connector.Error as err:
+        print("Error:", err.errno)
+
+        return jsonify({
+            "error": "Could not connect with database"
+        }), 503
+
+    try:
+        # checking if user exists
+        sql = "SELECT * FROM admins WHERE email = %s"
+        values = (email,)
+
+        cursor.execute(sql, values)
+
+        admin = cursor.fetchone()
+
+        # Only send reset email if account exists.
+        if admin:
+            send_forgot_password(email)
+
+    except mysql.connector.Error as err:
+        print("Error:", err)
+
+        return jsonify({
+            "error": "Could not process password reset request"
+        }), 500
+
+    finally:
+        cursor.close()
+        con.close()
+
+    # Do not reveal whether the email exists in the database.
+    return jsonify({
+        "message": "If an account exists for this email, a password reset link has been sent."
+    }), 200
 
 # checking if admin is logged in
 def check_admin():

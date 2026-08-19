@@ -5,7 +5,7 @@ load_dotenv()
 from routes.wines import get_tables, get_wines , get_all_wines
 from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
 from routes.senddish import send_dish
-from routes.admin import add_admin, login_admin, check_admin, logout_admin, reset_password
+from routes.admin import add_admin, login_admin, check_admin, logout_admin, reset_password, forgot_password
 from routes.addwine import add_wine
 from routes.deleteWine import delete_wine
 from routes.updateWine import update_wine
@@ -165,9 +165,15 @@ def authorize_route():
 def oauth2callback_route():
     return oauth2callback()
 
+# for new users only 
 @app.route("/reset-password", methods=["POST"])
 def changing_password():
     return reset_password()
+
+# for existing users only
+@app.route("/forgot-password", methods=["POST"])
+def requesting_password_reset():
+    return forgot_password()
 
 if __name__ == "__main__":
     print("connecting to DB....")

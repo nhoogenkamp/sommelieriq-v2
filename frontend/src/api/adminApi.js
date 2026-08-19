@@ -67,7 +67,7 @@ export function logoutAdmin() {
     });
 }
 
-// Sends the password reset token and new password to Flask.
+// Sends the password reset token and new password to Flask for new user only
 export function resetPassword(token, password) {
   return fetch(`${API_URL}/reset-password`, {
     method: "POST",
@@ -123,6 +123,32 @@ export function addAdmin(username, email, role) {
             throw new Error(
               json.errors.join(", ")
             );
+          }
+          throw new Error(json.error);
+        }
+        return json;
+      });
+    });
+}
+
+// Sends the password reset token and new password to Flask for existing user only
+
+export function requestPasswordReset(email) {
+  return fetch(`${API_URL}/forgot-password`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email: email
+    })
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+
+        if (!response.ok) {
+          if (json.errors) {
+            throw new Error(json.errors.join(", "));
           }
           throw new Error(json.error);
         }

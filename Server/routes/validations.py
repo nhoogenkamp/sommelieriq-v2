@@ -132,6 +132,23 @@ def validate_password_reset(data):
 
     return errors
 
+def validate_forgot_password(data):
+    errors = []
+    fields = ["email"]
+
+    for f in fields:
+        if f not in data:
+            errors.append(f"{f} is required")
+
+    EMAIL_REGEX = re.compile(
+        r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    )
+
+    if "email" in data:
+        if not EMAIL_REGEX.match(data["email"]):
+            errors.append("Please enter a valid email address")
+
+    return errors
 
 # validating login
 def validate_login(data):

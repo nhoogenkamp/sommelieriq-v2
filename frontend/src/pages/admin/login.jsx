@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { loginAdmin } from "../../api/adminApi";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -75,6 +75,12 @@ function Login() {
         />
 
         <button type="submit">Login</button>
+
+        <p>
+          <NavLink to="/forgot-password">
+            Forgot Password?
+          </NavLink>
+        </p>
 
         {/* Shows the login error but keeps the form visible. */}
         {validationError && <p>{validationError}</p>}
