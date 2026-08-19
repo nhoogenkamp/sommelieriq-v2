@@ -1,7 +1,9 @@
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from dotenv import load_dotenv
 load_dotenv()
+from werkzeug.exceptions import RequestEntityTooLarge
+
 from routes.wines import get_tables, get_wines , get_all_wines
 from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
 from routes.senddish import send_dish
@@ -29,6 +31,18 @@ from flask_cors import CORS
 #https://www.google.com/search?q=from+flask_cors+import+cors&oq=from+flask_cors+import+CORS&gs_lcrp=EgZjaHJvbWUqDQgAEAAYkQIYgAQYigUyDQgAEAAYkQIYgAQYigUyCAgBEAAYFhgeMggIAhAAGBYYHjIICAMQABgWGB4yCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yDQgHEAAYhgMYgAQYigUyBwgIEAAY7wUyBwgJEAAY7wXSAQcyNzBqMGo5qAIGsAIB8QX1TVs-UXY3Vg&sourceid=chrome&ie=UTF-8
 # adding flask secret key for sessions and added CORS due to different address for front end: https://gist.github.com/frostming/3c2694c5e18f64ac7c17fd11178c98f5
 app = Flask(__name__)
+
+# Maximum upload/request size.
+# https://flask.palletsprojects.com/en/stable/patterns/fileuploads/
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 5 MB
+
+@app.errorhandler(RequestEntityTooLarge)
+def handle_large_file(error):
+
+    return jsonify({
+        "error": "File is too large. Maximum upload size is 5 MB."
+    }), 413
+
 #with AI
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "temporary-dev-secret")
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
