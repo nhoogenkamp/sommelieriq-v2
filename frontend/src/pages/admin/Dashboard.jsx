@@ -148,6 +148,37 @@ function Dashboard() {
           </div>
 
         </article>
+
+        {currentUser &&
+          ["owner", "manager"].includes(currentUser.role) && (
+            <article className="dashboard-card">
+              <h2>Users</h2>
+
+              <h2 className="dashboard-card-value">
+                Total Users ={" "}
+                {dashboard.total_users}
+              </h2>
+              {dashboard.users.map(function (user) {
+                return (
+                  <p key={user.role}>
+                    {user.role} = {user.total}
+                  </p>
+                );
+              })}
+
+              <button
+                type="button" className="wine-update-button"
+                onClick={() =>
+                  navigate(
+                    `/admin/restaurants/${restaurantId}/users/add`
+                  )
+                }
+              >
+                Add a new User
+              </button>
+            </article>
+
+        )}        
       </div>
 
 

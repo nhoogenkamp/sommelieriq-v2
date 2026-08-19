@@ -36,6 +36,12 @@ def get_dashboard():
     wine_types_sql = """SELECT wine_type, COUNT(*) AS total FROM wines WHERE restaurant_id = %s GROUP BY wine_type"""
     wine_types_value = (restaurant_id,)
 
+    # Get total number of users for Owner and Manager.
+    users_sql = """ SELECT role, COUNT(*) AS total FROM admins WHERE restaurant_id = %s GROUP BY role"""
+    users_value = (restaurant_id,)    
+    users = []
+    total_users = 0
+
     try:
         cursor.execute(total_wines_sql,total_wines_value)
         total_wines = cursor.fetchone()
@@ -50,6 +56,13 @@ def get_dashboard():
 
         cursor.execute(wine_types_sql, wine_types_value )
         wine_types = cursor.fetchall()
+
+        if session["role"] in ["owner", "manager"]:
+            cursor.execute(users_sql, users_value)
+            users = cursor.fetchall()
+
+            for user in users:
+                total_users += user["total"]      
 
     except mysql.connector.Error as err:
         print("Error:", err)
@@ -66,5 +79,7 @@ def get_dashboard():
         "total_wines": total_wines["total_wines"],
         "available_wines": available_wines["available_wines"],
         "unavailable_wines": unavailable_wines["unavailable_wines"],
-        "wine_types": wine_types
+        "wine_types": wine_types,
+        "total_users": total_users,
+        "users": users
     }), 200
