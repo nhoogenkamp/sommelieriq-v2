@@ -99,3 +99,34 @@ export function resetPassword(token, password) {
       });
     });
 }
+
+
+// Creates a new admin user.
+// The backend gets restaurant_id from the logged-in Flask session.
+export function addAdmin(username, email, role) {
+  return fetch(`${API_URL}/addAdmin`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      username: username,
+      email: email,
+      role: role
+    })
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          if (json.errors) {
+            throw new Error(
+              json.errors.join(", ")
+            );
+          }
+          throw new Error(json.error);
+        }
+        return json;
+      });
+    });
+}

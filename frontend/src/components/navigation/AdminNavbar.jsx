@@ -85,6 +85,13 @@ function AdminNavbar() {
         </>
       )}
 
+      {/* Only Owner and Manager can access user management. */}
+      {currentUser && ["owner", "manager"].includes(currentUser.role) && (
+          <NavLink to={`/admin/restaurants/${restaurantId}/users/add`}>
+            Add Users
+          </NavLink>
+      )}
+
 
       {/* Shows Logout only when a user is logged in. */}
       {currentUser && (
