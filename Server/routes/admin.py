@@ -224,6 +224,12 @@ def login_admin():
     # adding sessions: https://www.geeksforgeeks.org/python/login-and-registration-project-using-flask-and-mysql/
     # check if admin exists and password matches hashed password: https://medium.com/%40premnathm/implementing-login-functionality-in-a-flask-application-64929c6f146e#:~:text=if%20hashed_password%20and%20check_password_hash(hashed_password%5B0%5D%2C%20password)%3A%20%23%20Verify%20the%20password%20using%20check_password_hash%0Asession%5B%E2%80%98username%E2%80%99%5D%20%3D%20username%20%23%20Start%20a%20user%20session%0Aflash(%E2%80%98You%20were%20successfully%20logged%20in%E2%80%99)%0Areturn%20redirect(url_for(%E2%80%98index%E2%80%99))
     if admin and check_password_hash(admin["password_hash"], password):
+
+        if not admin["verified"]:
+            return jsonify({
+                "error": "Please set your password using the link sent to your email"
+            }), 403
+        
         session["loggedin"] = True
         session["admin_id"] = admin["admin_id"]
         session["restaurant_id"] = admin["restaurant_id"]
