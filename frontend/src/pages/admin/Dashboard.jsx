@@ -54,8 +54,13 @@ function Dashboard() {
 
       <div className="dashboard-grid">
 
-        <article className="dashboard-card">
-
+        <article className="dashboard-card"
+          onClick={() =>
+            navigate(
+              `/admin/restaurants/${restaurantId}/wines/availability`
+            )
+          }
+        >
           <h2>Wine Availability</h2>
 
           <PieChart width={280} height={250}>
@@ -73,13 +78,13 @@ function Dashboard() {
             <Legend />
           </PieChart>
           <p className="dashboard-card-value">
-            Total Wines = 
+            Total Wines = {' '}
+            {dashboard.total_wines}
+            <br />
+            Available Wines = {' '}
             {dashboard.available_wines}
             <br />
-            Available Wines = 
-            {dashboard.available_wines}
-            <br />
-            Unavailable wines =
+            Unavailable wines ={' '}
             {dashboard.unavailable_wines}
 
 
