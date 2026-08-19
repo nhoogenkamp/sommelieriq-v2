@@ -8,6 +8,11 @@
     margin-top: 24px;
 }
 
+.dashboard-chart {
+    width: 100%;
+    min-width: 0;
+}
+
 .dashboard-card {
     padding: 22px;
     background: #ffffff;

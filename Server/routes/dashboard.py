@@ -32,6 +32,9 @@ def get_dashboard():
     unavailable_wines_sql = """ SELECT COUNT(*) AS unavailable_wines FROM wines WHERE restaurant_id = %s AND available = 0 """
     unavailable_wines_value = (restaurant_id,)
 
+    # Get total wines for each wine type
+    wine_types_sql = """SELECT wine_type, COUNT(*) AS total FROM wines WHERE restaurant_id = %s GROUP BY wine_type"""
+    wine_types_value = (restaurant_id,)
 
     try:
         cursor.execute(total_wines_sql,total_wines_value)
@@ -45,6 +48,8 @@ def get_dashboard():
         cursor.execute(unavailable_wines_sql, unavailable_wines_value )
         unavailable_wines = cursor.fetchone()
 
+        cursor.execute(wine_types_sql, wine_types_value )
+        wine_types = cursor.fetchall()
 
     except mysql.connector.Error as err:
         print("Error:", err)
@@ -60,5 +65,6 @@ def get_dashboard():
     return jsonify({
         "total_wines": total_wines["total_wines"],
         "available_wines": available_wines["available_wines"],
-        "unavailable_wines": unavailable_wines["unavailable_wines"]
+        "unavailable_wines": unavailable_wines["unavailable_wines"],
+        "wine_types": wine_types
     }), 200

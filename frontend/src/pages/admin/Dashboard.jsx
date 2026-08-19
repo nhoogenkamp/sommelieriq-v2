@@ -1,10 +1,11 @@
 import { useState, useContext, useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import {PieChart, Pie, Tooltip, Legend} from "recharts";
+import {PieChart, Pie, Tooltip, Legend,BarChart, Bar, XAxis, YAxis,ResponsiveContainer} from "recharts";
 import { getDashboard } from "../../api/adminApi";
 
 // https://www.geeksforgeeks.org/reactjs/create-a-donut-chart-using-recharts-in-reactjs/
+// https://stacknotice.com/blog/recharts-react-data-visualization-2026 for bar chart
 function Dashboard() {
   const [dashboard, setDashboard] = useState(null);
   const [validationError, setValidationError] = useState("");
@@ -42,6 +43,13 @@ function Dashboard() {
         fill: "#a6535d"
       }
     ];
+
+    const wineTypeData = dashboard.wine_types.map(function (wine) {
+      return {
+        name: wine.wine_type,
+        value: wine.total
+      };
+    });
 
     return (
     <section>
@@ -92,6 +100,54 @@ function Dashboard() {
 
         </article>
 
+
+        <article className="dashboard-card"
+          onClick={() =>
+            navigate(
+              `/admin/restaurants/${restaurantId}/wines/availability`
+            )
+          }
+        >
+
+          <h2>Wine Collection</h2>
+
+          <div className="dashboard-chart">
+
+            <ResponsiveContainer width="100%" height={350}>
+
+              <BarChart
+                layout="vertical"
+                data={wineTypeData}
+              >
+
+                <XAxis
+                  type="number"
+                  allowDecimals={false}
+                  tick={{ fontSize: 12 }}
+                />
+
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  width={100}
+                  tick={{ fontSize: 12 }}
+                />
+
+                <Tooltip />
+
+                <Bar
+                  dataKey="value"
+                  fill="#8b3a4a"
+                  radius={[0, 4, 4, 0]}
+                />
+
+              </BarChart>
+
+            </ResponsiveContainer>
+
+          </div>
+
+        </article>
       </div>
 
 
