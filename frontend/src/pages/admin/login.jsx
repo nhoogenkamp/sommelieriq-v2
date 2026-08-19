@@ -77,7 +77,10 @@ function Login() {
         <button type="submit">Login</button>
 
         <p>
-          <NavLink to="/forgot-password">
+          <NavLink
+            className="forgot-password-button"
+            to="/forgot-password"
+          >
             Forgot Password?
           </NavLink>
         </p>

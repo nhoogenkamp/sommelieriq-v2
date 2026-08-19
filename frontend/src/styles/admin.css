@@ -1317,3 +1317,209 @@
 .admin-logout-button:hover {
     background-color: rgba(255, 255, 255, 0.15);
 }
+
+/* =========================================
+   LOGIN / ADMIN FORMS
+   ========================================= */
+
+.login-form,
+.reset-password-card {
+    width: 100%;
+    max-width: 440px;
+
+    margin: 40px auto;
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e6d8d2;
+    border-radius: 12px;
+
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   FORM HEADINGS
+   ========================================= */
+
+.login-form h1,
+.reset-password-card h2 {
+    margin: 0 0 12px;
+
+    color: #5c0018;
+}
+
+.login-form p,
+.reset-password-card p {
+    color: #5f5558;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   FORM LABELS
+   ========================================= */
+
+.login-form label,
+.reset-password-card label {
+    display: block;
+
+    margin-top: 16px;
+    margin-bottom: 6px;
+
+    color: #5c0018;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   INPUTS AND DROPDOWNS
+   ========================================= */
+
+.login-form input,
+.login-form select,
+.reset-password-card input,
+.reset-password-card select {
+    width: 100%;
+    min-height: 42px;
+
+    padding: 9px 10px;
+
+    background: #ffffff;
+    color: #2b1b1f;
+
+    border: 1px solid #d8c8c3;
+    border-radius: 8px;
+
+    box-sizing: border-box;
+
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.login-form select,
+.reset-password-card select {
+    cursor: pointer;
+}
+
+.login-form input:focus,
+.login-form select:focus,
+.reset-password-card input:focus,
+.reset-password-card select:focus {
+    outline: none;
+
+    border-color: #7a0026;
+
+    box-shadow:
+        0 0 0 2px rgba(122, 0, 38, 0.12);
+}
+
+
+/* =========================================
+   FORM BUTTONS
+   ========================================= */
+
+.login-form button,
+.reset-password-card button {
+    margin-top: 20px;
+
+    padding: 9px 18px;
+
+    background: #7a0026;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 25px;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.login-form button:hover,
+.reset-password-card button:hover {
+    background: #5c0018;
+
+    box-shadow: 0 4px 10px rgba(92, 0, 24, 0.2);
+}
+
+.login-form button:focus-visible,
+.reset-password-card button:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(122, 0, 38, 0.18),
+        0 4px 10px rgba(92, 0, 24, 0.2);
+}
+
+
+/* =========================================
+   LINKS
+   ========================================= */
+
+.login-form a {
+    color: #7a0026;
+
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-form a:hover {
+    color: #5c0018;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   RESET PASSWORD
+   ========================================= */
+
+.reset-password-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.reset-password-card form {
+    width: 100%;
+}
+
+.reset-password-card .form-group {
+    margin-bottom: 14px;
+}
+
+.reset-password-message {
+    margin-bottom: 16px;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+    .login-form,
+    .reset-password-card {
+        width: auto;
+
+        margin: 24px 16px;
+        padding: 20px;
+    }
+
+    .login-form button,
+    .reset-password-card button {
+        width: 100%;
+    }
+}
