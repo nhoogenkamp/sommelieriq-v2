@@ -71,6 +71,9 @@ def oauth2callback():
     # Store credentials in the Flask session for now.
     credentials = flow.credentials
 
+    with open("token.json", "w") as token:
+        token.write(credentials.to_json())
+
     flask.session["google_credentials"] = credentials_to_dict(
         credentials
     )

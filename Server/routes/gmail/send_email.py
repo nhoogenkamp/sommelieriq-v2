@@ -1,47 +1,45 @@
-import json
 import base64
-
-import flask
-import google.oauth2.credentials
+import os.path
+from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+from google.auth.transport.requests import Request
 from email.message import EmailMessage
 from email.utils import formataddr
+from routes.gmail.gmail_auth import SCOPES
 
-from routes.gmail.gmail_auth import CLIENT_SECRETS_FILE
 
 
 # Google OAuth 2.0 for Web Server Applications:
 # https://developers.google.com/identity/protocols/oauth2/web-server?authuser=19#python_6
 # Gmail API - Create and send email messages:
 # https://developers.google.com/workspace/gmail/api/guides/sending
+# https://developers.google.com/workspace/gmail/api/quickstart/python
 
 
 def send_email(recipient, subject=None, content=None):
     """This code will call Gmail.Send API"""
 
-    # Check if Gmail has been authorized.
-    if "google_credentials" not in flask.session:
+    credentials = None
+
+    # Load saved Gmail authorization.
+    if os.path.exists("token.json"):
+        credentials = Credentials.from_authorized_user_file(
+            "token.json",
+            SCOPES
+        )
+
+    # Gmail has not been authorized yet.
+    if not credentials:
         return False
 
-    # Load client secrets from the server-side file.
-    with open(CLIENT_SECRETS_FILE, "r") as f:
-        client_config = json.load(f)["web"]
+    # Refresh the access token if needed.
+    if credentials.expired and credentials.refresh_token:
+        credentials.refresh(Request())
 
-    # Load user-specific credentials from session storage.
-    session_credentials = flask.session["google_credentials"]
-
-    # Reconstruct the credentials object.
-    credentials = google.oauth2.credentials.Credentials(
-        refresh_token=session_credentials.get("refresh_token"),
-        scopes=session_credentials.get("granted_scopes"),
-        token=session_credentials.get("token"),
-        client_id=client_config.get("client_id"),
-        client_secret=client_config.get("client_secret"),
-        token_uri=client_config.get("token_uri")
-    )
-
+        # Save refreshed credentials.
+        with open("token.json", "w") as token:
+            token.write(credentials.to_json())
     # Call Gmail API.
     try:
         service = build(
@@ -88,14 +86,6 @@ def send_email(recipient, subject=None, content=None):
             userId="me",
             body=create_message
         ).execute()
-
-        # Save credentials back to the session in case
-        # the access token was refreshed.
-        flask.session["google_credentials"] = {
-            "token": credentials.token,
-            "refresh_token": credentials.refresh_token,
-            "granted_scopes": credentials.granted_scopes
-        }
 
         return True
 
