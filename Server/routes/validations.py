@@ -25,12 +25,6 @@ def validate_wine(data):
         if not isinstance(data.get(s), str):
             errors.append(f"{s} must be text")
 
-    # checking if its int
-    inputint = ["year", "available", "body_score", "tannin_score", "acidity_score", "sweetness_score"]
-    for i in inputint:
-        if not isinstance(data.get(i), int):
-            errors.append(f"{i} must be a whole number")
-
     if "year" in data: 
         # checking if year is an int and greater than 0
         if not isinstance(data.get("year"), int):
