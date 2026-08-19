@@ -6,37 +6,65 @@ function Restaurants() {
       <h1>SommelierIQ</h1>
       <p>Select a restaurant to view its wine list.</p>
 
-      <ul>
-        <li>
-          <Link to="/restaurants/1/wines">Pembroke Street</Link>
-          <br></br>
-          <Link to="/restaurants/1/food-pairing">Food Paring</Link>
-        </li>
-          <br></br>
-        <li>
-          <Link to="/restaurants/2/wines">Crow Street</Link>
-          <br></br>
-          <Link to="/restaurants/2/food-pairing">Food Paring</Link>
-        </li>
-          <br></br>
-        <li>
-          <Link to="/restaurants/3/wines">The Bull & Castle</Link>
-          <br></br>
-          <Link to="/restaurants/3/food-pairing">Food Paring</Link>
-        </li>
-          <br></br>
-        <li>
-          <Link to="/restaurants/4/wines">Ryans Parkgate</Link>
-          <br></br>
-          <Link to="/restaurants/4/food-pairing">Food Paring</Link>
-        </li>
-          <br></br>
-        <li>
-          <Link to="/restaurants/5/wines">Monkstown</Link>
-          <br></br>
-          <Link to="/restaurants/5/food-pairing">Food Paring</Link>
-        </li>
-      </ul>
+
+      <div className="dashboard-grid">
+
+        <article className="dashboard-card"
+          onClick={() =>
+            navigate(
+              `/restaurants/1/wines`
+            )
+          }
+        >
+          <Link to="/restaurants/1/wines"><h2>Pembroke Street</h2></Link>
+          <Link to="/restaurants/1/food-pairing"><h2>Food Paring</h2></Link>
+        </article>
+
+        <article className="dashboard-card"
+          onClick={() =>
+            navigate(
+              `/restaurants/2/wines`
+            )
+          }
+        >
+          <Link to="/restaurants/2/wines"><h2>Crow Street</h2></Link>
+          <Link to="/restaurants/2/food-pairing"><h2>Food Paring</h2></Link>
+        </article>
+
+        <article className="dashboard-card"
+          onClick={() =>
+            navigate(
+              `/restaurants/3/wines`
+            )
+          }
+        >
+          <Link to="/restaurants/3/wines"><h2>The Bull & Castle</h2></Link>
+          <Link to="/restaurants/3/food-pairing"><h2>Food Paring</h2></Link>
+        </article>
+
+        <article className="dashboard-card"
+          onClick={() =>
+            navigate(
+              `/restaurants/4/wines`
+            )
+          }
+        >
+          <Link to="/restaurants/4/wines"><h2>Ryans Parkgate</h2></Link>
+          <Link to="/restaurants/4/food-pairing"><h2>Food Paring</h2></Link>
+        </article>
+
+        <article className="dashboard-card"
+          onClick={() =>
+            navigate(
+              `/restaurants/5/wines`
+            )
+          }
+        >
+          <Link to="/restaurants/5/wines"><h2>Monkstown</h2></Link>
+          <Link to="/restaurants/5/food-pairing"><h2>Food Paring</h2></Link>
+        </article>
+
+      </div>
     </main>
   );
 }
