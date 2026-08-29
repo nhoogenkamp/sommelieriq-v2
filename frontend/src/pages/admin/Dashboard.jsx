@@ -17,6 +17,7 @@ function Dashboard() {
   const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
   const restaurantUrl = `${FRONTEND_URL}/restaurants/${restaurantId}/food-pairing`;
 
+  // remove console.log lateron!
   console.log(currentUser);
   useEffect(function () {
 
