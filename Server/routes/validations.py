@@ -59,6 +59,16 @@ def validate_wine(data):
 
     return errors
 
+def validate_wine_ai(data):
+    errors = []
+
+    fields = ["name","wine_type","grape", "country", "region", "year", "bottle_type", "price", "available"]
+
+    for field in fields:
+        if field not in data:
+            errors.append(f"{field} is required")
+
+    return errors
 
 # validating add user
 def validate_registration(data):

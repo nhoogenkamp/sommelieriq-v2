@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import Papa from "papaparse";
 import WineUploadTable from "../../components/admin/WineUploadTable";
-import { uploadWines } from "../../api/wineApi";
+import { uploadWines, uploadWinesAI } from "../../api/wineApi";
 import CsvTemplateDownload from "../../components/admin/CsvTemplateDownload";
 import AICsvTemplateDownload from "../../components/admin/AIcsvTemplateDownload";
 
@@ -198,7 +198,7 @@ function uploadWinesAIFile() {
       <h3>Download a template below </h3>
       <p> For the best results, it's recommended to download this csv file below and add information on all the fields </p>
       <div className="download-button">
-        <CsvTemplateDownload />
+        <AICsvTemplateDownload />
       </div>
 
       <br />
