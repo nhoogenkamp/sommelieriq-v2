@@ -172,3 +172,36 @@ export function uploadMenu(entry) {
     });
   });
 }
+
+// Generate AI wine profiles before uploading it to DB.
+export function uploadWinesAI(entry) {
+  return fetch(`${API_URL}/uploadWinesAI`, {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(entry),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+  .then(function (response) {
+    return response.json().then(function (json) {
+      if (!response.ok) {
+
+        // Builds one error message from all row errors.
+        if (json.errors) {
+          let message = "";
+
+          json.errors.forEach(function (row) {
+            message += `Row ${row.row}: ${row.errors.join(", ")}\n`;
+          });
+
+          throw new Error(message);
+        }
+
+        throw new Error(json.error);
+      }
+
+      return json;
+    });
+  });
+}
