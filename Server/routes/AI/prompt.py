@@ -47,12 +47,15 @@ Rules:
     17 to 20 = high
 
     Sweetness
-    0 to 3 = bone dry
-    1 to 4 = dry
-    5 to 8 = off-dry
+    0 to 2 = bone dry
+    3 to 5 = dry
+    6 to 8 = off-dry
     9 to 12 = medium sweet
     13 to 16 = sweet
     17 to 20 = very sweet
+
+    Score sweetness based on the expected residual sweetness of the
+    wine style, not on fruity aromas or ripe fruit flavours.
 
 9. Preserve each input row_id.
 

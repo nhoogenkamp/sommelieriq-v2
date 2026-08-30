@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from routes.validations import validate_wine_ai
 from routes.AI.winePrompt import generate_wine_profiles
+import itertools
 
 
 def upload_wines_ai():
@@ -53,8 +54,12 @@ def upload_wines_ai():
         wines_for_ai.append(wine_for_ai)
 
     try:
-
-        ai_profiles = generate_wine_profiles(wines_for_ai)
+        # batching in 15 rows max to preserve quality: https://realpython.com/how-to-split-a-python-list-into-chunks/#:~:text=you%20work%20with-,Python%20iterables.,-They%E2%80%99re%20grouped%20into
+        ai_profiles = []
+        for batch in itertools.batched(wines_for_ai, 15):
+            profiles = generate_wine_profiles(list(batch))
+            for profile in profiles:
+                ai_profiles.append(profile)
 
     except Exception as err:
         print("AI wine generation error:", err)
