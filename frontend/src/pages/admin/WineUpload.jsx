@@ -3,6 +3,8 @@ import Papa from "papaparse";
 import WineUploadTable from "../../components/admin/WineUploadTable";
 import { uploadWines } from "../../api/wineApi";
 import CsvTemplateDownload from "../../components/admin/CsvTemplateDownload";
+import AICsvTemplateDownload from "../../components/admin/AIcsvTemplateDownload";
+
 
 // https://www.geeksforgeeks.org/reactjs/how-to-read-csv-files-in-react-js/
 // Allowed file extensions.
@@ -105,6 +107,25 @@ function uploadWineFile() {
     });
 }  
 
+// Uploads all previewed wines to the backend for ai generation
+function uploadWinesAIFile() {
+  // Creates the object that will be sent to the API 
+  const entry = {
+    wines: wines,
+  };
+  setError("");
+  setMessage("");
+
+  uploadWinesAI(entry)
+    .then(function (json) {
+      setWines(json.wines);
+      setMessage(json.message);
+    })
+    .catch(function (error) {
+      setError(error.message);
+    });
+}  
+
   return (
     <main>
       <h1>Upload Wines</h1>
@@ -150,6 +171,52 @@ function uploadWineFile() {
           <button type="button" className="upload-button" onClick={uploadWineFile} >Accept and Upload</button>
         </>
       )}
+
+
+      <h1>Upload Wines with the help of AI</h1>
+
+      <label htmlFor="csvInput">Select CSV File:</label>
+
+      <input
+        ref={inputFile}
+        id="csvInput"
+        name="file"
+        type="file"
+        accept=".csv"
+        onChange={handleFileChange}
+      />
+
+      <button type="button" className="preview-button" onClick={handleParse}>
+        Preview Wines
+      </button>
+
+      {error && <p>{error}</p>}
+      {message && <p>{message}</p>}
+
+      <br />
+      <br />
+      <h3>Download a template below </h3>
+      <p> For the best results, it's recommended to download this csv file below and add information on all the fields </p>
+      <div className="download-button">
+        <CsvTemplateDownload />
+      </div>
+
+      <br />
+      <br />
+      {wines.length > 0 && (
+        <>
+          <h2>Wine Preview</h2>
+
+          <div className="upload-table-container">
+            <WineUploadTable wines={wines} />
+          </div>
+
+          {/* The backend upload will be connected later. */}
+          <button type="button"className="upload-button" onClick={uploadWinesAIFile}> Generate AI Profiles</button>
+
+          <button type="button" className="upload-button" onClick={uploadWineFile} >Accept and Upload</button>
+        </>
+      )}      
     </main>
   );
 }
