@@ -23,6 +23,9 @@ function WineUpload() {
   // stores success message that is returned by flask
   const [message, setMessage] = useState("");  
 
+  // Stores which upload option has been selected.
+  const [uploadMode, setUploadMode] = useState("");
+
   // Used to reset the selected CSV file. https://www.geeksforgeeks.org/reactjs/how-to-reset-a-file-input-in-react-js/
   const inputFile = useRef(null);
 
@@ -130,92 +133,149 @@ function uploadWinesAIFile() {
     <main>
       <h1>Upload Wines</h1>
 
-      <label htmlFor="csvInput">Select CSV File:</label>
+      <div className="dashboard-grid">
 
-      <input
-        ref={inputFile}
-        id="csvInput"
-        name="file"
-        type="file"
-        accept=".csv"
-        onChange={handleFileChange}
-      />
+        <article
+          className="dashboard-card"
+          onClick={() => {
+            setUploadMode("regular");
+            setWines([]);
+            setFile("");
+            setError("");
+            setMessage("");
+            resetFileInput();
+          }}
+        >
+          <h2>Upload Wines</h2>
 
-      <button type="button" className="preview-button" onClick={handleParse}>
-        Preview Wines
-      </button>
+          <p>
+            Upload wines using a completed CSV file.
+          </p>
+        </article>
 
-      {error && <p>{error}</p>}
-      {message && <p>{message}</p>}
 
-      <br />
-      <br />
-      <h3>Download a template below </h3>
-      <p> For the best results, it's recommended to download this csv file below and add information on all the fields </p>
-      <div className="download-button">
-        <CsvTemplateDownload />
+        <article
+          className="dashboard-card"
+          onClick={() => {
+            setUploadMode("ai");
+            setWines([]);
+            setFile("");
+            setError("");
+            setMessage("");
+            resetFileInput();
+          }}
+        >
+          <h2>Upload Wines with the help of AI</h2>
+
+          <p>
+            Upload wines and use AI to generate the wine description
+            and characteristic scores.
+          </p>
+        </article>
+
       </div>
 
       <br />
       <br />
-      {wines.length > 0 && (
-        <>
-          <h2>Wine Preview</h2>
+      {uploadMode === "regular" && (
+        <section>
+          <h1>Upload Wines</h1>
+          <label htmlFor="csvInput">Select CSV File:</label>
 
-          <div className="upload-table-container">
-            <WineUploadTable wines={wines} />
+          <input
+            ref={inputFile}
+            id="csvInput"
+            name="file"
+            type="file"
+            accept=".csv"
+            onChange={handleFileChange}
+          />
+
+          <button type="button" className="preview-button" onClick={handleParse}>
+            Preview Wines
+          </button>
+
+          {error && <p>{error}</p>}
+          {message && <p>{message}</p>}
+
+          <br />
+          <br />
+          <h3>Download a template below </h3>
+          <p> For the best results, it's recommended to download this csv file below and add information on all the fields </p>
+          <div className="download-button">
+            <CsvTemplateDownload />
           </div>
-
-          {/* The backend upload will be connected later. */}
-          
-          <button type="button" className="upload-button" onClick={uploadWineFile} >Accept and Upload</button>
-        </>
+        </section>
       )}
 
 
-      <h1>Upload Wines with the help of AI</h1>
+      {uploadMode === "ai" && (
+        <section>
+          <h1>Upload Wines with the help of AI</h1>
 
-      <label htmlFor="csvInput">Select CSV File:</label>
+          <label htmlFor="csvInput">Select CSV File:</label>
 
-      <input
-        ref={inputFile}
-        id="csvInput"
-        name="file"
-        type="file"
-        accept=".csv"
-        onChange={handleFileChange}
-      />
+          <input
+            ref={inputFile}
+            id="csvInput"
+            name="file"
+            type="file"
+            accept=".csv"
+            onChange={handleFileChange}
+          />
 
-      <button type="button" className="preview-button" onClick={handleParse}>
-        Preview Wines
-      </button>
+          <button type="button" className="preview-button" onClick={handleParse}>
+            Preview Wines
+          </button>
 
-      {error && <p>{error}</p>}
-      {message && <p>{message}</p>}
+          {error && <p>{error}</p>}
+          {message && <p>{message}</p>}
 
-      <br />
-      <br />
-      <h3>Download a template below </h3>
-      <p> For the best results, it's recommended to download this csv file below and add information on all the fields </p>
-      <div className="download-button">
-        <AICsvTemplateDownload />
-      </div>
-
-      <br />
-      <br />
-      {wines.length > 0 && (
-        <>
-          <h2>Wine Preview</h2>
-
-          <div className="upload-table-container">
-            <WineUploadTable wines={wines} />
+          <br />
+          <br />
+          <h3>Download a template below </h3>
+          <p> For the best results, it's recommended to download this csv file below and add information on all the fields </p>
+          <div className="download-button">
+            <AICsvTemplateDownload />
           </div>
+        </section>
+      )}
 
-          {/* The backend upload will be connected later. */}
-          <button type="button"className="upload-button" onClick={uploadWinesAIFile}> Generate AI Profiles</button>
+        {wines.length > 0 && (
+          <>
+            <h2>Wine Preview</h2>
 
-          <button type="button" className="upload-button" onClick={uploadWineFile} >Accept and Upload</button>
-        </>
+            <div className="upload-table-container">
+              <WineUploadTable wines={wines} />
+            </div>
+          {/* Regular CSV upload */}
+          {uploadMode === "regular" && (
+            <button type="button" className="upload-button" onClick={uploadWineFile} >Accept and Upload</button>
+          )}
+
+          {/* AI CSV upload */}
+          {uploadMode === "ai" && (
+            <>
+              <button
+                type="button"
+                className="upload-button"
+                onClick={uploadWinesAIFile}
+              >
+                Generate AI Profiles
+              </button>
+
+              <button
+                type="button"
+                className="upload-button"
+                onClick={uploadWineFile}
+              >
+                Accept and Upload
+              </button>
+            </>
+          )}
+
+ 
+          </>
       )}      
     </main>
   );
