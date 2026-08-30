@@ -20,6 +20,7 @@ from routes.uploadSauces import upload_sauces
 from routes.deleteDish import delete_dish
 from routes.dashboard import get_dashboard
 from routes.gmail.gmail_auth import authorize, oauth2callback
+from routes.uploadWinesAI import upload_wines_ai
 
 # https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/
 # https://flask-user.readthedocs.io/en/latest/authorization.html
@@ -121,6 +122,11 @@ def new_wine():
 @roles_required(["owner", "manager", "sommelier"])
 def uploading_wines():
     return upload_wines()
+
+@app.route("/uploadWinesAI", methods=["POST"])
+@roles_required(["owner", "manager", "sommelier"])
+def uploading_wines_ai():
+    return upload_wines_ai()
 
 @app.route('/deleteWine', methods=['DELETE'])
 @roles_required(["owner", "manager", "sommelier"])
