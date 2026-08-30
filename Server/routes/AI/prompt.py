@@ -23,9 +23,34 @@ Rules:
 7. Structural scores must be integers from 0 to 20.
 
 8. Use the following scoring scale:
-   0 = lowest possible intensity
-   10 = moderate intensity
-   20 = highest possible intensity
+    Body
+    0 to 4   = very light
+    5 to 9   = light
+    10 to 13  = medium
+    13 to 16 = medium to full
+    17 to 20 = full
+
+    Tannin
+    0 to 4   = very low
+    5 to 8   = low
+    9 to 12  = moderate
+    13 to 16 = high
+    17 to 20 = very high
+
+    Acidity
+    0 to 4   = very low
+    5 to 8   = low
+    9 to 12  = moderate
+    13 to 16 = high
+    17 to 20 = very high
+
+    Sweetness
+    0     = bone dry
+    1 to 4   = dry
+    5 to 8   = off-dry
+    9 to 12  = medium sweet
+    13 to 16 = sweet
+    17 to 20 = very sweet
 
 9. Return only valid JSON.
 

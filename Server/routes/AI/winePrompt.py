@@ -65,5 +65,7 @@ print(result)
 
 validated_profile = WineProfile.model_validate_json(result)
 
-print("\nValidated wine profile:")
-print(validated_profile)
+print("\nToken usage:")
+print("Prompt tokens:", completion.usage.prompt_tokens)
+print("Completion tokens:", completion.usage.completion_tokens)
+print("Total tokens:", completion.usage.total_tokens)
