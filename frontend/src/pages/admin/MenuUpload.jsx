@@ -11,8 +11,9 @@ import AILoadingPopup from "../../components/admin/AILoadingPopup";
 const allowedExtensions = ["csv"];
 
 
-function FoodUpload() {
+function MenuUpload() {
   const [dishes, setDishes] = useState([]);
+  const [sauces, setSauces] = useState([]);
   const [error, setError] = useState("");
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
@@ -32,6 +33,7 @@ function FoodUpload() {
     setError("");
     setMessage("");
     setDishes([]);
+    setSauces([]);
     setAiGenerated(false);
 
     if (event.target.files.length) {
@@ -85,6 +87,32 @@ function FoodUpload() {
     reader.readAsText(file);
   }
 
+    function handleParseSauce() {
+    if (!file) {
+      setMessage("");
+      setError("Please select a CSV file.");
+      return;
+    }
+
+    setError("");
+    setMessage("");
+
+    const reader = new FileReader();
+
+    reader.onload = function ({ target }) {
+      const csv = Papa.parse(target.result, {
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: true,
+      });
+
+      setSauces(csv.data);
+    };
+
+    reader.readAsText(file);
+  }
+
+
   // Uploads all previewed dishes to the backend.
   function uploadDishesFile() {
     const entry = {
@@ -107,7 +135,26 @@ function FoodUpload() {
         setError(error.message);
       });
   }
+  function uploadSaucesFile() {
+    const entry = {
+      sauces: sauces,
+    };
 
+    setError("");
+    setMessage("");
+
+    uploadSauces(entry)
+      .then(function (json) {
+        setMessage(json.message);
+
+        setSauces([]);
+        setFile("");
+        resetFileInput();
+      })
+      .catch(function (error) {
+        setError(error.message);
+      });
+  }
 
   // Uploads all previewed dishes to the backend for AI generation.
   function uploadDishesAIFile() {
@@ -138,6 +185,7 @@ function FoodUpload() {
   // Cancels the current upload and clears the preview.
   function cancelUpload() {
     setDishes([]);
+    setSauces([]);
     setFile("");
     setError("");
     setMessage("");
@@ -194,6 +242,24 @@ function FoodUpload() {
           </p>
         </article>
 
+        <article
+          className="dashboard-card"
+          onClick={() => {
+            setUploadMode("sauces");
+            setDishes([]);
+            setFile("");
+            setError("");
+            setMessage("");
+            setAiGenerated(false);
+            resetFileInput();
+          }}
+        >
+          <h2>Upload Sauces.</h2>
+
+          <p>
+            Upload sauces and their wine pairing modifiers using a completed CSV file.
+          </p>
+        </article>
       </div>
 
 
@@ -292,6 +358,76 @@ function FoodUpload() {
         </section>
       )}
 
+      {/* Regular Sauces CSV upload */}
+      {uploadMode === "sauces" && (
+        <section>
+          <h1>Upload Sauces</h1>
+
+          <label htmlFor="sauceCsvInput">Select CSV File:</label>
+
+          <input
+            ref={inputFile}
+            id="sauceCsvInput"
+            name="file"
+            type="file"
+            accept=".csv"
+            onChange={handleFileChange}
+          />
+
+          <button
+            type="button"
+            className="preview-button"
+            onClick={handleParseSauce}
+          >
+            Preview Sauces
+          </button>
+
+          {error && <p>{error}</p>}
+          {message && <p>{message}</p>}
+
+          <br />
+          <br />
+
+          <h3>Download a template below</h3>
+
+          <p>
+            For the best results, it's recommended to download this CSV file
+            and add information in all fields.
+          </p>
+
+          <div className="download-button">
+            <CsvSauceTemplateDownload />
+          </div>
+
+        </section>
+      )}
+
+
+      {sauces.length > 0 && (
+        <>
+          <h2>Sauce Preview</h2>
+
+          <div className="upload-table-container">
+            <SauceUploadTable sauces={sauces} />
+          </div>
+
+          <button
+            type="button"
+            className="upload-button"
+            onClick={uploadSaucesFile}
+          >
+            Accept and Upload
+          </button>
+          <button
+              type="button"
+              className="upload-button"
+              onClick={cancelUpload}
+            >
+              Cancel
+          </button>
+
+        </>
+      )}
 
       {dishes.length > 0 && (
         <>
@@ -374,165 +510,4 @@ function FoodUpload() {
     </section>
   );
 }
-
-
-function SauceUpload() {
-  const [sauces, setSauces] = useState([]);
-  const [error, setError] = useState("");
-  const [file, setFile] = useState("");
-  const [message, setMessage] = useState("");
-
-  const inputFile = useRef(null);
-
-  function handleFileChange(event) {
-    setError("");
-    setMessage("");
-    setSauces([]);
-
-    if (event.target.files.length) {
-      const selectedFile = event.target.files[0];
-
-      const fileExtension = selectedFile.name
-        .split(".")
-        .pop()
-        .toLowerCase();
-
-      if (!allowedExtensions.includes(fileExtension)) {
-        setError("Please select a CSV file.");
-        setFile("");
-        return;
-      }
-
-      setFile(selectedFile);
-    }
-  }
-
-  function resetFileInput() {
-    if (inputFile.current) {
-      inputFile.current.value = "";
-      inputFile.current.type = "text";
-      inputFile.current.type = "file";
-    }
-  }
-
-  function handleParse() {
-    if (!file) {
-      setMessage("");
-      setError("Please select a CSV file.");
-      return;
-    }
-
-    setError("");
-    setMessage("");
-
-    const reader = new FileReader();
-
-    reader.onload = function ({ target }) {
-      const csv = Papa.parse(target.result, {
-        header: true,
-        skipEmptyLines: true,
-        dynamicTyping: true,
-      });
-
-      setSauces(csv.data);
-    };
-
-    reader.readAsText(file);
-  }
-
-  // Uploads all previewed sauces to the backend.
-  function uploadSaucesFile() {
-    const entry = {
-      sauces: sauces,
-    };
-
-    setError("");
-    setMessage("");
-
-    uploadSauces(entry)
-      .then(function (json) {
-        setMessage(json.message);
-
-        setSauces([]);
-        setFile("");
-        resetFileInput();
-      })
-      .catch(function (error) {
-        setError(error.message);
-      });
-  }
-
-  return (
-    <section>
-      <h1>Upload Sauces</h1>
-
-      <label htmlFor="sauceCsvInput">Select CSV File:</label>
-
-      <input
-        ref={inputFile}
-        id="sauceCsvInput"
-        name="file"
-        type="file"
-        accept=".csv"
-        onChange={handleFileChange}
-      />
-
-      <button
-        type="button"
-        className="preview-button"
-        onClick={handleParse}
-      >
-        Preview Sauces
-      </button>
-
-      {error && <p>{error}</p>}
-      {message && <p>{message}</p>}
-
-      <h3>Download a template below</h3>
-
-      <p>
-        For the best results, it's recommended to download this CSV file
-        and add information in all fields.
-      </p>
-
-      <div className="download-button">
-        <CsvSauceTemplateDownload />
-      </div>
-
-      {sauces.length > 0 && (
-        <>
-          <h2>Sauce Preview</h2>
-
-          <div className="upload-table-container">
-            <SauceUploadTable sauces={sauces} />
-          </div>
-
-          <button
-            type="button"
-            className="upload-button"
-            onClick={uploadSaucesFile}
-          >
-            Accept and Upload
-          </button>
-        </>
-      )}
-    </section>
-  );
-}
-
-
-function MenuUpload() {
-  return (
-    <main>
-      <FoodUpload />
-
-      <br />
-      <hr />
-      <br />
-
-      <SauceUpload />
-    </main>
-  );
-}
-
 export default MenuUpload;
