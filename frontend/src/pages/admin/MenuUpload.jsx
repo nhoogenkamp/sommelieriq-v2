@@ -269,32 +269,32 @@ function MenuUpload() {
 
       {/* Regular food CSV upload */}
       {uploadMode === "regular" && (
-        <section>
+        <section className="upload-section">
 
           <h1>Upload Food Menu</h1>
+          <div className="upload-controls">
+            <label htmlFor="foodCsvInput">Select CSV File:</label>
 
-          <label htmlFor="foodCsvInput">Select CSV File:</label>
+            <input
+              ref={inputFile}
+              id="foodCsvInput"
+              name="file"
+              type="file"
+              accept=".csv"
+              onChange={handleFileChange}
+            />
 
-          <input
-            ref={inputFile}
-            id="foodCsvInput"
-            name="file"
-            type="file"
-            accept=".csv"
-            onChange={handleFileChange}
-          />
+            <button
+              type="button"
+              className="preview-button"
+              onClick={handleParse}
+            >
+              Preview Food
+            </button>
 
-          <button
-            type="button"
-            className="preview-button"
-            onClick={handleParse}
-          >
-            Preview Food
-          </button>
-
-          {error && <p>{error}</p>}
-          {message && <p>{message}</p>}
-
+            {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
+          </div>
           <br />
           <br />
 
@@ -315,32 +315,32 @@ function MenuUpload() {
 
       {/* AI food CSV upload */}
       {uploadMode === "ai" && (
-        <section>
+        <section className="upload-section">
 
           <h1>Upload Food Menu with the help of AI</h1>
+          <div className="upload-controls">
+            <label htmlFor="foodCsvInput">Select CSV File:</label>
 
-          <label htmlFor="foodCsvInput">Select CSV File:</label>
+            <input
+              ref={inputFile}
+              id="foodCsvInput"
+              name="file"
+              type="file"
+              accept=".csv"
+              onChange={handleFileChange}
+            />
 
-          <input
-            ref={inputFile}
-            id="foodCsvInput"
-            name="file"
-            type="file"
-            accept=".csv"
-            onChange={handleFileChange}
-          />
+            <button
+              type="button"
+              className="preview-button"
+              onClick={handleParse}
+            >
+              Preview Food
+            </button>
 
-          <button
-            type="button"
-            className="preview-button"
-            onClick={handleParse}
-          >
-            Preview Food
-          </button>
-
-          {error && <p>{error}</p>}
-          {message && <p>{message}</p>}
-
+            {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
+          </div>
           <br />
           <br />
 
@@ -360,31 +360,31 @@ function MenuUpload() {
 
       {/* Regular Sauces CSV upload */}
       {uploadMode === "sauces" && (
-        <section>
+        <section className="upload-section">
           <h1>Upload Sauces</h1>
+          <div className="upload-controls">
+            <label htmlFor="sauceCsvInput">Select CSV File:</label>
 
-          <label htmlFor="sauceCsvInput">Select CSV File:</label>
+            <input
+              ref={inputFile}
+              id="sauceCsvInput"
+              name="file"
+              type="file"
+              accept=".csv"
+              onChange={handleFileChange}
+            />
 
-          <input
-            ref={inputFile}
-            id="sauceCsvInput"
-            name="file"
-            type="file"
-            accept=".csv"
-            onChange={handleFileChange}
-          />
+            <button
+              type="button"
+              className="preview-button"
+              onClick={handleParseSauce}
+            >
+              Preview Sauces
+            </button>
 
-          <button
-            type="button"
-            className="preview-button"
-            onClick={handleParseSauce}
-          >
-            Preview Sauces
-          </button>
-
-          {error && <p>{error}</p>}
-          {message && <p>{message}</p>}
-
+            {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
+          </div>
           <br />
           <br />
 

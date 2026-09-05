@@ -160,7 +160,6 @@ function cancelUpload() {
       <h1>Upload Wines</h1>
 
       <div className="dashboard-grid">
-
         <article
           className="dashboard-card"
           onClick={() => {
@@ -204,23 +203,24 @@ function cancelUpload() {
       <br />
       <br />
       {uploadMode === "regular" && (
-        <section>
+        <section className="upload-section">
           <h1>Upload Wines</h1>
-          <label htmlFor="csvInput">Select CSV File:</label>
+          <div className="upload-controls">
+            <label htmlFor="csvInput">Select CSV File:</label>
 
-          <input
-            ref={inputFile}
-            id="csvInput"
-            name="file"
-            type="file"
-            accept=".csv"
-            onChange={handleFileChange}
-          />
+            <input
+              ref={inputFile}
+              id="csvInput"
+              name="file"
+              type="file"
+              accept=".csv"
+              onChange={handleFileChange}
+            />
 
-          <button type="button" className="preview-button" onClick={handleParse}>
-            Preview Wines
-          </button>
-
+            <button type="button" className="preview-button" onClick={handleParse}>
+              Preview Wines
+            </button>
+          </div>
           {error && <p>{error}</p>}
           {message && <p>{message}</p>}
 
@@ -236,24 +236,24 @@ function cancelUpload() {
 
 
       {uploadMode === "ai" && (
-        <section>
+        <section className="upload-section">
           <h1>Upload Wines with the help of AI</h1>
+          <div className="upload-controls">
+            <label htmlFor="csvInput">Select CSV File:</label>
 
-          <label htmlFor="csvInput">Select CSV File:</label>
+            <input
+              ref={inputFile}
+              id="csvInput"
+              name="file"
+              type="file"
+              accept=".csv"
+              onChange={handleFileChange}
+            />
 
-          <input
-            ref={inputFile}
-            id="csvInput"
-            name="file"
-            type="file"
-            accept=".csv"
-            onChange={handleFileChange}
-          />
-
-          <button type="button" className="preview-button" onClick={handleParse}>
-            Preview Wines
-          </button>
-
+            <button type="button" className="preview-button" onClick={handleParse}>
+              Preview Wines
+            </button>
+          </div>
           {error && <p>{error}</p>}
           {message && <p>{message}</p>}
 
