@@ -402,6 +402,18 @@ def validate_dishes(data):
         if not isinstance(data.get(i), int):
             errors.append(f"{i} must be a whole number")
 
+    inputstring = [
+        "starter",
+        "main",
+        "dessert"
+    ]
+    for s in inputstring:
+        if s in data:
+            if not isinstance(data.get(s), str):
+                errors.append(f"{s} must be text")
+            elif not data[s].strip():
+                errors.append(f"{s} cannot be empty")
+
     # Checks availability is either 0 or 1.
     if "available" in data:
         available_numbers = [0, 1]
@@ -447,6 +459,17 @@ def validate_dishes_ai(data):
             elif not data[field].strip():
                 errors.append(f"{field} cannot be empty")
 
+    inputstring = [
+        "starter",
+        "main",
+        "dessert"
+    ]
+    for s in inputstring:
+        if s in data:
+            if not isinstance(data.get(s), str):
+                errors.append(f"{s} must be text")
+            elif not data[s].strip():
+                errors.append(f"{s} cannot be empty")
     return errors
 
 # Validating uploaded sauces.

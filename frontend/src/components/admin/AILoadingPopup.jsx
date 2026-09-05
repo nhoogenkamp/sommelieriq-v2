@@ -19,7 +19,7 @@ function AILoadingPopup({ open }) {
         <LazyLottie src="/animations/ai-loading.json" />
 
         <p>
-          Please wait while the wine profiles are being generated.
+          Please wait while the profiles are being generated.
         </p>
 
       </div>

@@ -3,9 +3,10 @@ import Papa from "papaparse";
 import FoodUploadTable from "../../components/admin/FoodUploadTable";
 import SauceUploadTable from "../../components/admin/SauceUploadTable";
 import { uploadMenu } from "../../api/wineApi";
-import { uploadSauces } from "../../api/dishApi";
+import { uploadSauces, uploadDishesAI } from "../../api/dishApi";
 import CsvFoodTemplateDownload from "../../components/admin/CsvFoodTemplateDownload";
 import CsvSauceTemplateDownload from "../../components/admin/CsvSauceTemplateDownload";
+import AILoadingPopup from "../../components/admin/AILoadingPopup";
 
 const allowedExtensions = ["csv"];
 
@@ -16,12 +17,22 @@ function FoodUpload() {
   const [file, setFile] = useState("");
   const [message, setMessage] = useState("");
 
+  // Stores which upload option has been selected.
+  const [uploadMode, setUploadMode] = useState("");
+
+  // Stores whether AI dish profiles are currently being generated.
+  const [aiLoading, setAiLoading] = useState(false);
+
+  // Stores whether the current dishes have already been processed by AI.
+  const [aiGenerated, setAiGenerated] = useState(false);
+
   const inputFile = useRef(null);
 
   function handleFileChange(event) {
     setError("");
     setMessage("");
     setDishes([]);
+    setAiGenerated(false);
 
     if (event.target.files.length) {
       const selectedFile = event.target.files[0];
@@ -89,6 +100,7 @@ function FoodUpload() {
 
         setDishes([]);
         setFile("");
+        setAiGenerated(false);
         resetFileInput();
       })
       .catch(function (error) {
@@ -96,60 +108,269 @@ function FoodUpload() {
       });
   }
 
+
+  // Uploads all previewed dishes to the backend for AI generation.
+  function uploadDishesAIFile() {
+    // Creates the object that will be sent to the API 
+    const entry = {
+      dishes: dishes,
+    };
+    setError("");
+    setMessage("");
+    setAiLoading(true);
+
+    uploadDishesAI(entry)
+      .then(function (json) {
+        setDishes(json.dishes);
+        setMessage(json.message);
+        setAiGenerated(true);
+      })
+      .catch(function (error) {
+        setError(error.message);
+        setAiGenerated(false);
+      })
+      .finally(function () {
+        setAiLoading(false);
+      });
+  }
+
+
+  // Cancels the current upload and clears the preview.
+  function cancelUpload() {
+    setDishes([]);
+    setFile("");
+    setError("");
+    setMessage("");
+    setAiGenerated(false);
+    resetFileInput();
+  }
+
   return (
     <section>
+
+      <AILoadingPopup open={aiLoading} />
+
       <h1>Upload Food Menu</h1>
 
-      <label htmlFor="foodCsvInput">Select CSV File:</label>
+      <div className="dashboard-grid">
 
-      <input
-        ref={inputFile}
-        id="foodCsvInput"
-        name="file"
-        type="file"
-        accept=".csv"
-        onChange={handleFileChange}
-      />
+        <article
+          className="dashboard-card"
+          onClick={() => {
+            setUploadMode("regular");
+            setDishes([]);
+            setFile("");
+            setError("");
+            setMessage("");
+            setAiGenerated(false);
+            resetFileInput();
+          }}
+        >
+          <h2>Upload Food Menu</h2>
 
-      <button
-        type="button"
-        className="preview-button"
-        onClick={handleParse}
-      >
-        Preview Food
-      </button>
+          <p>
+            Upload food dishes using a completed CSV file.
+          </p>
+        </article>
 
-      {error && <p>{error}</p>}
-      {message && <p>{message}</p>}
 
-      <h3>Download a template below</h3>
+        <article
+          className="dashboard-card"
+          onClick={() => {
+            setUploadMode("ai");
+            setDishes([]);
+            setFile("");
+            setError("");
+            setMessage("");
+            setAiGenerated(false);
+            resetFileInput();
+          }}
+        >
+          <h2>Upload Food Menu with the help of AI</h2>
 
-      <p>
-        For the best results, it's recommended to download this CSV file
-        and add information in all fields.
-      </p>
+          <p>
+            Upload dish information and use AI to generate the recommended
+            wine characteristics and wine category.
+          </p>
+        </article>
 
-      <div className="download-button">
-        <CsvFoodTemplateDownload />
       </div>
+
+
+      <br />
+      <br />
+
+
+      {/* Regular food CSV upload */}
+      {uploadMode === "regular" && (
+        <section>
+
+          <h1>Upload Food Menu</h1>
+
+          <label htmlFor="foodCsvInput">Select CSV File:</label>
+
+          <input
+            ref={inputFile}
+            id="foodCsvInput"
+            name="file"
+            type="file"
+            accept=".csv"
+            onChange={handleFileChange}
+          />
+
+          <button
+            type="button"
+            className="preview-button"
+            onClick={handleParse}
+          >
+            Preview Food
+          </button>
+
+          {error && <p>{error}</p>}
+          {message && <p>{message}</p>}
+
+          <br />
+          <br />
+
+          <h3>Download a template below</h3>
+
+          <p>
+            For the best results, it's recommended to download this CSV file
+            and add information in all fields.
+          </p>
+
+          <div className="download-button">
+            <CsvFoodTemplateDownload />
+          </div>
+
+        </section>
+      )}
+
+
+      {/* AI food CSV upload */}
+      {uploadMode === "ai" && (
+        <section>
+
+          <h1>Upload Food Menu with the help of AI</h1>
+
+          <label htmlFor="foodCsvInput">Select CSV File:</label>
+
+          <input
+            ref={inputFile}
+            id="foodCsvInput"
+            name="file"
+            type="file"
+            accept=".csv"
+            onChange={handleFileChange}
+          />
+
+          <button
+            type="button"
+            className="preview-button"
+            onClick={handleParse}
+          >
+            Preview Food
+          </button>
+
+          {error && <p>{error}</p>}
+          {message && <p>{message}</p>}
+
+          <br />
+          <br />
+
+          <h3>Download a template below</h3>
+
+          <p>
+            The AI upload only requires the dish name, category and description.
+            AI will generate the wine characteristic scores and recommended wine category.
+          </p>
+
+          <div className="download-button">
+            <CsvFoodTemplateDownload />
+          </div>
+
+        </section>
+      )}
+
 
       {dishes.length > 0 && (
         <>
+
           <h2>Food Menu Preview</h2>
 
           <div className="upload-table-container">
             <FoodUploadTable dishes={dishes} />
           </div>
 
-          <button
-            type="button"
-            className="upload-button"
-            onClick={uploadDishesFile}
-          >
-            Accept and Upload
-          </button>
+
+          {/* Regular CSV upload */}
+          {uploadMode === "regular" && (
+            <>
+
+              <button
+                type="button"
+                className="upload-button"
+                onClick={uploadDishesFile}
+              >
+                Accept and Upload
+              </button>
+
+              <button
+                type="button"
+                className="upload-button"
+                onClick={cancelUpload}
+              >
+                Cancel
+              </button>
+
+            </>
+          )}
+
+
+          {/* AI CSV upload */}
+          {uploadMode === "ai" && (
+            <>
+
+              {/* This button appears before the AI profiles have been generated. */}
+              {!aiGenerated && (
+                <button
+                  type="button"
+                  className="upload-button"
+                  onClick={uploadDishesAIFile}
+                  disabled={aiLoading}
+                >
+                  Generate AI Profiles
+                </button>
+              )}
+
+
+              {/* This button appears after the AI profiles have been generated. */}
+              {aiGenerated && (
+                <button
+                  type="button"
+                  className="upload-button"
+                  onClick={uploadDishesFile}
+                >
+                  Accept and Upload
+                </button>
+              )}
+
+
+              <button
+                type="button"
+                className="upload-button"
+                onClick={cancelUpload}
+                disabled={aiLoading}
+              >
+                Cancel
+              </button>
+
+            </>
+          )}
+
         </>
       )}
+
     </section>
   );
 }
