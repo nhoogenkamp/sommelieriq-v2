@@ -23,7 +23,7 @@ class DishProfile(BaseModel):
     @field_validator("body_score","tannin_score", "acidity_score", "sweetness_score")
     def check_score(cls, value):
         if value < 0 or value > 20:
-            raise ValueError("Wine scores must be between 0 and 20")
+            raise ValueError("Dish scores must be between 0 and 20")
         return value
     
     @field_validator("colour_wine")
@@ -33,7 +33,7 @@ class DishProfile(BaseModel):
             raise ValueError("Wine colour recommendation is incorrect")
         return value
 
-# Inherits from BaseModel and defines the expected structure of the AI response. "wines" must be a list of WineProfile objects.
+# Inherits from BaseModel and defines the expected structure of the AI response. "Dishes" must be a list of dishProfile objects.
 class DishProfileResponse(BaseModel):
     dishes: list[DishProfile]
 
@@ -43,7 +43,7 @@ client = OpenAI(
     api_key=os.getenv("NVIDIA_API_KEY")
 )
 
-# This function receives the wines prepared by uploadWinesAI.py.
+# This function receives the dishes prepared by uploadDishesAI.py.
 def generate_dish_profiles(dishes):
 
     # Convert Python list to JSON text before sending to NVIDIA.

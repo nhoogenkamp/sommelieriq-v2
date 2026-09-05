@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from routes.validations import validate_dishes_ai
-from routes.AI.winePrompt import generate_dish_profiles
+from routes.AI.dishPrompt import generate_dish_profiles
 import itertools
 
 
@@ -16,12 +16,12 @@ def upload_dishes_ai():
 
     if not isinstance(dishes, list) or len(dishes) == 0:
         return jsonify({
-            "error": "Please provide at least one wine"
+            "error": "Please provide at least one dish"
         }), 400
 
     validation_errors = []
 
-    # Validate each wine before sending it to the AI.
+    # Validate each dish before sending it to the AI.
     for index, dish in enumerate(dishes):
         errors = validate_dishes_ai(dish)
 
@@ -37,7 +37,7 @@ def upload_dishes_ai():
             "errors": validation_errors
         }), 400
 
-    # Add a temporary row_id so the AI response can be matched back to the correct wine.
+    # Add a temporary row_id so the AI response can be matched back to the correct dish.
     dishes_for_ai = []
 
     for index, dish in enumerate(dishes):
@@ -62,7 +62,7 @@ def upload_dishes_ai():
         print("AI dish generation error:", err)
 
         return jsonify({
-            "error": "Could not generate AI wine profiles"
+            "error": "Could not generate AI dish profiles"
         }), 500
 
     # nested loop and similar to sendish.py 
@@ -88,7 +88,7 @@ def upload_dishes_ai():
 
         if not row_id_found:
             return jsonify({
-                "error": f"AI profile missing for wine row {dish_ai['row_id']}"
+                "error": f"AI profile missing for dish row {dish_ai['row_id']}"
             }), 500
         
     return jsonify({
