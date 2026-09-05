@@ -18,7 +18,11 @@ def upload_dishes_ai():
         return jsonify({
             "error": "Please provide at least one dish"
         }), 400
-
+    
+    if len(dishes) > 50:
+        return jsonify({
+            "error": "A maximum of 50 dishes can be processed with AI at one time"
+        }), 400
     validation_errors = []
 
     # Validate each dish before sending it to the AI.

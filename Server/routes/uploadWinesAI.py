@@ -18,6 +18,11 @@ def upload_wines_ai():
         return jsonify({
             "error": "Please provide at least one wine"
         }), 400
+    
+    if len(wines) > 300:
+        return jsonify({
+            "error": "A maximum of 300 wines can be processed with AI at one time"
+        }), 400
 
     validation_errors = []
 
