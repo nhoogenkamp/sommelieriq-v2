@@ -1,8 +1,10 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, session
 from dotenv import load_dotenv
 load_dotenv()
 from werkzeug.exceptions import RequestEntityTooLarge
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 from routes.wines import get_tables, get_wines , get_all_wines
 from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
@@ -34,6 +36,20 @@ from flask_cors import CORS
 #https://www.google.com/search?q=from+flask_cors+import+cors&oq=from+flask_cors+import+CORS&gs_lcrp=EgZjaHJvbWUqDQgAEAAYkQIYgAQYigUyDQgAEAAYkQIYgAQYigUyCAgBEAAYFhgeMggIAhAAGBYYHjIICAMQABgWGB4yCAgEEAAYFhgeMggIBRAAGBYYHjIICAYQABgWGB4yDQgHEAAYhgMYgAQYigUyBwgIEAAY7wUyBwgJEAAY7wXSAQcyNzBqMGo5qAIGsAIB8QX1TVs-UXY3Vg&sourceid=chrome&ie=UTF-8
 # adding flask secret key for sessions and added CORS due to different address for front end: https://gist.github.com/frostming/3c2694c5e18f64ac7c17fd11178c98f5
 app = Flask(__name__)
+
+# setting rate limits: https://flask-limiter.readthedocs.io/en/stable/
+def get_rate_limit_key():
+    if session.get("user_id"):
+        return str(session["user_id"])
+    return get_remote_address()
+
+limiter = Limiter(
+    key_func=get_rate_limit_key,
+    app=app,
+    default_limits=["2000 per hour"],
+    storage_uri="memory://"
+)
+
 
 # Maximum upload/request size.
 # https://flask.palletsprojects.com/en/stable/patterns/fileuploads/
@@ -72,6 +88,7 @@ def tables():
 
 #get wines from db
 @app.route('/getWines', methods=['POST'])
+@limiter.limit("100 per minute")
 def wines():
     return get_wines()
 
@@ -82,6 +99,7 @@ def all_wines():
 
 #get all food from db
 @app.route('/getFood', methods=['POST'])
+@limiter.limit("100 per minute")
 def food_items():
     return get_food()
 
@@ -92,6 +110,7 @@ def dish_items():
     return get_dishes()
 
 @app.route("/getSauces", methods=["POST"])
+@limiter.limit("100 per minute")
 def sauce_items():
     return get_sauces()
 
@@ -102,6 +121,7 @@ def all_sauces():
 
 # getting dish from frontend
 @app.route('/senddish', methods=['POST'])
+@limiter.limit("100 per minute")
 def receive_dish():
     return send_dish()
 
@@ -111,6 +131,7 @@ def create_admin():
     return add_admin()
 
 @app.route('/adminLogin', methods=['POST'])
+@limiter.limit("5 per minute", "20 per hour")
 def admin_login():
     return login_admin()
 
@@ -126,6 +147,7 @@ def uploading_wines():
 
 @app.route("/uploadWinesAI", methods=["POST"])
 @roles_required(["owner", "manager", "sommelier"])
+@limiter.limit("10 per hour;30 per day", override_defaults=False)
 def uploading_wines_ai():
     return upload_wines_ai()
 
@@ -146,6 +168,7 @@ def uploading_dishes():
 
 @app.route("/uploadDishesAI", methods=["POST"])
 @roles_required(["owner", "manager", "sommelier"])
+@limiter.limit("10 per hour;30 per day", override_defaults=False)
 def uploading_dishes_ai():
     return upload_dishes_ai()
 
@@ -199,11 +222,13 @@ def oauth2callback_route():
 
 # for new users only 
 @app.route("/reset-password", methods=["POST"])
+@limiter.limit("2 per minute")
 def changing_password():
     return reset_password()
 
 # for existing users only
 @app.route("/forgot-password", methods=["POST"])
+@limiter.limit("2 per minute")
 def requesting_password_reset():
     return forgot_password()
 
