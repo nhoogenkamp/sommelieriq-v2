@@ -1,0 +1,626 @@
+/* =====================================
+   HOME PAGE COLOURS
+===================================== */
+
+:root {
+    --burgundy: #74132c;
+    --cream: #f8f5f2;
+    --light-cream: #fdfbf9;
+    --white: #ffffff;
+    --text-dark: #241a1c;
+    --text-body: #332b2d;
+    --border-light: #ded7d3;
+}
+
+
+/* =====================================
+   HOME PAGE
+===================================== */
+
+.home-page {
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-cream);
+    color: var(--text-dark);
+}
+
+.home-page p {
+    color: var(--text-body);
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+.home-page h1,
+.home-page h2,
+.home-page h3 {
+    color: var(--text-dark);
+}
+
+
+/* =====================================
+   HERO
+===================================== */
+
+.home-hero {
+    min-height: 78vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+    padding: 80px 8%;
+    background-color: var(--cream);
+}
+
+.home-hero-text {
+    max-width: 650px;
+}
+
+.home-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: var(--burgundy) !important;
+    margin-bottom: 20px;
+}
+
+.home-hero h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.home-description {
+    font-size: 1.2rem;
+    max-width: 550px;
+    margin-bottom: 35px;
+}
+
+.home-hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.home-primary-button,
+.home-secondary-button,
+.home-outline-button {
+    display: inline-block;
+    padding: 15px 28px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: transform 0.25s ease,
+                background-color 0.25s ease,
+                color 0.25s ease;
+}
+
+.home-primary-button {
+    background-color: var(--burgundy);
+    color: var(--white);
+    border: 1px solid var(--burgundy);
+}
+
+.home-primary-button:hover {
+    transform: translateY(-2px);
+}
+
+.home-outline-button {
+    background-color: transparent;
+    color: var(--burgundy);
+    border: 1px solid var(--burgundy);
+}
+
+.home-outline-button:hover {
+    background-color: var(--burgundy);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.home-secondary-button {
+    background-color: var(--white);
+    color: var(--burgundy);
+    border: 1px solid var(--white);
+}
+
+.home-secondary-button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =====================================
+   HERO VISUAL
+===================================== */
+
+.home-hero-visual {
+    min-height: 450px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-wine-glass {
+    font-size: 13rem;
+    position: absolute;
+    transform: translateX(-70px) rotate(-5deg);
+}
+
+.home-food-plate {
+    font-size: 11rem;
+    position: absolute;
+    transform: translate(90px, 80px);
+}
+
+
+/* =====================================
+   INTRODUCTION
+===================================== */
+
+.home-introduction {
+    text-align: center;
+    padding: 110px 10%;
+    max-width: 1000px;
+    margin: auto;
+    background-color: var(--white);
+}
+
+.home-introduction h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+
+.home-introduction > p:last-child {
+    max-width: 720px;
+    margin: auto;
+    font-size: 1.1rem;
+}
+
+
+/* =====================================
+   CUSTOMER STEPS
+===================================== */
+
+.home-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    padding: 90px 8%;
+    background-color: var(--cream);
+}
+
+.home-step {
+    position: relative;
+}
+
+.home-step span {
+    display: block;
+    font-size: 5rem;
+    font-weight: 700;
+    color: rgba(91, 31, 42, 0.14);
+    margin-bottom: -15px;
+}
+
+.home-step h2 {
+    color: var(--burgundy);
+    margin-bottom: 5px;
+}
+
+.home-step h3 {
+    margin-bottom: 20px;
+}
+
+.home-step p {
+    color: var(--text-body);
+}
+
+
+/* =====================================
+   PAIRING FLIP CARD SECTION
+===================================== */
+
+.home-pairing-demo {
+    padding: 120px 8%;
+    text-align: center;
+    background-color: var(--white);
+}
+
+.home-pairing-demo > h2 {
+    font-size: clamp(2.3rem, 4vw, 4rem);
+    margin-bottom: 15px;
+}
+
+.home-section-description {
+    margin-bottom: 60px;
+    font-size: 1.05rem;
+}
+
+.home-flip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.home-flip-card {
+    height: 450px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.home-flip-card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.7s ease;
+    transform-style: preserve-3d;
+}
+
+.home-flip-card.flipped .home-flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.home-flip-card-front,
+.home-flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.home-flip-card-front {
+    background-color: var(--cream);
+    border: 1px solid var(--border-light);
+}
+
+.home-flip-card-back {
+    background-color: var(--burgundy);
+    color: var(--white);
+    transform: rotateY(180deg);
+}
+
+.home-flip-card-front p {
+    color: var(--text-body);
+}
+
+.home-flip-card-back h3,
+.home-flip-card-back p,
+.home-flip-card-back span {
+    color: var(--white) !important;
+}
+
+.home-dish-icon,
+.home-wine-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.home-card-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--burgundy) !important;
+}
+
+.home-flip-card-back .home-card-label {
+    color: var(--white) !important;
+}
+
+.home-flip-card h3 {
+    font-size: 1.6rem;
+    margin: 10px 0 15px;
+}
+
+.home-card-action {
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--burgundy);
+}
+
+
+/* =====================================
+   SPLIT SECTIONS
+===================================== */
+
+.home-split-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+    margin: 100px 8%;
+    background-color: var(--white);
+}
+
+.home-split-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--cream);
+    min-height: 450px;
+}
+
+.home-large-icon {
+    font-size: 12rem;
+    transition: transform 0.4s ease;
+}
+
+.home-split-visual:hover .home-large-icon {
+    transform: scale(1.05);
+}
+
+.home-split-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 70px;
+}
+
+.home-split-content h2 {
+    font-size: clamp(2rem, 3vw, 3.2rem);
+    margin-bottom: 25px;
+}
+
+.home-split-content p {
+    color: var(--text-body);
+    margin-bottom: 30px;
+}
+
+.home-text-link {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 700;
+    width: fit-content;
+}
+
+.home-text-link:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================
+   OWNER SECTION
+===================================== */
+
+.home-owner-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 120px 8%;
+    background-color: var(--cream);
+}
+
+.home-owner-heading h2 {
+    font-size: clamp(2.7rem, 5vw, 5rem);
+    line-height: 1.05;
+}
+
+.home-owner-content > p {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    color: var(--text-body);
+}
+
+.home-owner-features {
+    margin-bottom: 40px;
+}
+
+.home-owner-features div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.home-owner-features strong {
+    color: var(--burgundy);
+    font-size: 1rem;
+}
+
+.home-owner-features span {
+    color: var(--text-dark);
+}
+
+.home-owner-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+
+/* =====================================
+   FINAL CALL TO ACTION
+===================================== */
+
+.home-cta {
+    text-align: center;
+    background-color: var(--burgundy);
+    color: var(--white);
+    padding: 110px 8%;
+    margin-bottom: 0;
+}
+
+.home-cta .home-eyebrow,
+.home-cta h2,
+.home-cta p {
+    color: var(--white) !important;
+}
+
+.home-cta h2 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin-bottom: 20px;
+}
+
+.home-cta > p:not(.home-eyebrow) {
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+}
+
+
+/* =====================================
+   PUBLIC NAVIGATION
+===================================== */
+
+.public-navbar {
+    background-color: var(--burgundy);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 6%;
+}
+
+.public-navbar-logo {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.public-navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.public-navbar-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.public-navbar-links a:hover {
+    opacity: 0.8;
+}
+
+.public-login-link {
+    border: 1px solid var(--white);
+    padding: 9px 16px;
+    border-radius: 4px;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 800px) {
+
+    .home-hero {
+        grid-template-columns: 1fr;
+        padding: 60px 6%;
+        text-align: center;
+    }
+
+    .home-hero-text {
+        margin: auto;
+    }
+
+    .home-hero-buttons {
+        justify-content: center;
+    }
+
+    .home-hero-visual {
+        min-height: 300px;
+    }
+
+    .home-wine-glass {
+        font-size: 9rem;
+        transform: translateX(-45px);
+    }
+
+    .home-food-plate {
+        font-size: 7rem;
+        transform: translate(60px, 60px);
+    }
+
+
+    .home-introduction {
+        padding: 80px 6%;
+    }
+
+
+    .home-steps {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 70px 6%;
+    }
+
+
+    .home-flip-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
+
+
+    .home-pairing-demo {
+        padding: 80px 6%;
+    }
+
+
+    .home-split-section {
+        grid-template-columns: 1fr;
+        margin: 50px 6%;
+    }
+
+    .home-split-reverse .home-split-content {
+        order: 2;
+    }
+
+    .home-split-reverse .home-split-visual {
+        order: 1;
+    }
+
+    .home-split-content {
+        padding: 45px 30px;
+    }
+
+    .home-split-visual {
+        min-height: 300px;
+    }
+
+    .home-large-icon {
+        font-size: 8rem;
+    }
+
+
+    .home-owner-section {
+        grid-template-columns: 1fr;
+        padding: 80px 6%;
+        gap: 40px;
+    }
+
+    .home-owner-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .home-cta {
+        padding: 80px 6%;
+    }
+
+
+    .public-navbar {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .public-navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px 20px;
+    }
+}

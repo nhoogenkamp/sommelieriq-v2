@@ -40,13 +40,8 @@ function Restaurants() {
         {restaurants.map((restaurant) => (
           <article
             key={restaurant.id}
-            className="dashboard-card"
-            onClick={() =>
-              navigate(
-                `/restaurants/${restaurant.id}/${restaurant.slug}/wines`
-              )
-            }
-          >
+            className="dashboard-card">
+  
             <Link
               to={`/restaurants/${restaurant.id}/${restaurant.slug}/wines`}
             >
