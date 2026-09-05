@@ -6,6 +6,7 @@ import { uploadMenu } from "../../api/wineApi";
 import { uploadSauces, uploadDishesAI } from "../../api/dishApi";
 import CsvFoodTemplateDownload from "../../components/admin/CsvFoodTemplateDownload";
 import CsvSauceTemplateDownload from "../../components/admin/CsvSauceTemplateDownload";
+import AIcsvFoodTemplateDownload from "../../components/admin/AIcsvFoodTemplateDownload";
 import AILoadingPopup from "../../components/admin/AILoadingPopup";
 
 const allowedExtensions = ["csv"];
@@ -352,7 +353,7 @@ function MenuUpload() {
           </p>
 
           <div className="download-button">
-            <CsvFoodTemplateDownload />
+            <AIcsvFoodTemplateDownload />
           </div>
 
         </section>
