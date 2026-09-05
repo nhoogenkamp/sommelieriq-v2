@@ -4,6 +4,7 @@ import WineUploadTable from "../../components/admin/WineUploadTable";
 import { uploadWines, uploadWinesAI } from "../../api/wineApi";
 import CsvTemplateDownload from "../../components/admin/CsvTemplateDownload";
 import AICsvTemplateDownload from "../../components/admin/AIcsvTemplateDownload";
+import AILoadingPopup from "../../components/admin/AILoadingPopup";
 
 
 // https://www.geeksforgeeks.org/reactjs/how-to-read-csv-files-in-react-js/
@@ -26,6 +27,12 @@ function WineUpload() {
   // Stores which upload option has been selected.
   const [uploadMode, setUploadMode] = useState("");
 
+  // Stores whether AI wine profiles are currently being generated.
+  const [aiLoading, setAiLoading] = useState(false);
+
+  // Stores whether the current wines have already been processed by AI.
+  const [aiGenerated, setAiGenerated] = useState(false);
+
   // Used to reset the selected CSV file. https://www.geeksforgeeks.org/reactjs/how-to-reset-a-file-input-in-react-js/
   const inputFile = useRef(null);
 
@@ -34,6 +41,7 @@ function WineUpload() {
     setError("");
     setMessage("");
     setWines([]);
+    setAiGenerated(false);
 
     if (event.target.files.length) {
       const selectedFile  = event.target.files[0];
@@ -118,19 +126,28 @@ function uploadWinesAIFile() {
   };
   setError("");
   setMessage("");
+  setAiLoading(true);
 
   uploadWinesAI(entry)
     .then(function (json) {
       setWines(json.wines);
       setMessage(json.message);
+      setAiGenerated(true);
     })
     .catch(function (error) {
       setError(error.message);
+      setAiGenerated(false);
+    })
+    .finally(function () {
+      setAiLoading(false);
     });
 }  
 
   return (
     <main>
+
+      <AILoadingPopup open={aiLoading} />
+
       <h1>Upload Wines</h1>
 
       <div className="dashboard-grid">
@@ -256,14 +273,18 @@ function uploadWinesAIFile() {
           {/* AI CSV upload */}
           {uploadMode === "ai" && (
             <>
+            {!aiGenerated && (
               <button
                 type="button"
                 className="upload-button"
                 onClick={uploadWinesAIFile}
+                disabled={aiLoading}
               >
                 Generate AI Profiles
               </button>
+            )}
 
+            {aiGenerated && (
               <button
                 type="button"
                 className="upload-button"
@@ -271,6 +292,7 @@ function uploadWinesAIFile() {
               >
                 Accept and Upload
               </button>
+            )}
             </>
           )}
 
