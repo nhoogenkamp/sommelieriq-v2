@@ -1,6 +1,7 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Hamburger from "hamburger-react";
 
 function AdminNavbar() {
 
@@ -10,6 +11,8 @@ function AdminNavbar() {
   // https://react.dev/reference/react/useContext
   const { currentUser, logout } = useContext(AuthContext);
 
+  // hamburger navbar in mobile: https://medium.com/@adebosinadewale_62859/creating-an-hamburger-menu-in-react-3670c811db8c
+  const [hamburgerIsOpen, setHamburgerIsOpen] = useState(false);
   // Used to navigate back to login after logout.
   // https://reactrouter.com/api/hooks/useNavigate
   const navigate = useNavigate();
@@ -30,13 +33,26 @@ function AdminNavbar() {
 
 
   return (
-    <nav>
+    <nav className="admin-navbar">
+
+  <div className="hamburger">
+    <Hamburger
+      toggled={hamburgerIsOpen}
+      toggle={setHamburgerIsOpen}
+      label="Toggle navigation menu"
+    />
+  </div>
+
+  <div
+    className={`admin-navbar-links ${
+      hamburgerIsOpen ? "open" : ""
+    }`}
+  >
 
       {/* Shows Login only when there is no logged-in user. */}
       {!currentUser && (
-        <NavLink to="/login">
-          Login
-        </NavLink>
+        <NavLink to="/login"
+        onClick={() => setHamburgerIsOpen(false)}>Login</NavLink>
       )}
 
 
@@ -44,13 +60,12 @@ function AdminNavbar() {
       ProtectedRoute still checks whether the user can access them. */}
       {currentUser && (
         <>
-          <NavLink to={`/admin/restaurants/${restaurantId}/dashboard`}>
-            Dashboard
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/dashboard`}
+          onClick={() => setHamburgerIsOpen(false)}
+          >Dashboard</NavLink>
 
-          <NavLink to={`/admin/restaurants/${restaurantId}/wines/availability`}>
-            Availability
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/wines/availability`}
+          onClick={() => setHamburgerIsOpen(false)}> Availability</NavLink>
         </>
       )}
 
@@ -59,47 +74,41 @@ function AdminNavbar() {
       Owner, Manager and Sommelier can access these pages. */}
       {currentUser && currentUser.role !== "staff" && (
         <>
-          <NavLink to={`/admin/restaurants/${restaurantId}/wines/price`}>
-            Update Price
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/wines/price`}
+          onClick={() => setHamburgerIsOpen(false)}> Update Price</NavLink>
 
-          <NavLink to={`/admin/restaurants/${restaurantId}/wines/delete`}>
-            Delete Wine
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/wines/delete`}
+          onClick={() => setHamburgerIsOpen(false)}> Delete Wine</NavLink>
 
-          <NavLink to={`/admin/restaurants/${restaurantId}/wines/upload`}>
-            Upload Wines
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/wines/upload`}
+          onClick={() => setHamburgerIsOpen(false)}>Upload Wines</NavLink>
 
-          <NavLink to={`/admin/restaurants/${restaurantId}/food/foodupload`}>
-            Upload Dish
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/food/foodupload`}
+          onClick={() => setHamburgerIsOpen(false)}>Upload Dish </NavLink>
 
-          <NavLink to={`/admin/restaurants/${restaurantId}/food/dishdeletion`}>
-            Delete Dish
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/food/dishdeletion`}
+          onClick={() => setHamburgerIsOpen(false)}> Delete Dish</NavLink>
 
-          <NavLink to={`/admin/restaurants/${restaurantId}/food/update`}>
-            Update Dish
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/food/update`}
+          onClick={() => setHamburgerIsOpen(false)}> Update Dish</NavLink>
         </>
       )}
 
       {/* Only Owner and Manager can access user management. */}
       {currentUser && ["owner", "manager"].includes(currentUser.role) && (
-          <NavLink to={`/admin/restaurants/${restaurantId}/users/add`}>
-            Add Users
-          </NavLink>
+          <NavLink to={`/admin/restaurants/${restaurantId}/users/add`}
+          onClick={() => setHamburgerIsOpen(false)}> Add Users</NavLink>
       )}
 
 
       {/* Shows Logout only when a user is logged in. */}
       {currentUser && (
-        <button className="admin-logout-button" type="button" onClick={handleLogout}>
+        <button className="admin-logout-button" type="button" onClick={handleLogout}
+        >
             Logout
         </button>
       )}
-
+</div>
     </nav>
   );
 }

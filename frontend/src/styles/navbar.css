@@ -81,3 +81,103 @@ nav a:focus-visible {
     outline-offset: 8px;
     border-radius: 2px;
 }
+
+/* =========================================
+   ADMIN NAVIGATION
+   ========================================= */
+
+.admin-navbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.admin-navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+}
+
+
+/* =========================================
+   MOBILE NAVIGATION
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .admin-navbar {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        background-color: #5c0018;
+    }
+
+    .hamburger {
+        display: block;
+        color: #ffffff;
+    }
+
+    .admin-navbar-links {
+        display: none;
+        width: 100%;
+    }
+
+    .admin-navbar-links.open {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        width: 100%;
+        background-color: #5c0018;
+    }
+
+    .admin-navbar-links a {
+        display: block;
+        width: 100%;
+        padding: 14px 20px;
+        background-color: #5c0018;
+        color: #ffffff;
+        text-align: left;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Remove desktop yellow underline */
+    .admin-navbar-links a::after {
+        display: none;
+    }
+
+    .admin-navbar-links a:hover {
+        background-color: #74132c;
+        color: #ffffff;
+        transform: none;
+    }
+
+    .admin-navbar-links a.active {
+        background-color: #ffffff;
+        color: #5c0018;
+        font-weight: 600;
+    }
+
+    .admin-navbar-links .admin-logout-button {
+        display: block;
+        width: 100%;
+        padding: 14px 20px;
+        background-color: #5c0018;
+        color: #ffffff;
+        text-align: left;
+        border: none;
+        cursor: pointer;
+    }
+
+    .admin-navbar-links .admin-logout-button:hover {
+        background-color: #74132c;
+        color: #ffffff;
+    }
+}
