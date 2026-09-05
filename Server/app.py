@@ -37,6 +37,11 @@ from flask_cors import CORS
 # adding flask secret key for sessions and added CORS due to different address for front end: https://gist.github.com/frostming/3c2694c5e18f64ac7c17fd11178c98f5
 app = Flask(__name__)
 
+# Redis (Remote Dictionary Server) is an in-memory database 
+REDIS_URL = os.getenv("REDIS_URL")
+if not REDIS_URL:
+    raise RuntimeError("REDIS_URL is not configured")
+
 # setting rate limits: https://flask-limiter.readthedocs.io/en/stable/
 def get_rate_limit_key():
     if session.get("user_id"):
@@ -47,7 +52,7 @@ limiter = Limiter(
     key_func=get_rate_limit_key,
     app=app,
     default_limits=["2000 per hour"],
-    storage_uri="memory://"
+    storage_uri=REDIS_URL
 )
 
 
@@ -61,6 +66,13 @@ def handle_large_file(error):
     return jsonify({
         "error": "File is too large. Maximum upload size is 5 MB."
     }), 413
+
+@app.errorhandler(429)
+def handle_rate_limit(error):
+
+    return jsonify({
+        "error": "Too many requests. Please try again later."
+    }), 429
 
 #with AI
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "temporary-dev-secret")
@@ -131,7 +143,7 @@ def create_admin():
     return add_admin()
 
 @app.route('/adminLogin', methods=['POST'])
-@limiter.limit("5 per minute", "20 per hour")
+@limiter.limit("5 per minute;20 per hour")
 def admin_login():
     return login_admin()
 
