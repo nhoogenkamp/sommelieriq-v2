@@ -143,6 +143,15 @@ function uploadWinesAIFile() {
     });
 }  
 
+function cancelUpload() {
+  setWines([]);
+  setFile("");
+  setError("");
+  setMessage("");
+  setAiGenerated(false);
+  resetFileInput();
+}
+
   return (
     <main>
 
@@ -267,7 +276,11 @@ function uploadWinesAIFile() {
             </div>
           {/* Regular CSV upload */}
           {uploadMode === "regular" && (
-            <button type="button" className="upload-button" onClick={uploadWineFile} >Accept and Upload</button>
+            <>
+              <button type="button" className="upload-button" onClick={uploadWineFile}> Accept and Upload</button>
+
+              <button type="button" className="upload-button" onClick={cancelUpload}> Cancel </button>
+            </>
           )}
 
           {/* AI CSV upload */}
@@ -293,6 +306,7 @@ function uploadWinesAIFile() {
                 Accept and Upload
               </button>
             )}
+            <button type="button" className="upload-button" onClick={cancelUpload} disabled={aiLoading}> Cancel </button>
             </>
           )}
 
