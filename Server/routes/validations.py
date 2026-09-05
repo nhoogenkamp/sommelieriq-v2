@@ -426,6 +426,29 @@ def validate_dishes(data):
 
     return errors
 
+def validate_dishes_ai(data):
+
+    errors = []
+
+    fields = [
+        "dish_name",
+        "category",
+        "description"
+    ]
+
+    for field in fields:
+        if field not in data:
+            errors.append(f"{field} is required")
+
+    for field in fields:
+        if field in data:
+            if not isinstance(data.get(field), str):
+                errors.append(f"{field} must be text")
+            elif not data[field].strip():
+                errors.append(f"{field} cannot be empty")
+
+    return errors
+
 # Validating uploaded sauces.
 def validate_sauce(data):
 

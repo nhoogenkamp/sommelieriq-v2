@@ -132,8 +132,9 @@ Rules:
     13 to 16 = sweet
     17 to 20 = very sweet
 
-    Score sweetness based on the expected residual sweetness of the
-    wine style, not on fruity aromas or ripe fruit flavours.
+    Score sweetness based on the expected residual sweetness of the recommended wine style,
+   not on fruity aromas or ripe fruit flavours.
+   
 
 9. Preserve each input row_id.
 10. Consider the overall weight, richness, acidity, sweetness and intensity of the dish when assigning scores.
