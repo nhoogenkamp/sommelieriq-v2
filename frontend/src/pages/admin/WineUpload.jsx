@@ -285,32 +285,18 @@ function cancelUpload() {
 
           {/* AI CSV upload */}
           {uploadMode === "ai" && (
+            // first button is for generating wine profiles and only appears in one you preview wines
             <>
             {!aiGenerated && (
-              <button
-                type="button"
-                className="upload-button"
-                onClick={uploadWinesAIFile}
-                disabled={aiLoading}
-              >
-                Generate AI Profiles
-              </button>
+              <button type="button"className="upload-button" onClick={uploadWinesAIFile} disabled={aiLoading}>Generate AI Profiles </button>
             )}
-
+             {/* These buttons are available after the AI profiles have been created. */}
             {aiGenerated && (
-              <button
-                type="button"
-                className="upload-button"
-                onClick={uploadWineFile}
-              >
-                Accept and Upload
-              </button>
+              <button  type="button"  className="upload-button" onClick={uploadWineFile}> Accept and Upload </button>
             )}
             <button type="button" className="upload-button" onClick={cancelUpload} disabled={aiLoading}> Cancel </button>
             </>
           )}
-
- 
           </>
       )}      
     </main>
