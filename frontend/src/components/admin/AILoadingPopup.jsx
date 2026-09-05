@@ -1,6 +1,8 @@
 import Popup from "reactjs-popup";
 import LazyLottie from "../common/LazyLottie";
 
+//https://www.geeksforgeeks.org/reactjs/how-to-create-popup-box-in-reactjs/
+// https://react-popup.elazizi.com/component-api#closeondocumentclick
 function AILoadingPopup({ open }) {
   return (
     <Popup
