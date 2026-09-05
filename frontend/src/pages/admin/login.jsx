@@ -39,7 +39,7 @@ function Login() {
       setUsername("");
       setPassword("");
 
-      navigate(`/admin/restaurants/${admin.restaurant_id}/dashboard`);
+      navigate(`/admin/restaurants/${admin.restaurant_slug}/dashboard`);
     } catch (error) {
       setValidationError(error.message);
 

@@ -202,7 +202,13 @@ def login_admin():
             "error": "Could not connect with database"
         }), 503
     
-    sql = "SELECT * FROM admins WHERE username = %s"
+    sql ="""
+    SELECT admins.*, restaurants.slug
+    FROM admins
+    JOIN restaurants
+        ON admins.restaurant_id = restaurants.restaurant_id
+    WHERE admins.username = %s
+    """
     values = (username,)
 
    # return 500 if query fails
@@ -236,6 +242,7 @@ def login_admin():
         session["restaurant_id"] = admin["restaurant_id"]
         session["username"] = admin["username"]
         session["role"] = admin["role"]
+        session["restaurant_slug"] = admin["slug"]
 
         print(session)
 
@@ -243,6 +250,7 @@ def login_admin():
             "message": "Login successful",
             "username": admin["username"],
             "restaurant_id": admin["restaurant_id"],
+            "restaurant_slug": admin["slug"],
             "role": admin["role"]
         }), 200
 
@@ -313,7 +321,9 @@ def check_admin():
             "logged_in": True,
             "username": session["username"],
             "restaurant_id": session["restaurant_id"],
+            "restaurant_slug": session["restaurant_slug"],
             "role": session["role"]
+            
         }), 200
 
     return jsonify({
@@ -328,6 +338,7 @@ def logout_admin():
     session.pop("restaurant_id", None)
     session.pop("username", None)
     session.pop("role", None)
+    session.pop("restaurant_slug", None)
 
     return jsonify({
         "message": "Logged out successfully"

@@ -19,6 +19,7 @@ function AuthProvider({ children }) {
         setCurrentUser({
         username: response.username,
         restaurantId: response.restaurant_id,
+        restaurant_slug: response.restaurant_slug,
         role: response.role,
         });
     }, []);
@@ -41,6 +42,7 @@ function AuthProvider({ children }) {
             setCurrentUser({
                 username: admin.username,
                 restaurantId: admin.restaurant_id,
+                restaurant_slug: admin.restaurant_slug,
                 role: admin.role,
             });
             }

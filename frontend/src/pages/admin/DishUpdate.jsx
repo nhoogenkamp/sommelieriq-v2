@@ -5,7 +5,7 @@ import AdminDishTable from "../../components/admin/AdminDishTable";
 import AdminSauceTable from "../../components/admin/SauceUploadTable";
 
 function DishUpdate() {
-  const { restaurantId } = useParams();
+  const { restaurant_slug } = useParams();
 
   // Stores all dishes and sauces returned from the backend.
   const [dishes, setDishes] = useState([]);
@@ -40,7 +40,7 @@ function DishUpdate() {
     }
 
     loadFoodMenu();
-  }, [restaurantId]);
+  }, [restaurant_slug]);
 
 
   // Updates one selected dish.

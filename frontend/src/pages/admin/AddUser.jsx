@@ -37,7 +37,7 @@ function AddUser() {
 
         // Return to dashboard after successfully creating the user.
         navigate(
-            `/admin/restaurants/${currentUser.restaurant_id}/dashboard`
+            `/admin/restaurants/${currentUser.restaurant_slug}/dashboard`
         );
 
         } catch (error) {

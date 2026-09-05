@@ -12,10 +12,10 @@ function Dashboard() {
   const [validationError, setValidationError] = useState("");
   const qrCodeRef = useRef(null);
   const navigate = useNavigate();
-  const { restaurantId } = useParams();
+  const { restaurant_slug } = useParams();
   const { currentUser } = useContext(AuthContext);
   const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
-  const restaurantUrl = `${FRONTEND_URL}/restaurants/${restaurantId}/food-pairing`;
+  const restaurantUrl = `${FRONTEND_URL}/restaurants/${restaurant_slug}/food-pairing`;
 
   // remove console.log lateron!
   console.log(currentUser);
@@ -78,7 +78,7 @@ function downloadQRCode() {
         <article className="dashboard-card"
           onClick={() =>
             navigate(
-              `/admin/restaurants/${restaurantId}/wines/availability`
+              `/admin/restaurants/${restaurant_slug}/wines/availability`
             )
           }
         >
@@ -117,7 +117,7 @@ function downloadQRCode() {
         <article className="dashboard-card"
           onClick={() =>
             navigate(
-              `/admin/restaurants/${restaurantId}/wines/availability`
+              `/admin/restaurants/${restaurant_slug}/wines/availability`
             )
           }
         >
@@ -183,7 +183,7 @@ function downloadQRCode() {
                 type="button" className="wine-update-button"
                 onClick={() =>
                   navigate(
-                    `/admin/restaurants/${restaurantId}/users/add`
+                    `/admin/restaurants/${restaurant_slug}/users/add`
                   )
                 }
               >

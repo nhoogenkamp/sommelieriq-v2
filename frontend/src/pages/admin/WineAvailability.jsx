@@ -7,7 +7,7 @@ import AdminWineFilters from "../../components/admin/AdminWineFilters";
 
 // function to show react-dom information params: https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 function WineAvailability() {
-  const { restaurantId } = useParams();
+  const { restaurant_slug } = useParams();
 
   //https://react.dev/reference/react/useState
   const [wines, setWines] = useState([]);
@@ -44,7 +44,7 @@ function WineAvailability() {
     }
 
     loadWines();
-  }, [restaurantId]);
+  }, [restaurant_slug]);
 
   const filteredWines = wines.filter((wine) => {
     return (

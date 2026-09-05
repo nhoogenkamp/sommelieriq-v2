@@ -33,11 +33,11 @@ function AppRoutes() {
           />
 
           <Route
-              path="/restaurants/:restaurantId/wines"
+              path="/restaurants/:restaurantId/:restaurant_slug/wines"
               element={<WineList />}
           />
           <Route
-              path="/restaurants/:restaurantId/food-pairing"
+              path="/restaurants/:restaurantId/:restaurant_slug/food-pairing"
               element={<FoodPairing />}
           />
         </Route>
@@ -61,11 +61,11 @@ function AppRoutes() {
           <Route element={<ProtectedRoute allowedRoles={["owner", "manager", "sommelier", "staff"]}/>}>        
 
             <Route
-              path="/admin/restaurants/:restaurantId/dashboard"
+              path="/admin/restaurants/:restaurant_slug/dashboard"
               element={<Dashboard />}
             />        
             <Route
-              path="/admin/restaurants/:restaurantId/wines/availability"
+              path="/admin/restaurants/:restaurant_slug/wines/availability"
               element={<WineAvailability/>}
             />
           </Route>
@@ -74,30 +74,30 @@ function AppRoutes() {
           <Route element={<ProtectedRoute allowedRoles={["owner", "manager", "sommelier"]}/>}>  
 
             <Route
-              path="/admin/restaurants/:restaurantId/wines/price"
+              path="/admin/restaurants/:restaurant_slug/wines/price"
               element={<WinePrice />}
             />
             <Route
-              path="/admin/restaurants/:restaurantId/wines/delete"
+              path="/admin/restaurants/:restaurant_slug/wines/delete"
               element={<WineDeletion />}
             />
 
             <Route
-              path="/admin/restaurants/:restaurantId/wines/upload"
+              path="/admin/restaurants/:restaurant_slug/wines/upload"
               element={<WineUpload />}
             />
             <Route
-              path="/admin/restaurants/:restaurantId/food/foodupload"
+              path="/admin/restaurants/:restaurant_slug/food/foodupload"
               element={<MenuUpload />}
             />
 
             <Route
-              path="/admin/restaurants/:restaurantId/food/dishdeletion"
+              path="/admin/restaurants/:restaurant_slug/food/dishdeletion"
               element={<DishDeletion/>}
             />    
 
             <Route
-              path="/admin/restaurants/:restaurantId/food/update"
+              path="/admin/restaurants/:restaurant_slug/food/update"
               element={<DishUpdate />}
             />  
           </Route>      
@@ -105,7 +105,7 @@ function AppRoutes() {
           <Route element={<ProtectedRoute allowedRoles={["owner", "manager"]}/>}>
 
             <Route
-              path="/admin/restaurants/:restaurantId/users/add"
+              path="/admin/restaurants/:restaurant_slug/users/add"
               element={<AddUser />}
             />
 

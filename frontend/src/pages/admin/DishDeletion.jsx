@@ -6,7 +6,7 @@ import AdminDishTable from "../../components/admin/AdminDishTable";
 
 // function to show react-dom information params: https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 function DishDeletion() {
-  const { restaurantId } = useParams();
+  const { restaurant_slug } = useParams();
 
   //https://react.dev/reference/react/useState
   const [dishes, setDishes] = useState([]);
@@ -33,7 +33,7 @@ function DishDeletion() {
     }
 
     loadDishes();
-  }, [restaurantId]);
+  }, [restaurant_slug]);
 
 
 // Deletion of a dish

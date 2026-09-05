@@ -1,4 +1,5 @@
 import os
+import redis
 from flask import Flask, jsonify, session
 from dotenv import load_dotenv
 load_dotenv()
@@ -158,8 +159,8 @@ def uploading_wines():
     return upload_wines()
 
 @app.route("/uploadWinesAI", methods=["POST"])
-@roles_required(["owner", "manager", "sommelier"])
 @limiter.limit("10 per hour;30 per day", override_defaults=False)
+@roles_required(["owner", "manager", "sommelier"])
 def uploading_wines_ai():
     return upload_wines_ai()
 
@@ -179,8 +180,8 @@ def uploading_dishes():
     return upload_dishes()
 
 @app.route("/uploadDishesAI", methods=["POST"])
-@roles_required(["owner", "manager", "sommelier"])
 @limiter.limit("10 per hour;30 per day", override_defaults=False)
+@roles_required(["owner", "manager", "sommelier"])
 def uploading_dishes_ai():
     return upload_dishes_ai()
 
