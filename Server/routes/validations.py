@@ -67,7 +67,60 @@ def validate_wine_ai(data):
     for field in fields:
         if field not in data:
             errors.append(f"{field} is required")
+    # Checks required text fields are text and are not empty.
+    inputstring = [
+        "name",
+        "wine_type",
+        "grape",
+        "country",
+        "region",
+        "bottle_type"
+    ]
 
+    for s in inputstring:
+        if s in data:
+            if not isinstance(data.get(s), str):
+                errors.append(f"{s} must be text")
+            elif not data[s].strip():
+                errors.append(f"{s} cannot be empty")
+
+    # Checks year.
+    if "year" in data:
+        if not isinstance(data.get("year"), int):
+            errors.append("year must be a whole number")
+        elif data["year"] < 1900 or data["year"] > datetime.now().year:
+            errors.append("Year is incorrect")
+
+    # Checks bottle type.
+    if "bottle_type" in data:
+        Bottletypes = [
+            "Glass",
+            "Half Bottle",
+            "Bottle",
+            "Magnum",
+            "Jeroboam",
+            "Melchior",
+            "Salmanazar",
+            "Double Magnum",
+            "Imperial"
+        ]
+
+        if data["bottle_type"] not in Bottletypes:
+            errors.append("Incorrect bottletype")
+
+    # Checks price.
+    if "price" in data:
+        if not isinstance(data.get("price"), (int, float)):
+            errors.append("Price must be a number")
+        elif data["price"] < 1:
+            errors.append("Price must be at least 1")
+
+    # Checks availability.
+    if "available" in data:
+        availablenum = [1, 0]
+
+        if data["available"] not in availablenum:
+            errors.append("Available is only 0 or 1")
     return errors
 
 # validating add user
