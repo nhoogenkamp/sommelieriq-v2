@@ -1,0 +1,424 @@
+/* =====================================
+   HOW IT WORKS
+===================================== */
+
+.how-it-works-page {
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-cream);
+    color: var(--text-dark);
+}
+
+.how-it-works-page p {
+    color: var(--text-body);
+    line-height: 1.8;
+}
+
+.how-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: var(--burgundy) !important;
+    margin-bottom: 20px;
+}
+
+
+/* =====================================
+   HERO
+===================================== */
+
+.how-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+    padding: 80px 8%;
+    background-color: var(--cream);
+}
+
+.how-hero-text {
+    max-width: 650px;
+    min-width: 0;
+}
+
+.how-hero h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.how-description {
+    font-size: 1.2rem;
+    max-width: 570px;
+    margin-bottom: 35px;
+}
+
+.how-hero-visual {
+    width: 100%;
+    max-width: 650px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 18px;
+    justify-self: end;
+}
+
+.how-hero-visual img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.how-hero-visual:hover img {
+    transform: scale(1.03);
+}
+
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.how-primary-button,
+.how-secondary-button,
+.how-outline-button {
+    display: inline-block;
+    padding: 15px 28px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        color 0.25s ease;
+}
+
+.how-primary-button {
+    background-color: var(--burgundy);
+    color: var(--white);
+    border: 1px solid var(--burgundy);
+}
+
+.how-primary-button:hover {
+    transform: translateY(-2px);
+}
+
+.how-outline-button {
+    background-color: transparent;
+    color: var(--burgundy);
+    border: 1px solid var(--burgundy);
+}
+
+.how-outline-button:hover {
+    background-color: var(--burgundy);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.how-secondary-button {
+    background-color: var(--white);
+    color: var(--burgundy);
+    border: 1px solid var(--white);
+}
+
+.how-secondary-button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =====================================
+   INTRODUCTION
+===================================== */
+
+.how-introduction {
+    max-width: 1000px;
+    margin: auto;
+    padding: 120px 10%;
+    text-align: center;
+    background-color: var(--white);
+}
+
+.how-introduction h2 {
+    font-size: clamp(2.2rem, 4vw, 3.7rem);
+    line-height: 1.15;
+    margin-bottom: 30px;
+}
+
+.how-introduction > p:last-child {
+    max-width: 740px;
+    margin: auto;
+    font-size: 1.1rem;
+}
+
+
+/* =====================================
+   CUSTOMER STEPS
+===================================== */
+
+.how-step-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 100px 8%;
+    background-color: var(--white);
+    overflow: hidden;
+}
+
+.how-step-visual {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: var(--cream);
+}
+
+.how-step-visual img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.how-step-visual:hover img {
+    transform: scale(1.04);
+}
+
+.how-step-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 70px;
+    min-width: 0;
+}
+
+.how-step-number {
+    font-size: 5rem;
+    line-height: 1;
+    font-weight: 700;
+    color: rgba(116, 19, 44, 0.12);
+    margin-bottom: 20px;
+}
+
+.how-step-content h2 {
+    font-size: clamp(2rem, 3vw, 3.2rem);
+    line-height: 1.15;
+    margin-bottom: 25px;
+}
+
+.how-step-content > p:not(.how-eyebrow) {
+    margin-bottom: 25px;
+}
+
+.how-text-link {
+    color: var(--burgundy);
+    text-decoration: none;
+    font-weight: 700;
+    width: fit-content;
+}
+
+.how-text-link:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================
+   RESTAURANT SECTION
+===================================== */
+
+.how-restaurant-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 120px 8%;
+    background-color: var(--cream);
+}
+
+.how-restaurant-heading h2 {
+    font-size: clamp(2.7rem, 5vw, 5rem);
+    line-height: 1.05;
+}
+
+.how-restaurant-intro {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+.how-restaurant-feature {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 20px;
+    padding: 25px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.how-restaurant-feature > span {
+    color: var(--burgundy);
+    font-weight: 700;
+}
+
+.how-restaurant-feature h3 {
+    color: var(--text-dark);
+    margin: 0 0 8px;
+}
+
+.how-restaurant-feature p {
+    margin: 0;
+}
+
+.how-restaurant-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+
+/* =====================================
+   FINAL CTA
+===================================== */
+
+.how-cta {
+    text-align: center;
+    background-color: var(--burgundy);
+    color: var(--white);
+    padding: 110px 8%;
+}
+
+.how-cta .how-eyebrow,
+.how-cta h2,
+.how-cta p {
+    color: var(--white) !important;
+}
+
+.how-cta h2 {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.how-cta > p:not(.how-eyebrow) {
+    font-size: 1.2rem;
+    margin-bottom: 35px;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 800px) {
+
+    .how-hero {
+        grid-template-columns: 1fr;
+        padding: 50px 6%;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .how-hero-text {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .how-hero h1 {
+        font-size: clamp(2.6rem, 11vw, 4rem);
+    }
+
+    .how-description {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 35px;
+    }
+
+    .how-hero-visual {
+        width: 100%;
+        max-width: 500px;
+        justify-self: center;
+        margin: auto;
+    }
+
+
+    .how-introduction {
+        padding: 80px 6%;
+    }
+
+
+    .how-step-section {
+        grid-template-columns: 1fr;
+        margin: 50px 6%;
+    }
+
+    .how-step-reverse .how-step-content {
+        order: 2;
+    }
+
+    .how-step-reverse .how-step-visual {
+        order: 1;
+    }
+
+    .how-step-content {
+        padding: 45px 30px;
+    }
+
+    .how-step-number {
+        font-size: 4rem;
+    }
+
+
+    .how-restaurant-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 80px 6%;
+    }
+
+
+    .how-cta {
+        padding: 80px 6%;
+    }
+
+}
+
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media (max-width: 500px) {
+
+    .how-hero {
+        padding: 40px 5%;
+    }
+
+    .how-hero-visual {
+        border-radius: 12px;
+    }
+
+    .how-primary-button,
+    .how-secondary-button,
+    .how-outline-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .how-step-section {
+        margin: 35px 5%;
+    }
+
+    .how-step-content {
+        padding: 35px 24px;
+    }
+
+    .how-restaurant-section {
+        padding: 60px 5%;
+    }
+
+    .how-restaurant-buttons {
+        flex-direction: column;
+    }
+
+    .how-cta {
+        padding: 65px 5%;
+    }
+
+}

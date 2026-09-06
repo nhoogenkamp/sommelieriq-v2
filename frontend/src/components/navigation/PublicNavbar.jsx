@@ -11,6 +11,9 @@ function PublicNavbar() {
                 Restaurants
             </NavLink>
             
+            <NavLink to="/how-it-works">
+                How It Works
+            </NavLink>
         </nav>
     );
 }

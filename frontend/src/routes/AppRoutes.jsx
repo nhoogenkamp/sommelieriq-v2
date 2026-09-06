@@ -19,6 +19,7 @@ import ResetPassword from "../pages/admin/ResetPassword";
 import AddUser from "../pages/admin/AddUser";
 import ForgotPassword from "../pages/admin/ForgotPassword";
 import Home from "../pages/Home";
+import HowItWorks from "../pages/HowItWorks";
 
 // how to use react router https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
 // protected route https://dev.to/olumidesamuel_/implementing-protected-routes-and-authentication-in-react-2026-edition-4k6e
@@ -31,6 +32,11 @@ function AppRoutes() {
           <Route 
               path="/" 
               element={<Home />} 
+          />
+
+          <Route
+            path="/how-it-works"
+            element={<HowItWorks />}
           />
           
           <Route 
