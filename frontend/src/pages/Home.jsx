@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import images from "../assets/images/images.js";
 
 function Home() {
 
@@ -81,16 +82,12 @@ function Home() {
 
         </div>
 
-
         <div className="home-hero-visual">
 
-          <div className="home-wine-glass">
-            🍷
-          </div>
-
-          <div className="home-food-plate">
-            🍽️
-          </div>
+          <img
+            src={images.inspectRedWine}
+            alt="Winemaker inspecting a glass of red wine"
+          />
 
         </div>
 
@@ -209,8 +206,11 @@ function Home() {
                 {/* FRONT */}
                 <div className="home-flip-card-front">
 
-                  <div className="home-dish-icon">
-                    🍽️
+                  <div className="home-flip-card-image">
+                    <img
+                      src={images.wineToast}
+                      alt="Wine toasting"
+                    />
                   </div>
 
                   <p className="home-card-label">
@@ -235,8 +235,11 @@ function Home() {
                 {/* BACK */}
                 <div className="home-flip-card-back">
 
-                  <div className="home-wine-icon">
-                    🍷
+                  <div className="home-flip-card-image">
+                    <img
+                      src={images.wineToast}
+                      alt="Wine toasting"
+                    />
                   </div>
 
                   <p className="home-card-label">
@@ -273,11 +276,10 @@ function Home() {
       <section className="home-split-section">
 
         <div className="home-split-visual">
-
-          <div className="home-large-icon">
-            🍽️
-          </div>
-
+          <img
+            src={images.winePairing}
+            alt="Winemaker inspecting a glass of red wine"
+          />
         </div>
 
 
@@ -342,7 +344,10 @@ function Home() {
         <div className="home-split-visual">
 
           <div className="home-large-icon">
-            🍷
+            <img
+              src={images.sommelierCellar}
+              alt="Sommelier conteplating wine pairing"
+            />
           </div>
 
         </div>
