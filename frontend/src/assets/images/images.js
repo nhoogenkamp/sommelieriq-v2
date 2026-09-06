@@ -7,6 +7,9 @@ const images = {
   howRestaurant: "/images/howRestaurant.png",
   howTable: "/images/howTable.png",
   howWine: "/images/howWine.png",
+  pricingHero: "/images/pricingHero.png",
+  pricingManagement: "/images/pricingManagement.png",
+
 };
 
 export default images;

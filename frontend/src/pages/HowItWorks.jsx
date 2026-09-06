@@ -319,6 +319,7 @@ function HowItWorks() {
             <Link
               to="/pricing"
               className="how-primary-button"
+              onClick={() => window.scrollTo(0, 0)}
             >
               View Pricing
             </Link>
