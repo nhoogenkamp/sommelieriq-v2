@@ -196,16 +196,19 @@ function Pricing() {
                   plan.name === "Multi-Location"
                     ? "/contact"
                     : `/signup?plan=${plan.name.toLowerCase()}`
+                    
                 }
                 className={
                   plan.featured
                     ? "pricing-primary-button"
                     : "pricing-outline-button"
                 }
+                onClick={() => window.scrollTo(0, 0)}
               >
                 {plan.name === "Multi-Location"
                   ? "Contact Us"
                   : "Get Started"}
+                  
               </Link>
 
             </article>
