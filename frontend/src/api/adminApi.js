@@ -186,7 +186,9 @@ export function signupRestaurant(companyName, restaurantName,outletName,city,ema
       restaurant_name: restaurantName,
       outlet_name: outletName,
       city: city,
+      address: address,
       email: email,
+      phone: phone,
       username: username,
       password: password,
       plan: selectedPlan

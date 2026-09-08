@@ -9,6 +9,8 @@ function Signup() {
   const [restaurantName, setRestaurantName] = useState("");
   const [outletName, setOutletName] = useState("");
   const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
   // Stores the owner's login information.
@@ -38,13 +40,15 @@ function Signup() {
         return;
       }
 
-      const signup = await signupRestaurant(companyName, restaurantName,outletName,city,email, username, password,selectedPlan);
+      const signup = await signupRestaurant(companyName, restaurantName,outletName,city, address, phone, email, username, password,selectedPlan);
 
       // Clears the form after a successful signup.
       setCompanyName("");
       setRestaurantName("");
       setOutletName("");
       setCity("");
+      setAddress("");
+      setPhone("");
       setEmail("");
       setUsername("");
       setPassword("");
@@ -106,6 +110,26 @@ function Signup() {
           placeholder="Enter City"
           value={city}
           onChange={(event) => setCity(event.target.value)}
+          required
+        />
+
+        <label htmlFor="address">Address</label>
+        <input
+          id="address"
+          type="text"
+          placeholder="Enter the address"
+          value={address}
+          onChange={(event) => setAddress(event.target.value)}
+          required
+        />
+
+        <label htmlFor="phone">Phone</label>
+        <input
+          id="phone"
+          type="tel"
+          placeholder="Enter Phone"
+          value={phone}
+          onChange={(event) => setPhone(event.target.value)}
           required
         />
 

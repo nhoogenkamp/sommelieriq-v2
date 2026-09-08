@@ -514,3 +514,66 @@ def validate_sauce(data):
 
     return errors
 
+
+# validating restaurant signup
+def validate_signup(data):
+
+    # Validations for restaurant signup
+    fields = ["username","password", "company_name", "restaurant_name", "outlet_name", "city", "address", "phone", "email", "plan"]
+
+    errors = []
+
+    # checking if fields are not missing
+    for f in fields:
+        if f not in data:
+            errors.append(f"{f} is required")
+
+
+    # checking if text fields are strings
+    inputstring = ["username", "company_name", "restaurant_name", "outlet_name", "city", "address", "phone", "email", "plan" ]
+    for s in inputstring:
+        if s in data:
+            if not isinstance(data.get(s), str):
+                errors.append(f"{s} must be text")
+            elif not data[s].strip():
+                errors.append(f"{s} cannot be empty")
+
+
+    # checking if username has more then 6 characters and no spaces
+    if "username" in data:
+        if isinstance(data.get("username"), str):
+            if len(data["username"]) < 6 or " " in data["username"]:
+                errors.append("Username needs at least 6 Characters and no spaces!" )
+
+    # checking if email is valid
+    EMAIL_REGEX = re.compile( r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+
+    if "email" in data:
+        if isinstance(data.get("email"), str):
+            if not EMAIL_REGEX.match(data["email"]):
+                errors.append( "Please enter a valid email address" )
+
+    # checking password requirements
+    PASSWORD_REGEX = re.compile( r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$' )
+
+    if "password" in data:
+        if not isinstance(data.get("password"), str):
+            errors.append("password must be text")
+
+        elif " " in data["password"]:
+            errors.append( "Password can't contain spaces!")
+
+        elif not PASSWORD_REGEX.match(data["password"]):
+            errors.append("Please ensure password has one lowercase, one uppercase, "
+                "one number, one special character and is between 8 and 15 characters long" )
+
+    # checking selected subscription plan
+    if "plan" in data:
+        allowed_plans = [
+            "essential",
+            "professional"
+        ]
+        if data["plan"] not in allowed_plans:
+            errors.append("Plan is incorrect")
+
+    return errors
