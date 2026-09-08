@@ -192,7 +192,11 @@ function Pricing() {
 
 
               <Link
-                to="/login"
+                to={
+                  plan.name === "Multi-Location"
+                    ? "/contact"
+                    : `/signup?plan=${plan.name.toLowerCase()}`
+                }
                 className={
                   plan.featured
                     ? "pricing-primary-button"
