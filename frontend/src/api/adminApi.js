@@ -174,7 +174,7 @@ export function getDashboard() {
     });
 }
 
-export function signupRestaurant(companyName, restaurantName,outletName,city,email, username, password,selectedPlan) {
+export function signupRestaurant(companyName, restaurantName,outletName,city, address, phone, email, username, password,selectedPlan) {
   return fetch(`${API_URL}/restaurantSignup`, {
     method: "POST",
     credentials: "include",
@@ -187,8 +187,8 @@ export function signupRestaurant(companyName, restaurantName,outletName,city,ema
       outlet_name: outletName,
       city: city,
       address: address,
-      email: email,
       phone: phone,
+      email: email,
       username: username,
       password: password,
       plan: selectedPlan
