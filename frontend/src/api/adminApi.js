@@ -173,3 +173,36 @@ export function getDashboard() {
       });
     });
 }
+
+export function signupRestaurant(companyName, restaurantName,outletName,city,email, username, password,selectedPlan) {
+  return fetch(`${API_URL}/restaurantSignup`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      company_name: companyName,
+      restaurant_name: restaurantName,
+      outlet_name: outletName,
+      city: city,
+      email: email,
+      username: username,
+      password: password,
+      plan: selectedPlan
+    })
+  })
+    .then(function (response) {
+      return response.json().then(function (json) {
+        if (!response.ok) {
+          if (json.errors) {
+            throw new Error(
+              json.errors.join(", ")
+            );
+          }
+          throw new Error(json.error);
+        }
+        return json;
+      });
+    });
+}

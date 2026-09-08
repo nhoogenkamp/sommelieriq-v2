@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { signupRestaurant } from "../api/adminApi";
 
 function Signup() {
   // Stores the company and restaurant information entered in the form.
