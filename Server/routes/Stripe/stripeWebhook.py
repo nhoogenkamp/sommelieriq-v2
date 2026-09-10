@@ -49,9 +49,12 @@ def webhook_received():
     if event_type == 'checkout.session.completed':
         print('🔔 Payment succeeded!')
 
-        company_id = data_object['metadata'].get('company_id')
-        stripe_customer_id = data_object.get('customer')
-        stripe_subscription_id = data_object.get('subscription')
+        # stripeobject no longer inherits from dictionary
+        # https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v15
+        data_object = data_object.to_dict()
+        company_id = data_object['metadata']['company_id']
+        stripe_customer_id = data_object['customer']
+        stripe_subscription_id = data_object['subscription']
 
         try:
             con = get_db_connection()
