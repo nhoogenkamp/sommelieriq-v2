@@ -11,7 +11,6 @@ from routes.wines import get_tables, get_wines , get_all_wines
 from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
 from routes.senddish import send_dish
 from routes.admin import add_admin, login_admin, check_admin, logout_admin, reset_password, forgot_password
-from routes.Stripe.restaurantSignup import restaurantSignup
 from routes.addwine import add_wine
 from routes.deleteWine import delete_wine
 from routes.updateWine import update_wine
@@ -26,7 +25,9 @@ from routes.dashboard import get_dashboard
 from routes.gmail.gmail_auth import authorize, oauth2callback
 from routes.uploadWinesAI import upload_wines_ai
 from routes.uploadDishesAI import upload_dishes_ai
+from routes.Stripe.restaurantSignup import restaurantSignup
 from routes.Stripe.stripeWebhook import webhook_received
+from routes.Stripe.customerPortal import create_customer_portal
 
 # https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/
 # https://flask-user.readthedocs.io/en/latest/authorization.html
@@ -257,6 +258,11 @@ def requesting_password_reset():
 @app.route('/stripe-webhook', methods=['POST'])
 def stripe_webhook():
     return webhook_received()
+
+@app.route('/customer-portal', methods=['POST'])
+@roles_required("owner")
+def customer_portal():
+    return create_customer_portal()
 
 if __name__ == "__main__":
     print("connecting to DB....")
