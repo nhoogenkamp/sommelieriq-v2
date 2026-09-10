@@ -140,6 +140,7 @@ def restaurantSignup():
 
         # Stripe Checkout
         # https://docs.stripe.com/billing/quickstart?accounts-namespace=v1&client=react&lang=python
+        # https://docs.stripe.com/api/checkout/sessions/create?architecture-style=services
         try:
             checkout_session = client.v1.checkout.sessions.create(params={
                     "line_items": [
@@ -154,6 +155,10 @@ def restaurantSignup():
 
                     'cancel_url': FRONTEND_URL +
                         '/pricing',
+
+                    "metadata": {
+                        "company_id": str(company_id)
+                    }    
                 }
             )
             # Save company, restaurant and owner.

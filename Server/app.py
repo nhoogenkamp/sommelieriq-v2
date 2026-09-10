@@ -26,6 +26,7 @@ from routes.dashboard import get_dashboard
 from routes.gmail.gmail_auth import authorize, oauth2callback
 from routes.uploadWinesAI import upload_wines_ai
 from routes.uploadDishesAI import upload_dishes_ai
+from routes.Stripe.stripeWebhook import webhook_received
 
 # https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/
 # https://flask-user.readthedocs.io/en/latest/authorization.html
@@ -250,6 +251,12 @@ def changing_password():
 @limiter.limit("2 per minute")
 def requesting_password_reset():
     return forgot_password()
+
+# Stripe subscription webhook
+# https://docs.stripe.com/webhooks
+@app.route('/stripe-webhook', methods=['POST'])
+def stripe_webhook():
+    return webhook_received()
 
 if __name__ == "__main__":
     print("connecting to DB....")
