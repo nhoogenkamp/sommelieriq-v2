@@ -95,16 +95,56 @@ def webhook_received():
             cursor.close()
             con.close()
 
+    elif event_type == 'customer.subscription.deleted':
+        print('Subscription canceled: %s', event.id)
+
+        # StripeObject no longer inherits from dictionary
+        # https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v15
+        data_object = data_object.to_dict()
+
+        #https://docs.stripe.com/api/subscriptions/object
+        stripe_subscription_id = data_object['id']
+
+        try:
+            con = get_db_connection()
+            cursor = con.cursor(dictionary=True)
+
+        except mysql.connector.Error as err:
+            print("Error:", err.errno)
+
+            return jsonify({
+                "error": "Could not connect with database"
+            }), 503
+
+        try:
+            cancel_sql = """ UPDATE companies SET subscription_status = %s WHERE stripe_subscription_id = %s """
+            cancel_values = ("canceled", stripe_subscription_id )
+            cursor.execute( cancel_sql, cancel_values)
+
+            con.commit()
+
+            print("Subscription canceled:", stripe_subscription_id)
+
+        except mysql.connector.Error as err:
+            print("Error:", err)
+
+            con.rollback()
+
+            return jsonify({
+                "error": "Could not update subscription"
+            }), 500
+
+        finally:
+            cursor.close()
+            con.close()
+
+
     elif event_type == 'customer.subscription.trial_will_end':
         print('Subscription trial will end')
     elif event_type == 'customer.subscription.created':
         print('Subscription created %s', event.id)
     elif event_type == 'customer.subscription.updated':
         print('Subscription updated %s', event.id)
-    elif event_type == 'customer.subscription.deleted':
-        # handle subscription canceled automatically based
-        # upon your subscription settings. Or if the user cancels it.
-        print('Subscription canceled: %s', event.id)
     elif event_type == 'entitlements.active_entitlement_summary.updated':
         # handle active entitlement summary updated
         print('Active entitlement summary updated: %s', event.id)
