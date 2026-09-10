@@ -239,7 +239,7 @@ def login_admin():
                 "error": "Please set your password using the link sent to your email"
             }), 403
 
-        if admin["subscription_status"] != "active":
+        if admin["subscription_status"] not in ["active", "canceling"]:
             return jsonify({
                 "error": "Your subscription is not active"
             }), 403
