@@ -134,8 +134,9 @@ def restaurantSignup():
         # Create the first owner account.
         # The owner chooses their own password during signup,
         # therefore a temporary password is not required.
+        # Changed verified to false as it will be updated with webhook from Stripe to ensure payment and everything went through.
         admin_sql = """ INSERT INTO admins( restaurant_id,username, email, password_hash, role, verified) VALUES (%s, %s, %s, %s, %s, %s) """
-        admin_values = ( restaurant_id, username, email, password_hash, "owner", True)
+        admin_values = ( restaurant_id, username, email, password_hash, "owner", False)
         cursor.execute( admin_sql, admin_values)
 
         # Stripe Checkout

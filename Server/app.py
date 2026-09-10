@@ -11,7 +11,7 @@ from routes.wines import get_tables, get_wines , get_all_wines
 from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
 from routes.senddish import send_dish
 from routes.admin import add_admin, login_admin, check_admin, logout_admin, reset_password, forgot_password
-from routes.restaurantSignup import restaurantSignup
+from Server.routes.Stripe.restaurantSignup import restaurantSignup
 from routes.addwine import add_wine
 from routes.deleteWine import delete_wine
 from routes.updateWine import update_wine

@@ -73,6 +73,11 @@ def webhook_received():
             update_company_values = ( stripe_customer_id,  stripe_subscription_id,  "active",  company_id)
             cursor.execute( update_company_sql, update_company_values)
 
+            admin_sql = """UPDATE admins SET verified = %s WHERE restaurant_id IN (SELECT restaurant_id  FROM restaurants WHERE company_id = %s)"""
+            admin_values = (True, company_id)
+            cursor.execute( admin_sql, admin_values)
+
+
             con.commit()
 
             print( "Subscription activated for company:", company_id)
