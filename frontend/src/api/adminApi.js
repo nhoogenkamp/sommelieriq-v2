@@ -208,3 +208,22 @@ export function signupRestaurant(companyName, restaurantName,outletName,city, ad
       });
     });
 }
+
+
+export function getCustomerPortal() {
+    return fetch(`${API_URL}/customer-portal`, {
+        method: "POST",
+        credentials: "include"
+    })
+    .then(async function(response) {
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.error
+            );
+        }
+
+        return data;
+    });
+}

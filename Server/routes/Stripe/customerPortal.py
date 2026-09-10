@@ -56,7 +56,10 @@ def create_customer_portal():
                 "return_url": FRONTEND_URL + '/login'
             }
         )
-        return redirect(portal_session.url, code=303)
+        return jsonify({
+            "portal_url": portal_session.url
+        }), 200
+
 
     except Exception as e:
         print(e)
