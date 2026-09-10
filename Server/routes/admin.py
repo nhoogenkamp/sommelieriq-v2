@@ -203,10 +203,12 @@ def login_admin():
         }), 503
     
     sql ="""
-    SELECT admins.*, restaurants.slug
+    SELECT admins.*, restaurants.slug, companies.subscription_status
     FROM admins
     JOIN restaurants
         ON admins.restaurant_id = restaurants.restaurant_id
+    JOIN companies
+        ON restaurants.company_id = companies.company_id
     WHERE admins.username = %s
     """
     values = (username,)
@@ -235,6 +237,11 @@ def login_admin():
         if not admin["verified"]:
             return jsonify({
                 "error": "Please set your password using the link sent to your email"
+            }), 403
+
+        if admin["subscription_status"] != "active":
+            return jsonify({
+                "error": "Your subscription is not active"
             }), 403
         
         session["loggedin"] = True
