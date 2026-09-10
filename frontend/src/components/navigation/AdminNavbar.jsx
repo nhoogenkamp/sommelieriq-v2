@@ -100,7 +100,7 @@ function AdminNavbar() {
           onClick={() => setHamburgerIsOpen(false)}> Add Users</NavLink>
       )}
 
-      {/* Only Owner and Manager can access user management. */}
+      {/* Only Owner can access account management. */}
       {currentUser && ["owner"].includes(currentUser.role) && (
           <NavLink to={`/admin/restaurants/${restaurant_slug}/account`}
           onClick={() => setHamburgerIsOpen(false)}> Account</NavLink>

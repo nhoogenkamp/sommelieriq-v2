@@ -20,21 +20,26 @@ function Account() {
 
   return (
     <>
-      <h1>Account</h1>
+    <div className="dashboard-grid"> 
 
-      <h2>Subscription</h2>
+        <article className="dashboard-card">
+            <h1>Account</h1>
 
-      <p>
-        Manage or cancel your SommelierIQ subscription.
-      </p>
+            <h2>Subscription</h2>
 
-      {validationError && (
-        <p>{validationError}</p>
-      )}
+            <p>
+                Manage or cancel your SommelierIQ subscription.
+            </p>
 
-      <button onClick={manageSubscription}>
-        Manage Subscription
-      </button>
+            {validationError && (
+                <p>{validationError}</p>
+            )}
+
+            <button type="button" className="wine-update-button" onClick={manageSubscription}>
+                Manage Subscription
+            </button>
+       </article>
+    </div>
     </>
   );
 }
