@@ -91,7 +91,7 @@ app.config["SESSION_COOKIE_SECURE"] = True
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 
 CORS(app, supports_credentials=True, origins=[
-    "wonderful-essence-production-0668.up.railway.app"
+    "https://wonderful-essence-production-0668.up.railway.app"
 ])
 
 # https://www.newline.co/@goatandsheep/python-dotenv-managing-your-environment-variables-with-ease--ce4fb62d
