@@ -51,8 +51,13 @@ function AdminNavbar() {
 
       {/* Shows Login only when there is no logged-in user. */}
       {!currentUser && (
+      <>
+        <NavLink to="/"
+        onClick={() => setHamburgerIsOpen(false)}>Home</NavLink>
+
         <NavLink to="/login"
-        onClick={() => setHamburgerIsOpen(false)}>Login</NavLink>
+        onClick={() => setHamburgerIsOpen(false)}>Login</NavLink> 
+      </>         
       )}
 
 
