@@ -1,55 +1,75 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPublicRestaurants } from "../api/restaurants";
 
 function Restaurants() {
-  const navigate = useNavigate();
 
-  const restaurants = [
-    {
-      id: 1,
-      slug: "fx-buckley-pembroke-street",
-      name: "Pembroke Street",
-    },
-    {
-      id: 2,
-      slug: "fx-buckley-crow-street",
-      name: "Crow Street",
-    },
-    {
-      id: 3,
-      slug: "fx-buckley-the-bull-and-castle",
-      name: "The Bull & Castle",
-    },
-    {
-      id: 4,
-      slug: "fx-buckley-ryans-parkgate",
-      name: "Ryans Parkgate",
-    },
-    {
-      id: 5,
-      slug: "fx-buckley-monkstown",
-      name: "Monkstown",
-    },
-  ];
+  const [restaurants, setRestaurants] = useState([]);
+  // Stores loading and error information.
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  //fetches the restaurants just like WineAvailability.jsx: https://react.dev/learn/synchronizing-with-effects#:~:text=its%20initial%20state.-,Fetching%20data,-If%20your%20Effect
+  useEffect(() => {
+    async function loadRestaurants() {
+      try {
+        setIsLoading(true);
+        setError("");
+
+        const data = await getPublicRestaurants();
+
+        setRestaurants(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadRestaurants();
+  }, []);
 
   return (
     <main>
       <h1>SommelierIQ</h1>
       <p>Select a restaurant to view its wine list.</p>
+      
+      {isLoading && (
+        <p>Loading restaurants...</p>
+      )}
+
+      {error && (
+        <p>{error}</p>
+      )}
+      
+      {!isLoading && !error && restaurants.length === 0 && (
+        <p>No restaurants are currently available.</p>
+      )}
 
       <div className="dashboard-grid">
         {restaurants.map((restaurant) => (
           <article
-            key={restaurant.id}
+            key={restaurant.restaurant_id}
             className="dashboard-card">
-  
+
+            <h2>{restaurant.restaurant_name}</h2>
+
+            {restaurant.outlet_name && (
+              <h3>{restaurant.outlet_name}</h3>
+            )}
+
+            {restaurant.city && (
+              <h4>{restaurant.city}</h4>
+            )}
+
             <Link
-              to={`/restaurants/${restaurant.id}/${restaurant.slug}/wines`}
+              to={`/restaurants/${restaurant.restaurant_id}/${restaurant.slug}/wines`}
             >
-              <h2>{restaurant.name}</h2>
+              <h2>View Wine List</h2>
             </Link>
 
             <Link
-              to={`/restaurants/${restaurant.id}/${restaurant.slug}/food-pairing`}
+              to={`/restaurants/${restaurant.restaurant_id}/${restaurant.slug}/food-pairing`}
             >
               <h2>Food Pairing</h2>
             </Link>
