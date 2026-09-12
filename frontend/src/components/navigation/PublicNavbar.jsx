@@ -14,6 +14,10 @@ function PublicNavbar() {
             <NavLink to="/how-it-works">
                 How It Works
             </NavLink>
+
+            <NavLink to="/pricing">
+                Pricing
+            </NavLink>
         </nav>
     );
 }
