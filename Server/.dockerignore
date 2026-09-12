@@ -14,6 +14,10 @@ venv/
 credentials.json
 token.json
 
+# Git
+.git/
+.gitignore
+
 # Editor files
 .vscode/
 .idea/
