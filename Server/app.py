@@ -79,21 +79,19 @@ def handle_rate_limit(error):
         "error": "Too many requests. Please try again later."
     }), 429
 
-#with AI
+#with AI for local host only
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "temporary-dev-secret")
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_SECURE"] = False
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 
-# below is setting for different domains e.g. netifly and railway
-# app.config["SESSION_COOKIE_SAMESITE"] = "None"
-# app.config["SESSION_COOKIE_SECURE"] = True
-# app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config["SESSION_COOKIE_SAMESITE"] = "None"
+app.config["SESSION_COOKIE_SECURE"] = True
+app.config["SESSION_COOKIE_HTTPONLY"] = True
 
 CORS(app, supports_credentials=True, origins=[
-    "https://merry-dragon-158655.netlify.app",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173"
+    "wonderful-essence-production-0668.up.railway.app"
 ])
 
 # https://www.newline.co/@goatandsheep/python-dotenv-managing-your-environment-variables-with-ease--ce4fb62d
