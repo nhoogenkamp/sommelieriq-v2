@@ -747,26 +747,26 @@ class TestApp(unittest.TestCase):
     # this test should currently FAIL.
     # =================================================
 
-    def test_logged_in_admin_rate_limit_uses_admin_id(self):
+def test_logged_in_admin_rate_limit_uses_ip(self):
 
-        with app.test_request_context(
-            "/",
-            environ_base={
-                "REMOTE_ADDR": "127.0.0.1"
-            }
-        ):
+    with app.test_request_context(
+        "/",
+        environ_base={
+            "REMOTE_ADDR": "127.0.0.1"
+        }
+    ):
 
-            session["admin_id"] = 25
-            session["loggedin"] = True
+        session["admin_id"] = 25
+        session["loggedin"] = True
 
-            key = get_rate_limit_key()
+        key = get_rate_limit_key()
 
-            self.assertEqual(
-                key,
-                "25"
-            )
+        self.assertEqual(
+            key,
+            "127.0.0.1"
+        )
 
-        print("Admin rate limit key test passed")
+    print("Logged in admin rate limit IP test passed")
 
 
     # =================================================

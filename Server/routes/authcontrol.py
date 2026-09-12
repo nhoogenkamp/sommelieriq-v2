@@ -28,9 +28,14 @@ def roles_required(allowed_roles):
                 }), 401
 
             # User must have one of the allowed roles.
-            if session.get("role") not in allowed_roles:
+            if isinstance(allowed_roles, str):
+                roles = [allowed_roles]
+            else:
+                roles = allowed_roles
+
+            if session.get("role") not in roles:
                 return jsonify({
-                    "error": "You do not have permission to take this action, please contact your system administrator."
+                    "error": "Access denied"
                 }), 403
 
             return function(*args, **kwargs)
