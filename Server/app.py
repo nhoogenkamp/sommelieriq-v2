@@ -8,6 +8,7 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
 from routes.wines import get_tables, get_wines , get_all_wines
+from routes.restaurants import get_public_restaurants
 from routes.menu import get_food, get_sauces, get_dishes, get_all_sauces
 from routes.senddish import send_dish
 from routes.admin import add_admin, login_admin, check_admin, logout_admin, reset_password, forgot_password
@@ -101,6 +102,10 @@ CORS(app, supports_credentials=True, origins=[
 @app.route('/getTable', methods=['GET'])
 def tables():
     return get_tables()
+
+@app.route('/restaurants', methods=['GET'])
+def restaurants():
+    return get_public_restaurants()
 
 #get wines from db
 @app.route('/getWines', methods=['POST'])
