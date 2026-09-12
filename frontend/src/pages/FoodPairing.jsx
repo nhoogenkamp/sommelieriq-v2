@@ -4,6 +4,7 @@ import { getRestaurantFood, getRestaurantSauces, sendDishes} from "../api/foodPa
 import DishSelector from "../components/foodPairing/DishSelector";
 import RecommendationTable from "../components/foodPairing/RecommendationTable";
 import WineFilters from "../components/wines/WineFilters";
+import PairingTabs from "../components/foodPairing/PairingTabs";
 
 function FoodPairing() {
   //same as winelist.jsx: function to show react-dom information params: https://www.w3schools.com/React/showreact.asp?filename=demo_react_router_params
@@ -183,8 +184,12 @@ const recommendationWines = [
   ...recommendations.flatMap((group) => group.recommendations),
 ];
 
-  return (
-    <section>
+  return (     
+    <section className="food-pairing-page">
+
+      <PairingTabs />
+
+      <div className="food-pairing-controls">
       <h1>Food Pairing</h1>
       <div className="dish-count-selector">
         <label htmlFor="dishCount"> How many dishes would you like to use for pairing?</label>
@@ -207,7 +212,6 @@ const recommendationWines = [
           <option value="8">8 Dishes</option>
         </select>
       </div>
-
       <div className="dish-selector-list">
         {/* Creates one DishSelector for each dish chosen above.
         Array.from() creates a temporary array with the same length as dishCount.
@@ -232,7 +236,7 @@ const recommendationWines = [
       </div>
         {/* Submit button for sending dishes */}
         <button className="dish-submit-button" type="button" onClick={submitDishes}> Submit </button>
-        
+      </div>  
         {/* Showing error message from frontend such as submit nothing */}
         {validationError && <p>{validationError}</p>}
 
@@ -287,7 +291,8 @@ const recommendationWines = [
         </section>
       )}
 
-    </section>
+   
+  </section>  
   );
 }
 

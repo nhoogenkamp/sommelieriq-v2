@@ -12,6 +12,7 @@ import "./styles/home.css";
 import "./styles/HowItWorks.css";
 import "./styles/Pricing.css";
 import "./styles/restaurants.css";
+import "./styles/PairingTabs.css";
 
 // AuthProvider wraps the application so all child components can access AuthContext using useContext.
 // https://react.dev/reference/react/createContext
