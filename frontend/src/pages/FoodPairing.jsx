@@ -161,8 +161,8 @@ async function submitDishes() {
     );
 
     return {
-      dish: selectedFood ? selectedFood.dish_name : "",
-      sauce: selectedSauce ? selectedSauce.name : "",
+      food_id: selectedFood ? selectedFood.food_id : "",
+      sauce_id: selectedSauce ? selectedSauce.sauce_id : "",
     };
   });
 

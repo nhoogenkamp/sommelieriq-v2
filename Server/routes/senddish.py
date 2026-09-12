@@ -39,12 +39,12 @@ def send_dish():
 
         for selected in selected_dishes:
 
-            selected_dish = selected["dish"]
-            selected_sauce = selected["sauce"]
+            food_id = selected["food_id"]
+            sauce_id = selected["sauce_id"]
 
             # SQL query searches for matching food item : https://www.w3schools.com/python/python_mysql_where.asp
-            sql = """ SELECT * FROM food_items WHERE dish_name = %s AND restaurant_id = %s AND available = 1"""
-            dish = (selected_dish, restaurant_id)
+            sql = """ SELECT * FROM food_items WHERE food_id  = %s AND restaurant_id = %s AND available = 1"""
+            dish = (food_id, restaurant_id)
 
             # Execute SQL query safely to prevent SQL Injection
             cursor.execute(sql, dish)
@@ -60,9 +60,9 @@ def send_dish():
 
             sauces = None
 
-            if selected_sauce != "":
-                sauce_sql = "SELECT * FROM sauces WHERE name = %s"
-                sauce = (selected_sauce,)
+            if sauce_id != "":
+                sauce_sql = """ SELECT *  FROM sauces  WHERE sauce_id = %s AND restaurant_id = %s"""
+                sauce = (sauce_id, restaurant_id)
                 cursor.execute(sauce_sql, sauce)
                 sauces = cursor.fetchone()
 
@@ -93,9 +93,9 @@ def send_dish():
     
 
             individual_recommendations.append({
-                "dish": selected_dish,
-                "sauce": selected_sauce,
-                "recommendations": recommendations 
+            "dish": foods["dish_name"],
+            "sauce": sauces["name"] if sauces else "",
+            "recommendations": recommendations
         })
     
 

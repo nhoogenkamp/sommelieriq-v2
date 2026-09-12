@@ -320,6 +320,19 @@ def validate_senddish(data):
         else:    
             if data["restaurant_id"] < 1:
                 errors.append("Restaurant_id must greater than 1") 
+
+    if "dishes" in data:
+
+        for dish in data["dishes"]:
+
+            if "food_id" not in dish:
+                errors.append("Food_id is required")
+
+            elif not isinstance(dish["food_id"], int):
+                errors.append("Food_id must be a whole number")
+
+            elif dish["food_id"] < 1:
+                errors.append("Food_id must be greater than 0")
     return errors
 
 #validating update wine price
