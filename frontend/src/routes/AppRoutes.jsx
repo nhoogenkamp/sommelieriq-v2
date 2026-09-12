@@ -6,7 +6,7 @@ import WineList from "../pages/WineList";
 import PublicLayout from "../layouts/PublicLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import FoodPairing from "../pages/FoodPairing";
-import Login from "../pages/admin/Login";
+import Login from "../pages/admin/login";
 import Dashboard from "../pages/admin/Dashboard";
 import WineAvailability from "../pages/admin/WineAvailability";
 import WinePrice from "../pages/admin/WinePrice";
