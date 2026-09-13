@@ -200,6 +200,11 @@ function cancelUpload() {
             Upload wines and use AI to generate the wine description
             and characteristic scores.
           </p>
+            {currentUser.plan !== "professional" && (
+          <h3>
+            Professional Plan Required
+          </h3>
+        )}
         </article>
 
       </div>
