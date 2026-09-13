@@ -222,7 +222,7 @@ function cancelUpload() {
               id="csvInput"
               name="file"
               type="file"
-              accept=".csv"
+              accept=".csv,text/csv" // this was changed due to phone not recognising 
               onChange={handleFileChange}
             />
 
@@ -255,7 +255,7 @@ function cancelUpload() {
               id="csvInput"
               name="file"
               type="file"
-              accept=".csv,text/csv"
+              accept=".csv,text/csv" // this was changed due to phone not recognising 
               onChange={handleFileChange}
             />
 

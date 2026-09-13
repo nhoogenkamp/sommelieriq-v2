@@ -291,7 +291,7 @@ function MenuUpload() {
               id="foodCsvInput"
               name="file"
               type="file"
-              accept=".csv"
+              accept=".csv,text/csv" // this was changed due to phone not recognising 
               onChange={handleFileChange}
             />
 
@@ -337,7 +337,7 @@ function MenuUpload() {
               id="foodCsvInput"
               name="file"
               type="file"
-              accept=".csv"
+              accept=".csv,text/csv" // this was changed due to phone not recognising 
               onChange={handleFileChange}
             />
 
@@ -381,7 +381,7 @@ function MenuUpload() {
               id="sauceCsvInput"
               name="file"
               type="file"
-              accept=".csv"
+              accept=".csv,text/csv" // this was changed due to phone not recognising 
               onChange={handleFileChange}
             />
 
