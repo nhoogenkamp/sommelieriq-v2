@@ -88,7 +88,7 @@ function Login() {
         <p>
           <NavLink
             className="forgot-password-button"
-            to="/signup"
+            to="/signup?plan=professional"
           >
             Create an account
           </NavLink>
