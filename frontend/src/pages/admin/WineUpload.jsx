@@ -255,7 +255,7 @@ function cancelUpload() {
               id="csvInput"
               name="file"
               type="file"
-              accept=".csv"
+              accept=".csv,text/csv"
               onChange={handleFileChange}
             />
 
