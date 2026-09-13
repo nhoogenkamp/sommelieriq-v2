@@ -1,6 +1,5 @@
-// Using the same style as wineApi.js
-
-const API_URL = import.meta.env.VITE_FLASK_API;
+// const API_URL = import.meta.env.VITE_FLASK_API;
+const API_URL = "/api";
 
 // Gets the available food items for one restaurant.
 export async function getRestaurantFood(restaurantId) {
