@@ -255,25 +255,21 @@ function Restaurants() {
                               your meal.
                             </p>
 
-
-
                             {/* PRIMARY ACTION */}
                             <Link
-                              to={`/restaurants/${restaurant.restaurant_id}/${restaurant.slug}/wines`}
-                              className="restaurant-wine-button"
-                            >
-                              Explore Wine List
-                            </Link>
-
-
-
-                            {/* SECONDARY ACTION */}
-                            <Link
                               to={`/restaurants/${restaurant.restaurant_id}/${restaurant.slug}/food-pairing`}
-                              className="restaurant-pairing-link"
+                              className="restaurant-wine-button"
                             >
                               Find a Wine Pairing
                               <span> →</span>
+                            </Link>
+
+                            {/* SECONDARY ACTION */}
+                            <Link
+                              to={`/restaurants/${restaurant.restaurant_id}/${restaurant.slug}/wines`}
+                              className="restaurant-pairing-link"
+                            >
+                              Explore Wine List
                             </Link>
 
                           </div>
