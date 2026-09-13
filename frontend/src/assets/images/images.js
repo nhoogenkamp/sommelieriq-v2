@@ -1,14 +1,14 @@
 const images = {
-  inspectRedWine: "/images/inspecting-red-wine.png",
-  winePairing: "/images/food-wine-pair.png",
-  sommelierCellar: "/images/sommelier-cellar.png",
-  wineToast: "/images/wine-toast.png",
-  howPairing: "/images/howPairing.png",
-  howRestaurant: "/images/howRestaurant.png",
-  howTable: "/images/howTable.png",
-  howWine: "/images/howWine.png",
-  pricingHero: "/images/pricingHero.png",
-  pricingManagement: "/images/pricingManagement.png",
+  inspectRedWine: "/images/inspecting-red-wine.webp",
+  winePairing: "/images/food-wine-pair.webp",
+  sommelierCellar: "/images/sommelier-cellar.webp",
+  wineToast: "/images/wine-toast.webp",
+  howPairing: "/images/howPairing.webp",
+  howRestaurant: "/images/howRestaurant.webp",
+  howTable: "/images/howTable.webp",
+  howWine: "/images/howWine.webp",
+  pricingHero: "/images/pricingHero.webp",
+  pricingManagement: "/images/pricingManagement.webp",
 
 };
 
