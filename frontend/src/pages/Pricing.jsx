@@ -191,25 +191,30 @@ function Pricing() {
               </div>
 
 
-              <Link
-                to={
-                  plan.name === "Multi-Location"
-                    ? "/contact"
-                    : `/signup?plan=${plan.name.toLowerCase()}`
-                    
-                }
-                className={
-                  plan.featured
-                    ? "pricing-primary-button"
-                    : "pricing-outline-button"
-                }
-                onClick={() => window.scrollTo(0, 0)}
-              >
-                {plan.name === "Multi-Location"
-                  ? "Contact Us"
-                  : "Get Started"}
-                  
-              </Link>
+              {plan.name === "Multi-Location" ? (
+
+                <a
+                  href="mailto:sommelieriq@gmail.com?subject=SommelierIQ Multi-Location Enquiry"
+                  className="pricing-outline-button"
+                >
+                  Contact Us
+                </a>
+
+              ) : (
+
+                <Link
+                  to={`/signup?plan=${plan.name.toLowerCase()}`}
+                  className={
+                    plan.featured
+                      ? "pricing-primary-button"
+                      : "pricing-outline-button"
+                  }
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  Get Started
+                </Link>
+
+              )}
 
             </article>
 
