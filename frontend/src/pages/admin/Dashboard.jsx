@@ -15,7 +15,7 @@ function Dashboard() {
   const { restaurant_slug } = useParams();
   const { currentUser } = useContext(AuthContext);
   const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
-  const restaurantUrl = `${FRONTEND_URL}/restaurants/${restaurant_slug}/food-pairing`;
+  const restaurantUrl = `${FRONTEND_URL}/restaurants/${currentUser.restaurantId}/${restaurant_slug}/food-pairing`;
 
   // remove console.log lateron!
   console.log(currentUser);
