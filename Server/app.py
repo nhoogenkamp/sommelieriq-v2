@@ -80,10 +80,10 @@ def handle_rate_limit(error):
     }), 429
 
 #with AI for local host only
-app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "temporary-dev-secret")
-app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
-app.config["SESSION_COOKIE_SECURE"] = False
-app.config["SESSION_COOKIE_HTTPONLY"] = True
+# app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "temporary-dev-secret")
+# app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+# app.config["SESSION_COOKIE_SECURE"] = False
+# app.config["SESSION_COOKIE_HTTPONLY"] = True
 
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["SESSION_COOKIE_SAMESITE"] = "None"
