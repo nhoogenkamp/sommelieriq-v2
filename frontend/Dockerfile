@@ -3,18 +3,18 @@ FROM node:24-alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm install
 
-COPY . .
-
+COPY . ./
 RUN npm run build
 
 
 FROM caddy:2-alpine
 
-COPY Caddyfile /etc/caddy/Caddyfile
+WORKDIR /app
 
-COPY --from=build /app/dist /srv
+COPY Caddyfile ./
 
-WORKDIR /srv
+COPY --from=build /app/dist ./dist
+
+CMD ["caddy", "run", "--config", "Caddyfile", "--adapter", "caddyfile"]
