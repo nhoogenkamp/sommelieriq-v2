@@ -207,6 +207,7 @@ function downloadQRCode() {
                 size={160}
                 value={restaurantUrl}
               />
+              <p>{restaurantUrl}</p>
               <p>
                 You can download the QR code for your Wine Pairing page
               </p>
