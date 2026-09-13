@@ -1,5 +1,4 @@
-// const API_URL = import.meta.env.VITE_FLASK_API;
-const API_URL = "/api";
+const API_URL = import.meta.env.VITE_FLASK_API;
 
 // Get all restaurants for the public restaurant page
 export function getPublicRestaurants() {

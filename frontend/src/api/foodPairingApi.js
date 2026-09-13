@@ -1,6 +1,4 @@
-// const API_URL = import.meta.env.VITE_FLASK_API;
-const API_URL = "/api";
-
+const API_URL = import.meta.env.VITE_FLASK_API;
 // Gets the available food items for one restaurant.
 export async function getRestaurantFood(restaurantId) {
   const response = await fetch(`${API_URL}/getFood`, {

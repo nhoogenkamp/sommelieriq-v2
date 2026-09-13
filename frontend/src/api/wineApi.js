@@ -1,6 +1,6 @@
 // storing link in .env https://vite.dev/guide/env-and-mode
-// const API_URL = import.meta.env.VITE_FLASK_API;
-const API_URL = "/api";
+const API_URL = import.meta.env.VITE_FLASK_API;
+
 
 export async function getRestaurantWines(restaurantId) {
   const response = await fetch(`${API_URL}/getWines`, {

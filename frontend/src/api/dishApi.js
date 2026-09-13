@@ -1,5 +1,4 @@
-// const API_URL = import.meta.env.VITE_FLASK_API;
-const API_URL = "/api";
+const API_URL = import.meta.env.VITE_FLASK_API;
 
 // Delete a dish
 export function deleteDish(entry) {
