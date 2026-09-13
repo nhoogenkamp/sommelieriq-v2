@@ -85,6 +85,15 @@ function Login() {
           </NavLink>
         </p>
 
+        <p>
+          <NavLink
+            className="forgot-password-button"
+            to="/signup"
+          >
+            Create an account
+          </NavLink>
+        </p>
+
         {/* Shows the login error but keeps the form visible. */}
         {validationError && <p>{validationError}</p>}
       </form>
