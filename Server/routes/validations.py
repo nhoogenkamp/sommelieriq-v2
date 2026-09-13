@@ -175,7 +175,7 @@ def validate_password_reset(data):
 
     # checking password requirements
     PASSWORD_REGEX = re.compile(
-        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$'
+        r'''^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=.,?£"'])[A-Za-z\d!@#$%^&*()_+\-=.,?£"']{8,64}$'''
     )
     if "password" in data:
         if " " in data["password"]:

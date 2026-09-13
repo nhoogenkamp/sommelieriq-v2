@@ -190,9 +190,9 @@ function Pricing() {
 
               </div>
 
-
+              
               {plan.name === "Multi-Location" ? (
-
+              // https://medium.com/@jasurabdullin/mailtoui-a-javascript-library-to-beautify-your-mailto-links-499ce4eb2c2f
                 <a
                   href="mailto:sommelieriq@gmail.com?subject=SommelierIQ Multi-Location Enquiry"
                   className="pricing-outline-button"
