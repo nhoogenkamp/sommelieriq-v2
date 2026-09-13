@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import Papa from "papaparse";
 import FoodUploadTable from "../../components/admin/FoodUploadTable";
 import SauceUploadTable from "../../components/admin/SauceUploadTable";
@@ -8,11 +8,14 @@ import CsvFoodTemplateDownload from "../../components/admin/CsvFoodTemplateDownl
 import CsvSauceTemplateDownload from "../../components/admin/CsvSauceTemplateDownload";
 import AIcsvFoodTemplateDownload from "../../components/admin/AIcsvFoodTemplateDownload";
 import AILoadingPopup from "../../components/admin/AILoadingPopup";
+import { AuthContext } from "../../context/AuthContext";
+
 
 const allowedExtensions = ["csv"];
 
 
 function MenuUpload() {
+  const { currentUser } = useContext(AuthContext);
   const [dishes, setDishes] = useState([]);
   const [sauces, setSauces] = useState([]);
   const [error, setError] = useState("");
@@ -226,13 +229,15 @@ function MenuUpload() {
         <article
           className="dashboard-card"
           onClick={() => {
-            setUploadMode("ai");
-            setDishes([]);
-            setFile("");
-            setError("");
-            setMessage("");
-            setAiGenerated(false);
-            resetFileInput();
+            if (currentUser.plan === "professional") {
+              setUploadMode("ai");
+              setDishes([]);
+              setFile("");
+              setError("");
+              setMessage("");
+              setAiGenerated(false);
+              resetFileInput();
+            }  
           }}
         >
           <h2>Upload Food Menu with the help of AI</h2>
@@ -260,6 +265,11 @@ function MenuUpload() {
           <p>
             Upload sauces and their wine pairing modifiers using a completed CSV file.
           </p>
+          {currentUser.plan !== "professional" && (
+          <h3>
+            Professional Plan Required
+          </h3>
+        )}
         </article>
       </div>
 

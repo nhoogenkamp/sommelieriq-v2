@@ -11,7 +11,7 @@ function Pricing() {
       description:
         "For smaller restaurants looking to offer a smarter wine experience.",
       features: [
-        "Initial wine list uploaded by us",
+        "CSV food + wine uploads",
         "Wine collection management",
         "Food menu management",
         "Customer wine pairing",
@@ -30,9 +30,6 @@ function Pricing() {
         "Everything in Essential",
         "AI-assisted wine profiling",
         "AI-assisted dish profiling",
-        "CSV wine uploads",
-        "CSV food uploads",
-        "Role-based staff access"
       ]
     },
     {
