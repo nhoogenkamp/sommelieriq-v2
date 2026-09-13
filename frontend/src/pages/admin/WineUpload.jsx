@@ -1,17 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import Papa from "papaparse";
 import WineUploadTable from "../../components/admin/WineUploadTable";
 import { uploadWines, uploadWinesAI } from "../../api/wineApi";
 import CsvTemplateDownload from "../../components/admin/CsvTemplateDownload";
 import AICsvTemplateDownload from "../../components/admin/AIcsvTemplateDownload";
 import AILoadingPopup from "../../components/admin/AILoadingPopup";
-
+import { AuthContext } from "../../context/AuthContext";
 
 // https://www.geeksforgeeks.org/reactjs/how-to-read-csv-files-in-react-js/
 // Allowed file extensions.
 const allowedExtensions = ["csv"];
 
 function WineUpload() {
+  const { currentUser } = useContext(AuthContext);
   // Stores all wines parsed from the CSV file.
   const [wines, setWines] = useState([]);
 
@@ -182,12 +183,15 @@ function cancelUpload() {
         <article
           className="dashboard-card"
           onClick={() => {
-            setUploadMode("ai");
-            setWines([]);
-            setFile("");
-            setError("");
-            setMessage("");
-            resetFileInput();
+            if (currentUser.plan === "professional") {
+
+              setUploadMode("ai");
+              setWines([]);
+              setFile("");
+              setError("");
+              setMessage("");
+              resetFileInput();
+            }  
           }}
         >
           <h2>Upload Wines with the help of AI</h2>

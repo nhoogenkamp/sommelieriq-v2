@@ -21,6 +21,7 @@ function AuthProvider({ children }) {
         restaurantId: response.restaurant_id,
         restaurant_slug: response.restaurant_slug,
         role: response.role,
+        plan: response.plan,
         });
     }, []);
 
@@ -44,6 +45,7 @@ function AuthProvider({ children }) {
                 restaurantId: admin.restaurant_id,
                 restaurant_slug: admin.restaurant_slug,
                 role: admin.role,
+                plan: admin.plan,
             });
             }
 
