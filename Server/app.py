@@ -32,7 +32,7 @@ from routes.Stripe.customerPortal import create_customer_portal
 
 # https://flask.palletsprojects.com/en/stable/patterns/viewdecorators/
 # https://flask-user.readthedocs.io/en/latest/authorization.html
-from routes.authcontrol import login_required, roles_required
+from routes.authcontrol import login_required, roles_required, professional_required
 
 
 
@@ -172,6 +172,7 @@ def uploading_wines():
 @app.route("/uploadWinesAI", methods=["POST"])
 @limiter.limit("10 per hour;30 per day", override_defaults=False)
 @roles_required(["owner", "manager", "sommelier"])
+@professional_required
 def uploading_wines_ai():
     return upload_wines_ai()
 
@@ -193,6 +194,7 @@ def uploading_dishes():
 @app.route("/uploadDishesAI", methods=["POST"])
 @limiter.limit("10 per hour;30 per day", override_defaults=False)
 @roles_required(["owner", "manager", "sommelier"])
+@professional_required
 def uploading_dishes_ai():
     return upload_dishes_ai()
 

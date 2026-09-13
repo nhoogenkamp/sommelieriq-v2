@@ -203,7 +203,7 @@ def login_admin():
         }), 503
     
     sql ="""
-    SELECT admins.*, restaurants.slug, companies.subscription_status
+    SELECT admins.*, restaurants.slug, companies.subscription_status, companies.plan
     FROM admins
     JOIN restaurants
         ON admins.restaurant_id = restaurants.restaurant_id
@@ -250,6 +250,7 @@ def login_admin():
         session["username"] = admin["username"]
         session["role"] = admin["role"]
         session["restaurant_slug"] = admin["slug"]
+        session["plan"] = admin["plan"]
 
         print(session)
 
@@ -258,7 +259,8 @@ def login_admin():
             "username": admin["username"],
             "restaurant_id": admin["restaurant_id"],
             "restaurant_slug": admin["slug"],
-            "role": admin["role"]
+            "role": admin["role"],
+            "plan": admin["plan"]
         }), 200
 
     return jsonify({
@@ -329,7 +331,8 @@ def check_admin():
             "username": session["username"],
             "restaurant_id": session["restaurant_id"],
             "restaurant_slug": session["restaurant_slug"],
-            "role": session["role"]
+            "role": session["role"],
+            "plan": session["plan"]
             
         }), 200
 
@@ -346,6 +349,7 @@ def logout_admin():
     session.pop("username", None)
     session.pop("role", None)
     session.pop("restaurant_slug", None)
+    session.pop("plan", None)
 
     return jsonify({
         "message": "Logged out successfully"
