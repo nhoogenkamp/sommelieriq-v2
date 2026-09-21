@@ -105,7 +105,7 @@ function Login() {
             size={25}
           />
         </span>
-  
+        </div>
 
         <button type="submit">Login</button>
 
