@@ -2,9 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { loginAdmin } from "../../api/adminApi";
 import { AuthContext } from "../../context/AuthContext";
-import { Icon } from "react-icons-kit";
-import { eyeOff } from "react-icons-kit/feather/eyeOff";
-import { eye } from "react-icons-kit/feather/eye";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function Login() {
   // Stores the username and password entered in the form.
@@ -13,9 +11,9 @@ function Login() {
   const [password, setPassword] = useState("");
 
   // https://dev.to/annaqharder/hideshow-password-in-react-513a
+  // https://react-icons.github.io/react-icons/search/#q=FiEyeOff
   // password icon for reading 
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(eyeOff);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Stores login errors without hiding the form.
   const [validationError, setValidationError] = useState("");
@@ -28,16 +26,6 @@ function Login() {
   // Used to move to another React route after login.
   // https://reactrouter.com/api/hooks/useNavigate
   const navigate = useNavigate();
-
-  const handleToggle = () => {
-    if (type === "password") {
-      setIcon(eye);
-      setType("text");
-    } else {
-      setIcon(eyeOff);
-      setType("password");
-    }
-  };
 
   async function submitLogin(event) {
     // Stops the form from refreshing the page.
@@ -84,27 +72,25 @@ function Login() {
 
         <label htmlFor="password">Password</label>
         <div className="password-input-container">
-        <input
-          id="password"
-          type={type}
-          placeholder="Enter Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-
-        <span
-          className="password-toggle"
-          onClick={handleToggle}
-          role="button"
-          tabIndex={0}
-          aria-label={type === "password" ? "Show password" : "Hide password"}
-        >
-          <Icon
-            icon={icon}
-            size={25}
+          <input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter Password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
           />
-        </span>
+
+          <span
+            className="password-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {!showPassword ? (
+              <FiEyeOff size={20} />
+            ) : (
+              <FiEye size={20} />
+            )}
+          </span>
         </div>
 
         <button type="submit">Login</button>
