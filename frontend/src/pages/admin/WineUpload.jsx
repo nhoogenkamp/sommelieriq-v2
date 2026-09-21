@@ -1,6 +1,7 @@
 import { useState, useRef, useContext } from "react";
 import Papa from "papaparse";
 import WineUploadTable from "../../components/admin/WineUploadTable";
+import AIWineReviewTable from "../../components/admin/AIWineReviewTable";
 import { uploadWines, uploadWinesAI } from "../../api/wineApi";
 import CsvTemplateDownload from "../../components/admin/CsvTemplateDownload";
 import AICsvTemplateDownload from "../../components/admin/AIcsvTemplateDownload";
@@ -153,6 +154,42 @@ function cancelUpload() {
   resetFileInput();
 }
 
+// Updates one selected AI-generated wine before uploading.
+// same style as DishUpdate.jsx
+function updateSelectedWine(updatedWine) {
+
+  const entry = {
+    name: updatedWine.name,
+    wine_type: updatedWine.wine_type,
+    grape: updatedWine.grape,
+    country: updatedWine.country,
+    region: updatedWine.region,
+    year: Number(updatedWine.year),
+    bottle_type: updatedWine.bottle_type,
+    price: Number(updatedWine.price),
+    available: Number(updatedWine.available),
+    description: updatedWine.description,
+    body_score: Number(updatedWine.body_score),
+    tannin_score: Number(updatedWine.tannin_score),
+    acidity_score: Number(updatedWine.acidity_score),
+    sweetness_score: Number(updatedWine.sweetness_score),
+  };
+
+  // Updates the changed wine in React state.
+  const updated = wines.map((wine, index) => {
+    if (index === updatedWine.index) {
+      return entry;
+    }
+
+    return wine;
+  });
+
+  setWines(updated);
+  setMessage(`Wine "${entry.name}" has been updated.`);
+  setError("");
+}
+
+
   return (
     <main>
 
@@ -281,7 +318,14 @@ function cancelUpload() {
             <h2>Wine Preview</h2>
 
             <div className="upload-table-container">
-              <WineUploadTable wines={wines} />
+              {aiGenerated ? (
+                <AIWineReviewTable
+                  wines={wines}
+                  updateSelectedWine={updateSelectedWine}
+                />
+              ) : (
+                <WineUploadTable wines={wines} />
+              )}
             </div>
           {/* Regular CSV upload */}
           {uploadMode === "regular" && (
