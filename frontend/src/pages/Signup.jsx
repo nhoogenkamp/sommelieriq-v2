@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { signupRestaurant } from "../api/adminApi";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function Signup() {
   // Stores the company and restaurant information entered in the form.
@@ -12,6 +13,12 @@ function Signup() {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+
+    // https://dev.to/annaqharder/hideshow-password-in-react-513a
+  // https://react-icons.github.io/react-icons/search/#q=FiEyeOff
+  // password icon for reading 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Stores the owner's login information.
   const [username, setUsername] = useState("");
@@ -154,24 +161,50 @@ function Signup() {
         />
 
         <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
+        <div className="password-input-container">
+          <input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="Enter Password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
 
-        <label htmlFor="confirmPassword">Confirm Password</label>
+          <span
+            className="password-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {!showPassword ? (
+              <FiEyeOff size={20} />
+            ) : (
+              <FiEye size={20} />
+            )}
+          </span>
+        </div>
+        
+        
+      <label htmlFor="confirmPassword">Confirm Password</label>
+      <div className="password-input-container">
         <input
           id="confirmPassword"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
           placeholder="Confirm Password"
           value={confirmPassword}
           onChange={(event) => setConfirmPassword(event.target.value)}
           required
         />
+        <span
+          className="password-toggle"
+          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+        >
+          {!showConfirmPassword ? (
+            <FiEyeOff size={20} />
+          ) : (
+            <FiEye size={20} />
+          )}
+        </span>
+      </div>
 
         <button type="submit">Continue to Payment</button>
 
