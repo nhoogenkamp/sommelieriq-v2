@@ -334,7 +334,8 @@ class TestAdmin(unittest.TestCase):
             "role": "owner",
             "verified": True,
             "subscription_status": "active",
-            "slug": "test-restaurant"
+            "slug": "test-restaurant",
+            "plan": "professional"
         }
 
         data = {
@@ -654,12 +655,18 @@ class TestAdmin(unittest.TestCase):
             session["restaurant_id"] = 10
             session["restaurant_slug"] = "test-restaurant"
             session["role"] = "owner"
+            session["plan"] = "professional"
 
             response, status_code = check_admin()
 
             result = response.get_json()
 
             self.assertEqual(status_code, 200)
+
+            self.assertEqual(
+                result["plan"],
+                "professional"
+            )
 
             self.assertTrue(
                 result["logged_in"]

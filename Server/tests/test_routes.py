@@ -81,7 +81,7 @@ class TestApp(unittest.TestCase):
 
         self.assertEqual(
             app.config["SESSION_COOKIE_SAMESITE"],
-            "Lax"
+            "None"
         )
 
         print("SameSite cookie test passed")
@@ -89,11 +89,11 @@ class TestApp(unittest.TestCase):
 
     def test_session_cookie_secure(self):
 
-        self.assertFalse(
+        self.assertTrue(
             app.config["SESSION_COOKIE_SECURE"]
         )
 
-        print("Secure cookie development setting test passed")
+        print("Secure cookie production setting test passed")
 
 
     def test_secret_key_exists(self):
