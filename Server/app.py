@@ -49,8 +49,8 @@ if not REDIS_URL:
 
 # setting rate limits: https://flask-limiter.readthedocs.io/en/stable/
 def get_rate_limit_key():
-    if session.get("user_id"):
-        return str(session["user_id"])
+    if session.get("admin_id"):
+        return str(session["admin_id"])
     return get_remote_address()
 
 limiter = Limiter(
