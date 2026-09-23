@@ -25,12 +25,16 @@ def validate_wine(data):
         if not isinstance(data.get(s), str):
             errors.append(f"{s} must be text")
 
-    if "year" in data: 
-        # checking if year is an int and greater than 0
-        if not isinstance(data.get("year"), int):
-            errors.append("year must be a whole number")
-        elif data["year"] < 1900 or data["year"]> datetime.now().year:
-                errors.append("Year is incorrect")
+    # Checks year.
+    if "year" in data:
+        year = data.get("year")
+
+        if year == "NV":
+            pass
+        elif not isinstance(year, int):
+            errors.append("year must be a whole number or NV")
+        elif year < 1900 or year > datetime.now().year:
+            errors.append("Year is incorrect")
 
     if "bottle_type" in data: 
         Bottletypes = ["Glass", "Half Bottle", "Bottle", "Magnum", "Jeroboam","Melchior", "Salmanazar", "Double Magnum", "Imperial"]
@@ -86,9 +90,13 @@ def validate_wine_ai(data):
 
     # Checks year.
     if "year" in data:
-        if not isinstance(data.get("year"), int):
-            errors.append("year must be a whole number")
-        elif data["year"] < 1900 or data["year"] > datetime.now().year:
+        year = data.get("year")
+
+        if year == "NV":
+            pass
+        elif not isinstance(year, int):
+            errors.append("year must be a whole number or NV")
+        elif year < 1900 or year > datetime.now().year:
             errors.append("Year is incorrect")
 
     # Checks bottle type.
