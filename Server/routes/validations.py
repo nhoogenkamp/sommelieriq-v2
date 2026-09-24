@@ -574,6 +574,14 @@ def validate_signup(data):
             if not EMAIL_REGEX.match(data["email"]):
                 errors.append( "Please enter a valid email address" )
 
+    # checking if phone number is valid
+    PHONE_REGEX = re.compile(r"^\+?[0-9\s()-]{7,20}$")
+
+    if "phone" in data:
+        if isinstance(data.get("phone"), str):
+            if not PHONE_REGEX.match(data["phone"].strip()):
+                errors.append("Please enter a valid phone number")                
+
     # checking password requirements
     PASSWORD_REGEX = re.compile( r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$' )
 
