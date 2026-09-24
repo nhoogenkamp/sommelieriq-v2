@@ -192,7 +192,7 @@ def validate_password_reset(data):
         elif not PASSWORD_REGEX.match(data["password"]):
             errors.append(
                 "Please ensure password has one lowercase, one uppercase, "
-                "one number, one special character and is between 8 and 15 characters long"
+                "one number, one special character and is at least 8 characters long"
             )
 
     return errors
@@ -583,7 +583,7 @@ def validate_signup(data):
                 errors.append("Please enter a valid phone number")                
 
     # checking password requirements
-    PASSWORD_REGEX = re.compile( r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$' )
+    PASSWORD_REGEX = re.compile( r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,64}$' )
 
     if "password" in data:
         if not isinstance(data.get("password"), str):
@@ -594,7 +594,7 @@ def validate_signup(data):
 
         elif not PASSWORD_REGEX.match(data["password"]):
             errors.append("Please ensure password has one lowercase, one uppercase, "
-                "one number, one special character and is between 8 and 15 characters long" )
+                "one number, one special character and is at least 8 characters long" )
 
     # checking selected subscription plan
     if "plan" in data:
