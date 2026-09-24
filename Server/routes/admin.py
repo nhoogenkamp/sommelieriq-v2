@@ -66,7 +66,7 @@ def add_admin():
         admin_exists = cursor.fetchone()
         if admin_exists:
             return jsonify({
-                "error": "User already exists"
+                "error": "User or email is already is use"
             }), 400
 
         # insert admin into admins table

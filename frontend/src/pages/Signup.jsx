@@ -207,7 +207,7 @@ function Signup() {
       </div>
 
         <button type="submit">Continue to Payment</button>
-
+        <br />    
         <p>Please ensure password has <br />
           - one lowercase <br />
           - one uppercase <br />
