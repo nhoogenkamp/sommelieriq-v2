@@ -208,6 +208,14 @@ function Signup() {
 
         <button type="submit">Continue to Payment</button>
 
+        <p>Please ensure password has <br />
+          - one lowercase <br />
+          - one uppercase <br />
+          - one number <br />
+          - one special character <br />
+          - and has at least 8 characters
+        </p>
+
         {/* Shows the signup error but keeps the form visible. */}
         {validationError && <p>{validationError}</p>}
       </form>

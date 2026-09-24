@@ -575,7 +575,7 @@ def validate_signup(data):
                 errors.append( "Please enter a valid email address" )
 
     # checking if phone number is valid
-    PHONE_REGEX = re.compile(r"^\+?[0-9\s()-]{7,20}$")
+    PHONE_REGEX = re.compile(r"^\+?[0-9\s()-]{7,15}$")
 
     if "phone" in data:
         if isinstance(data.get("phone"), str):
