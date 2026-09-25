@@ -20,3 +20,7 @@ Project Documentation
 The full project report is available below:
 
 Google Docs Report: https://docs.google.com/document/d/1GNk52AEMVAds4qVDOzGeqbfxJHmtyH5BoKuZ7y0smNM/edit?usp=sharing
+
+The presentation slides accompanying this project and intended for the project presentation are available at the link:
+https://docs.google.com/presentation/d/19BxQ9agW-FR4IeM5wXTVZnxAXnJqiqDqC4GFi6MApsM/edit?usp=sharing
+
