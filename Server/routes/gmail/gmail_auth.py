@@ -72,7 +72,11 @@ def oauth2callback():
     flow.redirect_uri = OAUTH_REDIRECT_URI
 
     # Google's response contains the authorization code.
-    authorization_response = flask.request.url
+    authorization_response = flask.request.url.replace(
+        "http://",
+        "https://",
+        1
+    )
 
     # Exchange the authorization code for OAuth tokens.
     flow.fetch_token(
