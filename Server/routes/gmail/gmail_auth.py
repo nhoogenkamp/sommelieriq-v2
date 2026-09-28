@@ -1,3 +1,4 @@
+import os
 import flask
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
@@ -13,6 +14,8 @@ SCOPES = [
     "https://www.googleapis.com/auth/gmail.send"
 ]
 
+# Gets the public OAuth callback URL from Railway environment variables.
+OAUTH_REDIRECT_URI = os.environ.get("OAUTH_REDIRECT_URI")
 
 def authorize():
     # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow.
@@ -24,7 +27,7 @@ def authorize():
      # This must exactly match one of the redirect URIs configured
     # in Google Cloud.
     
-    flow.redirect_uri = flask.url_for("oauth2callback_route", _external=True)
+    flow.redirect_uri = OAUTH_REDIRECT_URI
 
     authorization_url, state = flow.authorization_url(
         # Allows Google to provide a refresh token so the app
@@ -55,10 +58,7 @@ def oauth2callback():
         autogenerate_code_verifier=False
     )
 
-    flow.redirect_uri = flask.url_for(
-        "oauth2callback_route",
-        _external=True
-    )
+    flow.redirect_uri = OAUTH_REDIRECT_URI
 
     # Google's response contains the authorization code.
     authorization_response = flask.request.url
