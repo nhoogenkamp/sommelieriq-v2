@@ -6,8 +6,8 @@ import google_auth_oauthlib.flow
 
 # OAuth client file downloaded from Google Cloud
 # https://developers.google.com/identity/protocols/oauth2/web-server?authuser=19#python_6
-
-CLIENT_SECRETS_FILE = "credentials.json"
+# no more credentials.json as its on gitignore and have secrets now in railway
+# CLIENT_SECRETS_FILE = "credentials.json"
 
 # SommelierIQ only needs permission to send email
 SCOPES = [
@@ -16,11 +16,22 @@ SCOPES = [
 
 # Gets the public OAuth callback URL from Railway environment variables.
 OAUTH_REDIRECT_URI = os.environ.get("OAUTH_REDIRECT_URI")
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+
+CLIENT_CONFIG = {
+    "web": {
+        "client_id": GOOGLE_CLIENT_ID,
+        "client_secret": GOOGLE_CLIENT_SECRET,
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token"
+    }
+}
 
 def authorize():
     # Create flow instance to manage the OAuth 2.0 Authorization Grant Flow.
-    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        CLIENT_SECRETS_FILE,
+    flow = google_auth_oauthlib.flow.Flow.from_client_config(
+        CLIENT_CONFIG,
         scopes=SCOPES,
         autogenerate_code_verifier=False
     )
@@ -51,8 +62,8 @@ def oauth2callback():
     # Retrieve the state stored before redirecting to Google.
     state = flask.session["state"]
 
-    flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
-        CLIENT_SECRETS_FILE,
+    flow = google_auth_oauthlib.flow.Flow.from_client_config(
+        CLIENT_CONFIG,
         scopes=SCOPES,
         state=state,
         autogenerate_code_verifier=False
